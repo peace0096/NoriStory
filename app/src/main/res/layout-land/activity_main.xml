@@ -8,6 +8,7 @@
     >
     
     <Button
+        android:id="@+id/storybtn"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -28,6 +29,7 @@
             >
 
             <Button
+                android:id="@+id/library_btn"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -35,6 +37,7 @@
                 />
 
             <Button
+                android:id="@+id/bookshelf_btn"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -44,6 +47,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/info_btn"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"

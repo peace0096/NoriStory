@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/sunmoon6" />
+
+    <ImageButton
+        android:id="@+id/exitButton"
+        android:layout_width="83dp"
+        android:layout_height="36dp"
+        android:layout_gravity="left|bottom"
+        android:layout_margin="10dp"
+        app:srcCompat="@drawable/sroty_exit_btn" />
+
+    <ImageButton
+        android:id="@+id/postButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:srcCompat="@drawable/story_post_btn"
+        android:layout_margin="10dp"
+        />
+
+    <ImageButton
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:srcCompat="@drawable/story_next_btn"
+        android:layout_margin="10dp"
+        android:layout_gravity="right"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="419dp"
+            android:layout_height="59dp"
+            android:layout_marginStart="284dp"
+            android:layout_marginBottom="336dp"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:text='마지막 스무 번째 고개에 이르자 호랑이가 또 나타났어요.\n
+그러나 떡 바구니는 이미 텅 비어 있었어요.\n
+"뭐야! 떡이 없잖아!"\n
+"이제 남은 건 너 뿐이로군!"\n
+'
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

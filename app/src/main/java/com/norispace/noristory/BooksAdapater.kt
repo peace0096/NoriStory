@@ -38,7 +38,7 @@ class BooksAdapater(val items:ArrayList<BookData>) : RecyclerView.Adapter<BooksA
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textView.text = items[position].name
-        //holder.imageView.setImageDrawable(BitmapDrawable(items[position].cover))
+        holder.imageView.setImageDrawable((items[position].cover))
 
     }
 

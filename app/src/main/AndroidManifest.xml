@@ -21,22 +21,19 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".StoryMenuActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".OptionalActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".SubjectActivity"
-            android:screenOrientation="landscape">
-        </activity>
-
-
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".BooksActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

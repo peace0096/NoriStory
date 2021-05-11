@@ -18,7 +18,7 @@ class StoryMenuActivity : AppCompatActivity() {
         val SubjectBtn = findViewById<Button>(R.id.SubjectBtn)
 
         OptinalBtn.setOnClickListener {
-            val intent = Intent(this, OptionalActivity::class.java)
+            val intent = Intent(this, BooksActivity::class.java)
             startActivity(intent)
         }
 

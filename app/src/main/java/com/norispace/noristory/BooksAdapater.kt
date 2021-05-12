@@ -22,7 +22,7 @@ class BooksAdapater(val items:ArrayList<BookData>) : RecyclerView.Adapter<BooksA
         val textView = itemView.findViewById<TextView>(R.id.textView)
         init {
             itemView.setOnClickListener {
-                itemClickListener?.OnItemClick(this, it, items[adapterPosition], adapterPosition)
+                itemClickListener?.OnItemClick(this, it, items[absoluteAdapterPosition], absoluteAdapterPosition)
             }
         }
     }

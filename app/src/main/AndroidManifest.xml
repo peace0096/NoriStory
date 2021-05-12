@@ -9,11 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".SunMoon7Activity"></activity>
-        <activity android:name=".SunMoon6Activity" />
-        <activity android:name=".SunMoon5Activity" />
-        <activity android:name=".SunMoon4Activity" />
-        <activity android:name=".SunMoon3Activity" />
+
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="landscape">
@@ -43,6 +39,21 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".SunMoon2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SunMoon3Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SunMoon4Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SunMoon5Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SunMoon6Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SunMoon7Activity"
             android:screenOrientation="landscape" />
     </application>
 

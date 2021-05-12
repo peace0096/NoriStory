@@ -47,7 +47,7 @@
             android:id="@+id/text"
             android:layout_width="410dp"
             android:layout_height="85dp"
-            android:layout_marginStart="335dp"
+            android:layout_marginStart="312dp"
             android:shadowColor="#FFF"
             android:shadowDx="2"
             android:shadowDy="2"

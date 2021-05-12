@@ -1,9 +1,11 @@
 package com.norispace.noristory
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -27,7 +29,19 @@ class BooksActivity : AppCompatActivity() {
         recyclerView=findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager= LinearLayoutManager(this, GridLayoutManager.VERTICAL,false)
         adapter=BooksAdapater(data)
-
+        adapter.itemClickListener=object : BooksAdapater.OnItemClickListener{
+            override fun OnItemClick(
+                holder: BooksAdapater.ViewHolder,
+                view: View,
+                list: BookData,
+                position: Int
+            ) {
+                if(position==0){
+                    val intent= Intent(this@BooksActivity, SunMoon1Activity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
         recyclerView.adapter=adapter
     }
 
@@ -38,7 +52,7 @@ class BooksActivity : AppCompatActivity() {
             val title=scan.nextLine()
             val id = resources.getIdentifier(imgName, "drawable", packageName)
             //val cover=resources.getDrawable(id,null)
-            val cover= ContextCompat.getDrawable(this, R.drawable.sunmoonstory)
+            val cover= ContextCompat.getDrawable(this, id)
 
             data.add(BookData(title,cover!!))
         }

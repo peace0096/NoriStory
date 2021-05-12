@@ -35,6 +35,10 @@
             android:name=".BooksActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".SunMoonActivity"
+            android:screenOrientation="landscape" />
+
+        <activity
             android:name=".SunMoon1Activity"
             android:screenOrientation="landscape" />
         <activity

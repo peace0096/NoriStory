@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/sunmoon1" />
+
+
+    <ImageButton
+        android:id="@+id/exitButton"
+        android:layout_width="83dp"
+        android:layout_height="36dp"
+        android:layout_gravity="left|bottom"
+        android:layout_margin="10dp"
+        app:srcCompat="@drawable/sroty_exit_btn" />
+
+    <ImageButton
+        android:id="@+id/postButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:srcCompat="@drawable/story_post_btn"
+        android:layout_margin="10dp"
+        />
+
+    <ImageButton
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:srcCompat="@drawable/story_next_btn"
+        android:layout_margin="10dp"
+        android:layout_gravity="right"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shadowColor="#FFF"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="100dp"
+        android:textColor="#000000"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:text='아주 먼 옛날, 어느 산골에 홀어머니와 남매가 살고 있었어요.\n 하루는 어머니가 잔칫집에서 일을 하고 집으로 돌아오는 길이었어요 \n\n "스무 고개를 언제 다 넘지? 애들이 배가 고플 텐데..."  '
+        />
+
+</FrameLayout>

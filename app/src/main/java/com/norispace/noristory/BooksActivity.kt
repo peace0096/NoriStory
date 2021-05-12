@@ -37,7 +37,7 @@ class BooksActivity : AppCompatActivity() {
                 position: Int
             ) {
                 if(position==0){
-                    val intent= Intent(this@BooksActivity, SunMoon1Activity::class.java)
+                    val intent= Intent(this@BooksActivity, SunMoonActivity::class.java)
                     startActivity(intent)
                 }
             }

@@ -27,7 +27,7 @@ class BooksActivity : AppCompatActivity() {
 
     private fun initRecyclerView(){
         recyclerView=findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager= LinearLayoutManager(this, GridLayoutManager.VERTICAL,false)
+        recyclerView.layoutManager= GridLayoutManager(this, 3)
         adapter=BooksAdapater(data)
         adapter.itemClickListener=object : BooksAdapater.OnItemClickListener{
             override fun OnItemClick(

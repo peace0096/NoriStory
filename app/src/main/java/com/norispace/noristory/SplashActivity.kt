@@ -17,6 +17,7 @@ class SplashActivity : AppCompatActivity() {
         imageView.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

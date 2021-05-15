@@ -7,6 +7,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_my_books.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -33,11 +34,18 @@ class MyBooksActivity : AppCompatActivity() {
                 position: Int
             ) {
                 if(position==0){
-
+                    val intent= Intent(this@MyBooksActivity, BookMenuActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }
         recyclerView.adapter=adapter
+
+        button4.setOnClickListener{
+            val intent = Intent(this@MyBooksActivity, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
     }
 
     private fun initData(){

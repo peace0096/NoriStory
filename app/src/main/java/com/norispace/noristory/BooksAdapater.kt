@@ -1,7 +1,5 @@
 package com.norispace.noristory
 
-import android.graphics.drawable.BitmapDrawable
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +16,7 @@ class BooksAdapater(val items:ArrayList<BookData>) : RecyclerView.Adapter<BooksA
     var itemClickListener:OnItemClickListener? = null
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView = itemView.findViewById<ImageView>(R.id.imageView)
+        val imageView = itemView.findViewById<ImageView>(R.id.imageView2)
         val textView = itemView.findViewById<TextView>(R.id.textView)
         init {
             itemView.setOnClickListener {

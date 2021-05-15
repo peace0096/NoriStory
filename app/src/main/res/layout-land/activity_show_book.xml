@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:backgroundTint="#0FFFFFFF">
+
+    <ImageView
+        android:id="@+id/storyView"
+        android:layout_width="732dp"
+        android:layout_height="332dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postbtn" />
+
+    <ImageButton
+        android:id="@+id/postbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="61dp"
+        android:backgroundTint="#00FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/recordbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/story_post_btn" />
+
+    <ImageButton
+        android:id="@+id/nextbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/story_next_btn" />
+
+    <ImageButton
+        android:id="@+id/exitbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/sroty_exit_btn" />
+
+    <Button
+        android:id="@+id/recordbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="9dp"
+        android:backgroundTint="#D51515"
+        android:text="녹음"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/storyView"
+        app:layout_constraintEnd_toStartOf="@+id/playbtn"
+        app:layout_constraintStart_toEndOf="@+id/postbtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/playbtn"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="3dp"
+        android:backgroundTint="#00FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/storyView"
+        app:layout_constraintEnd_toStartOf="@+id/pausebtn"
+        app:layout_constraintStart_toEndOf="@+id/recordbutton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/playbtn" />
+
+    <ImageButton
+        android:id="@+id/pausebtn"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="3dp"
+        android:background="#00FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/storyView"
+        app:layout_constraintEnd_toStartOf="@+id/stopbtn"
+        app:layout_constraintStart_toEndOf="@+id/playbtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pausebtn" />
+
+    <ImageButton
+        android:id="@+id/stopbtn"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="194dp"
+        android:layout_marginBottom="3dp"
+        android:background="#00FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/storyView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pausebtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/stopbtn" />
+
+    <TextView
+        android:id="@+id/Titletext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="ex.Title"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/storyView"
+        app:layout_constraintEnd_toEndOf="@+id/nextbtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

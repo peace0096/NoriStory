@@ -8,7 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.telecom.Call
+
 import android.util.Log
 import android.view.View
 import android.widget.ImageView

@@ -19,6 +19,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, StoryMenuActivity::class.java)
             startActivity(intent)
         }
-
+        val bookshelfBtn=findViewById<Button>(R.id.bookshelf_btn)
+        bookshelfBtn.setOnClickListener {
+            val intent = Intent(this, MyBooksActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

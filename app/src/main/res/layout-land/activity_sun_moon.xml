@@ -8,20 +8,24 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="@+id/choiceButton1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choiceButton1"
+        app:layout_constraintVertical_bias="0.742"
         app:srcCompat="@drawable/sunmoon9" />
 
     <ImageButton
         android:id="@+id/exitButton"
-        android:layout_width="83dp"
-        android:layout_height="36dp"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
         android:layout_gravity="left|bottom"
-        android:layout_margin="10dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="11dp"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/sroty_exit_btn" />
@@ -30,9 +34,8 @@
         android:id="@+id/postButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:background="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,9 +46,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_margin="10dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="7dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="9dp"
         android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -53,27 +55,63 @@
 
     <ImageButton
         android:id="@+id/choiceButton1"
-        android:layout_width="97dp"
-        android:layout_height="117dp"
-        android:layout_marginTop="43dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="42dp"
+        android:layout_width="102dp"
+        android:layout_height="116dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="4dp"
         android:background="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/choiceButton2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nextButton"
-        app:layout_constraintVertical_bias="0.636"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/sunmoonfirstchoice1" />
 
     <ImageButton
         android:id="@+id/choiceButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="51dp"
         android:layout_marginEnd="7dp"
         android:layout_marginBottom="46dp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choiceButton1"
         app:srcCompat="@drawable/sunmoonfirstchoice2" />
+
+    <ImageButton
+        android:id="@+id/choiceButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="4dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sunmoonsecondchoice1" />
+
+    <ImageButton
+        android:id="@+id/choiceButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="28dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choiceButton3"
+        app:layout_constraintVertical_bias="0.973"
+        app:srcCompat="@drawable/sunmoonsecondchoice2" />
+
+    <ImageButton
+        android:id="@+id/gotoMainBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.027"
+        app:srcCompat="@drawable/goto_main_btn" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

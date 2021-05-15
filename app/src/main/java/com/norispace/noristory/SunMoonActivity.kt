@@ -25,14 +25,25 @@ class SunMoonActivity : AppCompatActivity() {
         var page =intent.getIntExtra("page",1)
         var choice =intent.getIntExtra("choice",0)
         setImg(page,choice)
+        binding.gotoMainBtn?.visibility=View.GONE
         if(page==9) {
             binding.nextButton?.visibility=View.GONE
+            binding.choiceButton3?.visibility=View.GONE
+            binding.choiceButton4?.visibility=View.GONE
             firstChoice(page)
 
+        }else if(page==14){
+            binding.choiceButton1?.visibility=View.GONE
+            binding.choiceButton2?.visibility=View.GONE
+            binding.nextButton?.visibility=View.GONE
+            secondChoice(page)
         }
         else {
             binding.choiceButton1?.visibility=View.GONE
             binding.choiceButton2?.visibility=View.GONE
+            binding.choiceButton3?.visibility=View.GONE
+            binding.choiceButton4?.visibility=View.GONE
+
         }
             binding.apply {
 
@@ -43,11 +54,20 @@ class SunMoonActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 nextButton?.setOnClickListener {
-                    val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
-                    page += 1
-                    intent.putExtra("page", page)
-                    intent.putExtra("choice",choice)
-                    startActivity(intent)
+
+                    if(page==21 || page==24||page==29){
+                        binding.nextButton?.visibility=View.GONE
+                        binding.postButton?.visibility=View.GONE
+                        binding.exitButton?.visibility=View.GONE
+                        end()
+                    }else{
+                        val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
+                       page += 1
+                        intent.putExtra("page", page)
+                        intent.putExtra("choice",choice)
+                        startActivity(intent)
+                    }
+
                 }
                 if (page == 1) {
                     postButton?.visibility = View.GONE
@@ -56,7 +76,14 @@ class SunMoonActivity : AppCompatActivity() {
                     postButton?.setOnClickListener {
                         if(page!=1) {
                             val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
-                            page -= 1
+                            if(page==25){
+                                page=9
+                            }else if(page==22){
+                                page=14
+                            }else{
+                                page -= 1
+                            }
+
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                             intent.putExtra("page", page)
                             intent.putExtra("choice", choice)
@@ -66,24 +93,39 @@ class SunMoonActivity : AppCompatActivity() {
                 }
 
             }
+    }
+    private fun end(){
 
-
+        val imgName = "sunmoonend"
+        val id = resources.getIdentifier(imgName, "drawable", packageName)
+        binding.imageView?.setImageResource(id)
+        binding.gotoMainBtn?.visibility=View.VISIBLE
+        binding.gotoMainBtn?.setOnClickListener {
+            val intent =Intent(this,MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
     }
 
     private fun setImg(page:Int,choice:Int){
         //10페이지가 첫 번째 분기점
-        if(page>=10){
-            binding.apply{
-                val imgName = "sunmoon" + page.toString() + "_"+choice.toString()
-                val id = resources.getIdentifier(imgName, "drawable", packageName)
-                imageView?.setImageResource(id)
-            }
-        }else {
-            binding.apply {
+//        if(page>=10){
+//            binding.apply{
+//                val imgName = "sunmoon" + page.toString() + "_"+choice.toString()
+//                val id = resources.getIdentifier(imgName, "drawable", packageName)
+//                imageView?.setImageResource(id)
+//            }
+//        }else {
+//            binding.apply {
+//                val imgName = "sunmoon" + page.toString()
+//                val id = resources.getIdentifier(imgName, "drawable", packageName)
+//                imageView?.setImageResource(id)
+//            }
+//        }
+        binding.apply{
                 val imgName = "sunmoon" + page.toString()
                 val id = resources.getIdentifier(imgName, "drawable", packageName)
                 imageView?.setImageResource(id)
-            }
         }
     }
 
@@ -93,27 +135,35 @@ class SunMoonActivity : AppCompatActivity() {
             choiceButton2?.visibility = View.VISIBLE
             choiceButton1?.setOnClickListener {
                 val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
-                intent.putExtra("page", page+1)
-                intent.putExtra("choice",1)
+                intent.putExtra("page", 10)
+                //intent.putExtra("choice",1)
                 startActivity(intent)
             }
             choiceButton2?.setOnClickListener {
                 val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
-                intent.putExtra("page", page+1)
-                intent.putExtra("choice",2)
+                intent.putExtra("page", 25)
+                //intent.putExtra("choice",2)
                 startActivity(intent)
             }
 
-//            val height=imageView?.height
-//            val width=imageView?.width
-
-//            var x:Int=((8/10)*width!!)
-//            var y:Int=((2/10)*height!!)
-////            val params: FrameLayout.LayoutParams=FrameLayout.LayoutParams(width,height)
-////            params.setMargins((8/10)*width!!,10,10,10)
-//            val param =choiceButton1?.layoutParams as LinearLayout.LayoutParams
-//            param.setMargins(620,100,0,0)
-//            choiceButton1?.layoutParams=param
+        }
+    }
+    private  fun secondChoice(page:Int){
+        binding.apply {
+            choiceButton3?.visibility=View.VISIBLE
+            choiceButton4?.visibility=View.VISIBLE
+            choiceButton3?.setOnClickListener {
+                val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
+                intent.putExtra("page", 15)
+                //intent.putExtra("choice",1)
+                startActivity(intent)
+            }
+            choiceButton4?.setOnClickListener {
+                val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
+                intent.putExtra("page", 22)
+                //intent.putExtra("choice",2)
+                startActivity(intent)
+            }
         }
     }
 }

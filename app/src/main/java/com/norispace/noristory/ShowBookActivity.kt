@@ -123,7 +123,7 @@ class ShowBookActivity : AppCompatActivity() {
     fun startRecording()
     {
         val fileName: String = "ex.Title"+ imagenum +".mp3"
-        output = Environment.getExternalStorageDirectory().absolutePath + fileName //내장메모리 밑에 위치
+        output = Environment.getExternalStorageDirectory().absolutePath + "/Download/"+ fileName //내장메모리 밑에 위치
         mediaRecorder = MediaRecorder()
         mediaRecorder?.setAudioSource((MediaRecorder.AudioSource.MIC))
         mediaRecorder?.setOutputFormat((MediaRecorder.OutputFormat.MPEG_4))

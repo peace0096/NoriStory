@@ -4,8 +4,15 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 class StoryTitleCoverResponse {
-    @SerializedName("result")
+    @SerializedName("title")
     @Expose
-    var result: List<Result>? = null
+    var title: String? = null
 
+    @SerializedName("coverimage")
+    @Expose
+    var coverimage: String? = null
+
+    @SerializedName("category")
+    @Expose
+    var category: String? = null
 }

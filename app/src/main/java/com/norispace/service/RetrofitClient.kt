@@ -1,7 +1,6 @@
-package com.norispace.noristory
+package com.norispace.service
 
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
@@ -10,6 +9,7 @@ object RetrofitClient {
         .addConverterFactory(GsonConverterFactory.create())
         .build();
 
-    val service = retrofit.create(ServiceApp::class.java)
+    val service = retrofit.create(
+        ServiceApp::class.java)
 
 }

@@ -22,6 +22,7 @@ class SunMoonActivity : AppCompatActivity() {
     }
 
     private fun init(){
+
         var page =intent.getIntExtra("page",1)
         setImg(page)//페이지 배경 이미지 출력
         binding.gotoMainBtn?.visibility=View.GONE
@@ -74,6 +75,7 @@ class SunMoonActivity : AppCompatActivity() {
                     postButton?.setOnClickListener {
                         if(page!=1) {
                             val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
+
                             if(page==25){//25페이지(피그마 참고)에서 이전 페이지 버튼 누르면 첫번째 선택 페이지로 이동
                                 page=9
                             }else if(page==22){//22페이지(피그마 참고)에서 이전 페이지 버튼 누르면 두번째 선택 페이지로 이동

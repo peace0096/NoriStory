@@ -12,6 +12,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.norispace.pojo.Story.StoryTitleCoverResponse
+import com.norispace.service.RetrofitClient
+import com.norispace.service.S3Helper
+import com.norispace.service.StoryViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,16 +23,19 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class BooksActivity : AppCompatActivity() {
+    lateinit var storyViewModel :StoryViewModel
+
     lateinit var adapter: BooksAdapater
     lateinit var recyclerView : RecyclerView
     var data:ArrayList<BookData> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_books)
-        initData()
-        val handler = Handler()
-
+        storyViewModel = StoryViewModel(applicationContext)
         initRecyclerView()
+        initData()
+
+
     }
 
     private fun initRecyclerView(){
@@ -45,6 +51,8 @@ class BooksActivity : AppCompatActivity() {
             ) {
                 if(position==0){
                     val intent= Intent(this@BooksActivity, SunMoonActivity::class.java)
+                    intent.putExtra("title", data[position].name)
+                    //TODO viewmodel.getOptionalStory 호출해야 함
                     startActivity(intent)
                 }
             }
@@ -55,43 +63,35 @@ class BooksActivity : AppCompatActivity() {
     private fun initData(){
 
 
-        val call = RetrofitClient.service
-        call.getStoryTitleCover("선택형").enqueue(object : Callback<StoryTitleCoverResponse> {
-            override fun onFailure(call: Call<StoryTitleCoverResponse>, t: Throwable) {
-                Log.d("error","Failed : $t")
-            }
+        val thread = Thread {
+            storyViewModel.getStoryTitleCover("선택형")
+            Thread.sleep(1000)
 
-            override fun onResponse(
-                call: Call<StoryTitleCoverResponse>,
-                response: Response<StoryTitleCoverResponse>
-            ) {
-                Log.d("succed", "Succeed : $response")
-                val result = response.body()?.result
+            if(storyViewModel.isSuccessGet.value == true) {
+                val list = storyViewModel.storyTitleCoverList.value
+                if (list != null) {
+                    for(e in list) {
+                        val url = storyViewModel.S3Helper.getImage(e.coverimage.toString())
 
-                if (result != null) {
-                    for(i in result) {
-
-                        val thread = Thread({
-                            val connection = URL(i.coverimage).openConnection()
-                            connection.doInput = true
-                            connection.connect()
-                            val inputStream = connection.getInputStream()
-                            val bitmap = BitmapFactory.decodeStream(inputStream)
-                            data.add(BookData(i.title.toString(), BitmapDrawable(bitmap)))
-                            Log.d("succed", "Succeed : $data.size")
-                            runOnUiThread {
-                                adapter.notifyDataSetChanged()
-                            }
-
-                        })
-                        thread.start()
-
+                        val connection = URL(url.toString()).openConnection()
+                        connection.doInput = true
+                        connection.connect()
+                        val inputStream = connection.getInputStream()
+                        val bitmap = BitmapFactory.decodeStream(inputStream)
+                        data.add(BookData(e.title.toString(), BitmapDrawable(bitmap)))
                     }
                 }
+                runOnUiThread {
+                    adapter.notifyDataSetChanged()
+                }
+                storyViewModel.isSuccessGet.value == false
 
             }
+            else {
 
-        })
+            }
+        }
+        thread.start()
 
         val scan = Scanner(resources.openRawResource(R.raw.original_story))
         while(scan.hasNextLine()){

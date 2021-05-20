@@ -32,8 +32,12 @@ class ShowBookActivity : AppCompatActivity() {
         initimage()
         init()
     }
+
+
     fun initimage()
     {
+
+        
         if(imagenum == 1) {
             postbtn.visibility = View.INVISIBLE
             storyView.setImageResource(R.drawable.sunmoon1)
@@ -54,7 +58,6 @@ class ShowBookActivity : AppCompatActivity() {
     {
         val i = intent
         val mode = i.getIntExtra("int", -1)
-
         if(mode == 1)
         {
             Titletext.visibility = View.VISIBLE
@@ -69,9 +72,14 @@ class ShowBookActivity : AppCompatActivity() {
             recordbutton.visibility = View.VISIBLE
             playbtn.visibility = View.VISIBLE
             pausebtn.visibility = View.VISIBLE
-            stopbtn.visibility = View.VISIBLE
+            stopbtn?.visibility = View.VISIBLE
         }
+
         binding.apply {
+
+
+
+
             postbtn?.setOnClickListener{
                 recordbutton?.text = "녹음"
                 isrecord = false

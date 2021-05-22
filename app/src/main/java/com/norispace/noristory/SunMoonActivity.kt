@@ -1,154 +1,208 @@
 package com.norispace.noristory
 
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.norispace.noristory.databinding.ActivitySunMoonBinding
+import com.norispace.pojo.Story.OptionalStoryResponse
+import com.norispace.service.PageViewModel
+import com.norispace.service.StoryViewModel
+import java.net.URL
 
 
 class SunMoonActivity : AppCompatActivity() {
     lateinit var binding : ActivitySunMoonBinding
+    lateinit var storyViewModel: StoryViewModel
+    lateinit var pageViewModel: PageViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivitySunMoonBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        init()
+        initData()
+
+    }
+
+    private fun initData() {
+        pageViewModel = PageViewModel()
+        storyViewModel = StoryViewModel(applicationContext)
+
+        pageViewModel.page.observe(this, Observer {
+            refresh(it.toInt())
+        })
+
+        storyViewModel.isSuccessGet.observe(this, Observer {
+            if(it) {
+                init()
+            }
+        })
+        val title = intent.getStringExtra("title")
+        if(title != null)
+            storyViewModel.getOptionalStory(title)
     }
 
     private fun init(){
+        binding.apply {
+            refresh(1)
 
-        var page =intent.getIntExtra("page",1)
-        setImg(page)//페이지 배경 이미지 출력
-        binding.gotoMainBtn?.visibility=View.GONE
-        if(page==9) {//첫번째 선택 지점
-            binding.nextButton?.visibility=View.GONE
-            binding.choiceButton3?.visibility=View.GONE
-            binding.choiceButton4?.visibility=View.GONE
-            firstChoice(page)
+            binding.gotoMainBtn?.visibility=View.GONE
+            exitButton?.setOnClickListener {//이야기 나가기 버튼
+                val intent = Intent(this@SunMoonActivity, BooksActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+            }
 
-        }else if(page==14){//두번째 선택 지점
-            binding.choiceButton1?.visibility=View.GONE
-            binding.choiceButton2?.visibility=View.GONE
-            binding.nextButton?.visibility=View.GONE
-            secondChoice(page)
-        }
-        else {//그 외 -> 선택 버튼 보이면 안됨
-            binding.choiceButton1?.visibility=View.GONE
-            binding.choiceButton2?.visibility=View.GONE
-            binding.choiceButton3?.visibility=View.GONE
-            binding.choiceButton4?.visibility=View.GONE
-
-        }
-            binding.apply {
-
-
-                exitButton?.setOnClickListener {//이야기 나가기 버튼
-                    val intent = Intent(this@SunMoonActivity, BooksActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(intent)
+            postButton?.setOnClickListener {
+                val page = pageViewModel.page.value
+                if(page != null) {
+                    pageViewModel.page.value = page - 1
                 }
-                nextButton?.setOnClickListener {//다음페이지 버튼
+            }
+            binding.gotoMainBtn?.setOnClickListener {
+                val intent = Intent(this@SunMoonActivity, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+            }
 
-                    if(page==21 || page==24||page==29){//21, 24, 29페이지 에서 다음 페이지 버튼 누를 경우
-                        binding.nextButton?.visibility=View.GONE
-                        binding.postButton?.visibility=View.GONE
-                        binding.exitButton?.visibility=View.GONE
-                        end() // 이야기 끝났음을 알리는 페이지 출력 (sunmoonend)
-                    }else{//그 외 -> 페이지 1 증가
-                        val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
-                       page += 1
-                        intent.putExtra("page", page)
-                        startActivity(intent)
-                    }
+        }
+    }
 
-                }
-                if (page == 1) {//첫번째 페이지에서는 이전페이지 버튼 없음
-                    postButton?.visibility = View.GONE
+    private fun refresh(page:Int) {
+        val list = storyViewModel.optionalStoryList.value
+        if (list != null) {
+            for(e in list) {
+                if(e.page == page) {
+                    val OptionalStoryResponse = e
 
-                } else {
-                    postButton?.setOnClickListener {
-                        if(page!=1) {
-                            val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
-
-                            if(page==25){//25페이지(피그마 참고)에서 이전 페이지 버튼 누르면 첫번째 선택 페이지로 이동
-                                page=9
-                            }else if(page==22){//22페이지(피그마 참고)에서 이전 페이지 버튼 누르면 두번째 선택 페이지로 이동
-                                page=14
-                            }else{//그 외 -> 페이지 1 감소
-                                page -= 1
-                            }
-
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            intent.putExtra("page", page)
-                            startActivity(intent)
-                        }
-                    }
+                    refreshImg(OptionalStoryResponse)
+                    refreshListener(OptionalStoryResponse)
+                    refreshWidget(OptionalStoryResponse)
                 }
 
             }
+        }
     }
+
+    private fun refreshImg(e:OptionalStoryResponse) {
+        val thread = Thread {
+
+            val url = storyViewModel.S3Helper.getImage(e.image.toString())
+            Log.d("url", url.toString())
+
+            val connection = URL(url.toString()).openConnection()
+            connection.doInput = true
+            connection.connect()
+            val inputStream = connection.getInputStream()
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            Thread.sleep(1000)
+            runOnUiThread {
+                binding.apply {
+                    if (imageView != null) {
+                        imageView.setImageDrawable(BitmapDrawable(bitmap))
+                    }
+                }
+            }
+        }
+        thread.start()
+    }
+
+    private fun refreshListener(e: OptionalStoryResponse) {
+        binding.apply {
+            choiceButton1?.setOnClickListener {//누르는 버튼에 따라 그에 맞는 페이지로 이동함(피그마 참고)
+                if(e.nextPage1 != null)
+                    pageViewModel.page.value = e.nextPage1
+            }
+            choiceButton2?.setOnClickListener {
+                if(e.nextPage2 != null)
+                    pageViewModel.page.value = e.nextPage2
+            }
+
+            nextButton?.setOnClickListener {//다음페이지 버튼
+                val page = pageViewModel.page.value
+                if (page != null) {
+                    pageViewModel.page.value = page + 1
+                }
+                if(e.nextPage1 == 0 && e.nextPage1 == 0) {
+                    pageViewModel.page.value = 0
+                }
+
+
+            }
+
+
+        }
+    }
+
+    private fun refreshWidget(e: OptionalStoryResponse) {
+        binding.apply {
+
+            postButton?.visibility = View.VISIBLE
+            if(e.nextPage1 != 0 && e.nextPage2 != 0) {//선택지페이지
+                val thread = Thread {
+                    Log.d("in 1 page", "${e.nextPage2 != 0}, ${e.nextPage2.toString()}")
+                    val url1 = storyViewModel.S3Helper.getImage(e.nextImage1.toString())
+                    val url2 = storyViewModel.S3Helper.getImage(e.nextImage2.toString())
+                    val connection1 = URL(url1.toString()).openConnection()
+                    val connection2 = URL(url2.toString()).openConnection()
+                    connection1.doInput = true
+                    connection2.doInput = true
+                    connection1.connect()
+                    connection2.connect()
+                    val inputStream1 = connection1.getInputStream()
+                    val inputStream2 = connection2.getInputStream()
+                    val bitmap1 = BitmapFactory.decodeStream(inputStream1)
+                    val bitmap2 = BitmapFactory.decodeStream(inputStream2)
+
+                    runOnUiThread{
+                        choiceButton1?.setImageDrawable(BitmapDrawable(bitmap1))
+                        choiceButton2?.setImageDrawable(BitmapDrawable(bitmap2))
+                        choiceButton1?.visibility = View.VISIBLE
+                        choiceButton2?.visibility = View.VISIBLE
+                        exitButton?.visibility = View.VISIBLE
+                        nextButton?.visibility = View.GONE
+                    }
+                }
+                thread.start()
+
+
+            }
+            else if(e.nextPage1 == 0 && e.nextPage2 == 0 && e.page == 0) { //마지막 페이지
+                exitButton?.visibility = View.GONE
+                nextButton?.visibility = View.GONE
+                choiceButton1?.visibility = View.GONE
+                choiceButton2?.visibility = View.GONE
+                gotoMainBtn?.visibility = View.VISIBLE
+            }
+            else {  //다음버튼만 있는 페이지
+                Log.d("here", "here")
+                choiceButton1?.visibility = View.GONE
+                choiceButton2?.visibility = View.GONE
+                exitButton?.visibility = View.VISIBLE
+                nextButton?.visibility = View.VISIBLE
+            }
+
+            if(pageViewModel.page.value == 1 || pageViewModel.page.value == 0) {
+                postButton?.visibility = View.GONE
+
+            }
+
+        }
+
+    }
+
+
     private fun end(){//이야기가 끝났음을 알리고, 메인메뉴로 돌아가는 버튼 출력함
 
         val imgName = "sunmoonend"
         val id = resources.getIdentifier(imgName, "drawable", packageName)
         binding.imageView?.setImageResource(id)
-        binding.gotoMainBtn?.visibility=View.VISIBLE
-        binding.gotoMainBtn?.setOnClickListener {
-            val intent =Intent(this,MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
-        }
-    }
 
-    private fun setImg(page:Int){//배경 이미지 출력
-        binding.apply{
-                val imgName = "sunmoon" + page.toString()
-                val id = resources.getIdentifier(imgName, "drawable", packageName)
-                imageView?.setImageResource(id)
-        }
-    }
 
-    private  fun firstChoice(page:Int){
-        binding.apply {
-            choiceButton1?.visibility = View.VISIBLE//첫번째 분기점 -> 선택버튼 1, 2
-            choiceButton2?.visibility = View.VISIBLE
-            choiceButton1?.setOnClickListener {//누르는 버튼에 따라 그에 맞는 페이지로 이동함(피그마 참고)
-                val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
-                intent.putExtra("page", 10)
-                //intent.putExtra("choice",1)
-                startActivity(intent)
-            }
-            choiceButton2?.setOnClickListener {
-                val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
-                intent.putExtra("page", 25)
-                //intent.putExtra("choice",2)
-                startActivity(intent)
-            }
-
-        }
-    }
-    private  fun secondChoice(page:Int){
-        binding.apply {
-            choiceButton3?.visibility=View.VISIBLE//두번째 분기점 -> 선택버튼 3, 4
-            choiceButton4?.visibility=View.VISIBLE
-            choiceButton3?.setOnClickListener {//누르는 버튼에 따라 그에 맞는 페이지로 이동함(피그마 참고)
-                val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
-                intent.putExtra("page", 15)
-                //intent.putExtra("choice",1)
-                startActivity(intent)
-            }
-            choiceButton4?.setOnClickListener {
-                val intent = Intent(this@SunMoonActivity, SunMoonActivity::class.java)
-                intent.putExtra("page", 22)
-                //intent.putExtra("choice",2)
-                startActivity(intent)
-            }
-        }
     }
 }

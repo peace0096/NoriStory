@@ -11,5 +11,5 @@ interface ServiceApp {
     fun getStoryTitleCover(@Query("category")query: String): Call<StoryTitleCoverResult>
 
     @GET("Story/getOptionalStory")
-    fun getOptionalStory(@Query("title") query: String, @Query("page") query1: Int?): Call<OptionalStoryResult>
+    fun getOptionalStory(@Query("title") query: String): Call<OptionalStoryResult>
 }

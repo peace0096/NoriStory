@@ -16,6 +16,10 @@ class StoryViewModel(context: Context) : ViewModel() {
     val storyTitleCoverList = MutableLiveData<List<StoryTitleCoverResponse>>()
     val optionalStoryList = MutableLiveData<List<OptionalStoryResponse>>()
 
+    init {
+        isSuccessGet.value = false
+    }
+
     fun getStoryTitleCover(category: String) {
         var result : List<StoryTitleCoverResponse>? = null
         StoryRepository.getStoryTitleCover(category = category,
@@ -29,6 +33,7 @@ class StoryViewModel(context: Context) : ViewModel() {
 
         },
         onFailure = {
+            Log.d("done", "done in observe fail")
             isSuccessGet.value = false
 
         }
@@ -37,40 +42,27 @@ class StoryViewModel(context: Context) : ViewModel() {
 
     }
 
-    fun getOptionalStory(title: String, page: Int?) {
+    fun getOptionalStory(title: String) {
         var result : List<OptionalStoryResponse>? = null
-        if (page != null) {
-            StoryRepository.getOptionalStory(
-                title = title, page = page,
-                onResponse = {
-                    if(it.isSuccessful) {
-                        result = it.body()!!.optionalstory
-                        optionalStoryList.value = result
-                        isSuccessGet.value = true
-                    }
 
-                },
-                onFailure = {
-                    isSuccessGet.value = false
+        StoryRepository.getOptionalStory(
+            title = title,
+            onResponse = {
+                if(it.isSuccessful) {
+                    result = it.body()!!.optionalstory
+                    optionalStoryList.value = result
+                    isSuccessGet.value = true
+                    Log.d("done", result?.get(1)?.page.toString())
                 }
 
-            )
-        } else {
-            StoryRepository.getOptionalStory(
-                title = title, page = null,
-                onResponse = {
-                    if(it.isSuccessful) {
-                        result = it.body()!!.optionalstory
-                        optionalStoryList.value = result
-                    }
+            },
+            onFailure = {
+                isSuccessGet.value = false
 
-                },
-                onFailure = {
-                    isSuccessGet.value = false
-                }
+            }
 
-            )
-        }
+        )
+
     }
 
 

@@ -5,19 +5,12 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.norispace.pojo.Story.StoryTitleCoverResponse
-import com.norispace.service.RetrofitClient
-import com.norispace.service.S3Helper
 import com.norispace.service.StoryViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.net.URL
 import java.util.*
 import kotlin.collections.ArrayList
@@ -49,12 +42,15 @@ class BooksActivity : AppCompatActivity() {
                 list: BookData,
                 position: Int
             ) {
-                if(position==0){
-                    val intent= Intent(this@BooksActivity, SunMoonActivity::class.java)
-                    intent.putExtra("title", data[position].name)
-                    //TODO viewmodel.getOptionalStory 호출해야 함
-                    startActivity(intent)
+                val intent= Intent(this@BooksActivity, SunMoonActivity::class.java)
+                val thread =  Thread {
+                    val title = data[position].title
+                    runOnUiThread {
+                        intent.putExtra("title", title)
+                        startActivity(intent)
+                    }
                 }
+                thread.start()
             }
         }
         recyclerView.adapter=adapter
@@ -62,36 +58,38 @@ class BooksActivity : AppCompatActivity() {
 
     private fun initData(){
 
+        storyViewModel.isSuccessGet.observe(this, androidx.lifecycle.Observer {
 
-        val thread = Thread {
-            storyViewModel.getStoryTitleCover("선택형")
-            Thread.sleep(1000)
+            Log.d("done", "$it")
+            if (it) {
 
-            if(storyViewModel.isSuccessGet.value == true) {
-                val list = storyViewModel.storyTitleCoverList.value
-                if (list != null) {
-                    for(e in list) {
-                        val url = storyViewModel.S3Helper.getImage(e.coverimage.toString())
+                val thread = Thread {
+                    val list = storyViewModel.storyTitleCoverList.value
+                    if (list != null) {
+                        for(e in list) {
+                            val url = storyViewModel.S3Helper.getImage(e.coverimage.toString())
 
-                        val connection = URL(url.toString()).openConnection()
-                        connection.doInput = true
-                        connection.connect()
-                        val inputStream = connection.getInputStream()
-                        val bitmap = BitmapFactory.decodeStream(inputStream)
-                        data.add(BookData(e.title.toString(), BitmapDrawable(bitmap)))
+                            val connection = URL(url.toString()).openConnection()
+                            connection.doInput = true
+                            connection.connect()
+                            val inputStream = connection.getInputStream()
+                            val bitmap = BitmapFactory.decodeStream(inputStream)
+                            data.add(BookData(e.title_kor.toString(), BitmapDrawable(bitmap), e.title.toString()))
+                        }
+                    }
+                    runOnUiThread {
+                        adapter.notifyDataSetChanged()
                     }
                 }
-                runOnUiThread {
-                    adapter.notifyDataSetChanged()
-                }
-                storyViewModel.isSuccessGet.value == false
-
+                thread.start()
             }
-            else {
+        })
 
-            }
+        val thread1 = Thread {
+            storyViewModel.getStoryTitleCover("선택형")
+            Log.d("done", "${storyViewModel.isSuccessGet.value}")
         }
-        thread.start()
+        thread1.start()
 
         val scan = Scanner(resources.openRawResource(R.raw.original_story))
         while(scan.hasNextLine()){
@@ -101,7 +99,7 @@ class BooksActivity : AppCompatActivity() {
             //val cover=resources.getDrawable(id,null)
             val cover= ContextCompat.getDrawable(this, id)
 
-            data.add(BookData(title,cover!!))
+            data.add(BookData(title,cover!!,"sunmoon"))
         }
         scan.close()
 

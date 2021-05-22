@@ -8,6 +8,10 @@ class StoryTitleCoverResponse {
     @Expose
     var title: String? = null
 
+    @SerializedName("title_kor")
+    @Expose
+    var title_kor: String? = null
+
     @SerializedName("coverimage")
     @Expose
     var coverimage: String? = null

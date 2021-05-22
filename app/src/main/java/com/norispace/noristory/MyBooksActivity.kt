@@ -56,7 +56,7 @@ class MyBooksActivity : AppCompatActivity() {
             val id = resources.getIdentifier(imgName, "drawable", packageName)
             val cover= ContextCompat.getDrawable(this, id)
 
-            data.add(BookData(title,cover!!))
+            data.add(BookData(title,cover!!, "sunmoon"))
         }
         scan.close()
     }

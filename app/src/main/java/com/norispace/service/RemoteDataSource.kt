@@ -12,7 +12,7 @@ interface RemoteDataSource {
                            onFailure: (Throwable)->Unit)
 
     fun getOptionalStory(
-        title:String, page: Int?, onResponse: (Response<OptionalStoryResult>) -> Unit,
+        title:String, onResponse: (Response<OptionalStoryResult>) -> Unit,
         onFailure: (Throwable) -> Unit)
 
 

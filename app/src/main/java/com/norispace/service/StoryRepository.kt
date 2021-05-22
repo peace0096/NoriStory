@@ -13,14 +13,9 @@ class StoryRepository {
     }
 
     fun getOptionalStory(
-        title: String, page: Int?,
+        title: String,
         onResponse: (Response<OptionalStoryResult>) -> Unit,
         onFailure: (Throwable) -> Unit) {
-        if (page != null) {
-            retrofitRemoteStoryDataSource.getOptionalStory(title, page, onResponse, onFailure)
-        }
-        else {
-            retrofitRemoteStoryDataSource.getOptionalStory(title, null, onResponse, onFailure)
-        }
+        retrofitRemoteStoryDataSource.getOptionalStory(title, onResponse, onFailure)
     }
 }

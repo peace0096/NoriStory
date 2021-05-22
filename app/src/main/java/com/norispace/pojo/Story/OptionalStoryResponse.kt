@@ -10,11 +10,11 @@ class OptionalStoryResponse {
 
     @SerializedName("image")
     @Expose
-    var coverimage: String? = null
+    var image: String? = null
 
     @SerializedName("page")
     @Expose
-    var category: String? = null
+    var page: Int? = null
 
     @SerializedName("nextPage1")
     @Expose

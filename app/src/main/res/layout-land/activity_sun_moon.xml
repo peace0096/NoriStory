@@ -77,29 +77,7 @@
         app:layout_constraintTop_toBottomOf="@+id/choiceButton1"
         app:srcCompat="@drawable/sunmoonfirstchoice2" />
 
-    <ImageButton
-        android:id="@+id/choiceButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="4dp"
-        android:background="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/sunmoonsecondchoice1" />
 
-    <ImageButton
-        android:id="@+id/choiceButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="28dp"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choiceButton3"
-        app:layout_constraintVertical_bias="0.973"
-        app:srcCompat="@drawable/sunmoonsecondchoice2" />
 
     <ImageButton
         android:id="@+id/gotoMainBtn"

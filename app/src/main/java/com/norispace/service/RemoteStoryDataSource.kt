@@ -29,38 +29,22 @@ class RemoteStoryDataSource : RemoteDataSource {
 
     override fun getOptionalStory(
         title: String,
-        page: Int?,
         onResponse: (Response<OptionalStoryResult>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        if (page != null) {
-            RetrofitClient.service.getOptionalStory(title, page).enqueue(object : Callback<OptionalStoryResult> {
-                override fun onFailure(call: Call<OptionalStoryResult>, t: Throwable) {
-                    onFailure(t)
-                }
 
-                override fun onResponse(
-                    call: Call<OptionalStoryResult>,
-                    response: Response<OptionalStoryResult>
-                ) {
-                    onResponse(response)
+        RetrofitClient.service.getOptionalStory(title).enqueue(object : Callback<OptionalStoryResult> {
+            override fun onFailure(call: Call<OptionalStoryResult>, t: Throwable) {
+                onFailure(t)
+            }
 
-                }
-            })
-        }
-        else {
-            RetrofitClient.service.getOptionalStory(title, null).enqueue(object : Callback<OptionalStoryResult> {
-                override fun onFailure(call: Call<OptionalStoryResult>, t: Throwable) {
-                    onFailure(t)
-                }
+            override fun onResponse(
+                call: Call<OptionalStoryResult>,
+                response: Response<OptionalStoryResult>
+            ) {
+                onResponse(response)
 
-                override fun onResponse(
-                    call: Call<OptionalStoryResult>,
-                    response: Response<OptionalStoryResult>
-                ) {
-                    onResponse(response)
-                }
-            })
-        }
+            }
+        })
     }
 }

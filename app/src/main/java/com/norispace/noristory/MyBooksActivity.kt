@@ -41,7 +41,7 @@ class MyBooksActivity : AppCompatActivity() {
         }
         recyclerView.adapter=adapter
 
-        button4.setOnClickListener{
+        home_btn.setOnClickListener{
             val intent = Intent(this@MyBooksActivity, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)

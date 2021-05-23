@@ -13,7 +13,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        val imageView = findViewById<ImageView>(R.id.imageView1)
+        val imageView = findViewById<ImageView>(R.id.image)
         imageView.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

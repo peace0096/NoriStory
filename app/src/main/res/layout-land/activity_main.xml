@@ -1,61 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="15dp"
-    >
-    
-    <Button
-        android:id="@+id/storybtn"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/create_btn"
-        />
-
-    <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        >
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            >
-
-            <Button
-                android:id="@+id/library_btn"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@drawable/library_btn"
-                />
-
-            <Button
-                android:id="@+id/bookshelf_btn"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@drawable/bookshelf_btn"
-                />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/info_btn"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/info_btn"
-            />
+    android:layout_height="match_parent">
 
 
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/bookshelf_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="125dp"
+        android:layout_marginEnd="38dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bookshelf_btn" />
 
+    <ImageView
+        android:id="@+id/create_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="94dp"
+        android:layout_marginBottom="125dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bookshelf_btn"
+        app:srcCompat="@drawable/create_btn" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/library_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        app:layout_constraintEnd_toStartOf="@+id/bookshelf_btn"
+        app:layout_constraintTop_toTopOf="@+id/bookshelf_btn"
+        app:srcCompat="@drawable/library_btn" />
+
+    <ImageView
+        android:id="@+id/logo_noristory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_noristory" />
+
+    <ImageView
+        android:id="@+id/my_info_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginBottom="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/my_info_btn" />
+</androidx.constraintlayout.widget.ConstraintLayout>

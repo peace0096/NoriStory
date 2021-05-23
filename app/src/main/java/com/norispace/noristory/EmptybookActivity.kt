@@ -15,10 +15,10 @@ class EmptybookActivity : AppCompatActivity() {
 
     fun init()
     {
-        button4.setOnClickListener{
-            val intent = Intent(this@EmptybookActivity, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
-        }
+//        button4.setOnClickListener{
+//            val intent = Intent(this@EmptybookActivity, MainActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+//            startActivity(intent)
+//        }
     }
 }

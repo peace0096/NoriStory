@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,12 +15,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        val storyBtn = findViewById<Button>(R.id.storybtn)
+        val storyBtn = findViewById<ImageView>(R.id.create_btn)
         storyBtn.setOnClickListener {
             val intent = Intent(this, StoryMenuActivity::class.java)
             startActivity(intent)
         }
-        val bookshelfBtn=findViewById<Button>(R.id.bookshelf_btn)
+        val bookshelfBtn=findViewById<ImageView>(R.id.bookshelf_btn)
         bookshelfBtn.setOnClickListener {
             val intent = Intent(this, MyBooksActivity::class.java)
             startActivity(intent)

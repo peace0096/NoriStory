@@ -3,7 +3,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".StoryMenuActivity">
+    android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/OptinalBtn"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:background="@drawable/optinal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.502" />
+
+    <Button
+        android:id="@+id/SubjectBtn"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:background="@drawable/subject"
+        app:layout_constraintBottom_toBottomOf="@+id/OptinalBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/OptinalBtn" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="30dp"
+        android:text="선택형 이야기 창작"
+        app:layout_constraintBottom_toTopOf="@+id/OptinalBtn"
+        app:layout_constraintEnd_toEndOf="@+id/OptinalBtn" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="30dp"
+        android:text="소재형 이야기 창작"
+        app:layout_constraintBottom_toTopOf="@+id/SubjectBtn"
+        app:layout_constraintEnd_toEndOf="@+id/SubjectBtn" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:text="9세 이하 친구들에게 추천"
+        app:layout_constraintEnd_toEndOf="@+id/OptinalBtn"
+        app:layout_constraintTop_toBottomOf="@+id/OptinalBtn" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="150dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:text="9세 이상 친구들에게 추천"
+        app:layout_constraintEnd_toEndOf="@+id/SubjectBtn"
+        app:layout_constraintTop_toBottomOf="@+id/SubjectBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

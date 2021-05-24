@@ -8,6 +8,7 @@ import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,6 +24,16 @@ class MainActivity : AppCompatActivity() {
         val bookshelfBtn=findViewById<ImageView>(R.id.bookshelf_btn)
         bookshelfBtn.setOnClickListener {
             val intent = Intent(this, MyBooksActivity::class.java)
+            startActivity(intent)
+        }
+        val myInfoBtn=findViewById<ImageView>(R.id.my_info_btn)
+        myInfoBtn.setOnClickListener {
+            val intent = Intent(this, MyInfoActivity::class.java)
+            startActivity(intent)
+        }
+        val libraryBtn=findViewById<ImageView>(R.id.library_btn)
+        libraryBtn.setOnClickListener {
+            val intent = Intent(this, LibraryActivity::class.java)
             startActivity(intent)
         }
     }

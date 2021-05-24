@@ -4,27 +4,38 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
+import com.norispace.noristory.databinding.ActivityStoryMenuBinding
+import kotlinx.android.synthetic.main.activity_story_menu.*
 
 class StoryMenuActivity : AppCompatActivity() {
+    lateinit var binding: ActivityStoryMenuBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_story_menu)
+        binding= ActivityStoryMenuBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         init()
     }
 
     private fun init()
     {
-        val OptinalBtn = findViewById<Button>(R.id.OptinalBtn)
-        val SubjectBtn = findViewById<Button>(R.id.SubjectBtn)
+        binding.apply {
+            optional_btn.setOnClickListener {
+                val intent = Intent(this@StoryMenuActivity, OptionalActivity::class.java)
+                startActivity(intent)
+            }
 
-        OptinalBtn.setOnClickListener {
-            val intent = Intent(this, BooksActivity::class.java)
-            startActivity(intent)
+            subject_btn.setOnClickListener {
+                val intent = Intent(this@StoryMenuActivity, SubjectActivity::class.java)
+                startActivity(intent)
+            }
+
+            home_btn.setOnClickListener {
+                val intent = Intent(this@StoryMenuActivity, MainActivity::class.java)
+                intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+            }
         }
 
-        SubjectBtn.setOnClickListener {
-            val intent = Intent(this, SubjectActivity::class.java)
-            startActivity(intent)
-        }
     }
 }

@@ -1,9 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OptionalActivity">
+    android:orientation="vertical"
+    tools:context=".BooksActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Small Text"-->
+    <!--        android:textColor="#fff"-->
+    <!--        android:shadowColor="#000"-->
+    <!--        android:shadowDx="2"-->
+    <!--        android:shadowDy="2"-->
+    <!--        android:shadowRadius="1.5"-->
+    <!--        />-->
+
+    <TextView
+        android:id="@+id/textView6"
+        style="AudioFileInfoOverlayText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="이야기를 선택해 주세요!"
+        android:textSize="25dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</LinearLayout>

@@ -1,70 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFDA8B"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/OptinalBtn"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        android:background="@drawable/optinal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.502" />
 
-    <Button
-        android:id="@+id/SubjectBtn"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        android:background="@drawable/subject"
-        app:layout_constraintBottom_toBottomOf="@+id/OptinalBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/OptinalBtn" />
-
-    <TextView
-        android:id="@+id/textView"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="30dp"
-        android:text="선택형 이야기 창작"
-        app:layout_constraintBottom_toTopOf="@+id/OptinalBtn"
-        app:layout_constraintEnd_toEndOf="@+id/OptinalBtn" />
+        app:srcCompat="@drawable/screen_select_method" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="30dp"
-        android:text="소재형 이야기 창작"
-        app:layout_constraintBottom_toTopOf="@+id/SubjectBtn"
-        app:layout_constraintEnd_toEndOf="@+id/SubjectBtn" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="50dp"
-        android:text="9세 이하 친구들에게 추천"
-        app:layout_constraintEnd_toEndOf="@+id/OptinalBtn"
-        app:layout_constraintTop_toBottomOf="@+id/OptinalBtn" />
+        <ImageView
+            android:id="@+id/optional_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="41dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/subject_btn"
+            app:srcCompat="@drawable/optional_btn" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="150dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="50dp"
-        android:text="9세 이상 친구들에게 추천"
-        app:layout_constraintEnd_toEndOf="@+id/SubjectBtn"
-        app:layout_constraintTop_toBottomOf="@+id/SubjectBtn" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/subject_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="106dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/optional_btn"
+            app:srcCompat="@drawable/subject_btn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/header" />
+
+        <ImageView
+            android:id="@+id/help_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="42dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/help_btn" />
+
+        <ImageView
+            android:id="@+id/home_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="36dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/home_btn" />
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/home_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back_btn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

@@ -1,4 +1,4 @@
-package com.norispace.noristory
+package com.norispace.noristory.OptionalStory
 
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -10,31 +10,32 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.norispace.service.StoryViewModel
+import com.norispace.noristory.Books.BookData
+import com.norispace.noristory.Books.BooksAdapater
+import com.norispace.noristory.Books.BooksViewModel
+import com.norispace.noristory.R
+import com.norispace.service.S3Helper
+
 import java.net.URL
 import java.util.*
 import kotlin.collections.ArrayList
 
-class BooksActivity : AppCompatActivity() {
-    lateinit var storyViewModel :StoryViewModel
+class OptionalActivity : AppCompatActivity() {
 
+    val s3Helper = S3Helper(this)
     lateinit var adapter: BooksAdapater
     lateinit var recyclerView : RecyclerView
     var data:ArrayList<BookData> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_books)
-        storyViewModel = StoryViewModel(applicationContext)
+        setContentView(R.layout.activity_optional)
         initRecyclerView()
         initData()
-
-
     }
-
     private fun initRecyclerView(){
         recyclerView=findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager= GridLayoutManager(this, 3)
-        adapter=BooksAdapater(data)
+        adapter= BooksAdapater(data)
         adapter.itemClickListener=object : BooksAdapater.OnItemClickListener{
             override fun OnItemClick(
                 holder: BooksAdapater.ViewHolder,
@@ -42,7 +43,7 @@ class BooksActivity : AppCompatActivity() {
                 list: BookData,
                 position: Int
             ) {
-                val intent= Intent(this@BooksActivity, SunMoonActivity::class.java)
+                val intent= Intent(this@OptionalActivity, SunMoonActivity::class.java)
                 val thread =  Thread {
                     val title = data[position].title
                     runOnUiThread {
@@ -57,37 +58,38 @@ class BooksActivity : AppCompatActivity() {
     }
 
     private fun initData(){
-
-        storyViewModel.isSuccessGet.observe(this, androidx.lifecycle.Observer {
+        BooksViewModel.getInstance().books.observe(this, androidx.lifecycle.Observer {
 
             Log.d("done", "$it")
-            if (it) {
-
-                val thread = Thread {
-                    val list = storyViewModel.storyTitleCoverList.value
-                    if (list != null) {
-                        for(e in list) {
-                            val url = storyViewModel.S3Helper.getImage(e.coverimage.toString())
-
-                            val connection = URL(url.toString()).openConnection()
-                            connection.doInput = true
-                            connection.connect()
-                            val inputStream = connection.getInputStream()
-                            val bitmap = BitmapFactory.decodeStream(inputStream)
-                            data.add(BookData(e.title_kor.toString(), BitmapDrawable(bitmap), e.title.toString()))
-                        }
-                    }
-                    runOnUiThread {
-                        adapter.notifyDataSetChanged()
+            val thread = Thread {
+                val list = it
+                if (list != null) {
+                    for(e in list) {
+                        val url = s3Helper.getImage(e.coverimage.toString())
+                        val connection = URL(url.toString()).openConnection()
+                        connection.doInput = true
+                        connection.connect()
+                        val inputStream = connection.getInputStream()
+                        val bitmap = BitmapFactory.decodeStream(inputStream)
+                        data.add(
+                            BookData(
+                                e.title_kor.toString(),
+                                BitmapDrawable(bitmap),
+                                e.title.toString()
+                            )
+                        )
                     }
                 }
-                thread.start()
+                runOnUiThread {
+                    adapter.notifyDataSetChanged()
+                }
             }
+            thread.start()
         })
 
         val thread1 = Thread {
-            storyViewModel.getStoryTitleCover("선택형")
-            Log.d("done", "${storyViewModel.isSuccessGet.value}")
+            BooksViewModel.getInstance().getBooks("선택형")
+            Log.d("done", "")
         }
         thread1.start()
 
@@ -99,7 +101,13 @@ class BooksActivity : AppCompatActivity() {
             //val cover=resources.getDrawable(id,null)
             val cover= ContextCompat.getDrawable(this, id)
 
-            data.add(BookData(title,cover!!,"sunmoon"))
+            data.add(
+                BookData(
+                    title,
+                    cover!!,
+                    "sunmoon"
+                )
+            )
         }
         scan.close()
 

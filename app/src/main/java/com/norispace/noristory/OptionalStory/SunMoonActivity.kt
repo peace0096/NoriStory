@@ -1,4 +1,4 @@
-package com.norispace.noristory
+package com.norispace.noristory.OptionalStory
 
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -6,20 +6,20 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.norispace.noristory.MainActivity
 import com.norispace.noristory.databinding.ActivitySunMoonBinding
-import com.norispace.pojo.Story.OptionalStoryResponse
-import com.norispace.service.PageViewModel
-import com.norispace.service.StoryViewModel
+import com.norispace.noristory.Model.OptionalStory_Model
+import com.norispace.service.S3Helper
 import java.net.URL
 
 
 class SunMoonActivity : AppCompatActivity() {
+    val s3Helper = S3Helper(this)
     lateinit var binding : ActivitySunMoonBinding
-    lateinit var storyViewModel: StoryViewModel
-    lateinit var pageViewModel: PageViewModel
+    val page = MutableLiveData<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,22 +29,23 @@ class SunMoonActivity : AppCompatActivity() {
 
     }
 
-    private fun initData() {
-        pageViewModel = PageViewModel()
-        storyViewModel = StoryViewModel(applicationContext)
 
-        pageViewModel.page.observe(this, Observer {
+    private fun initData() {
+        page.value = 1
+
+        page.observe(this, Observer {
             refresh(it.toInt())
         })
 
-        storyViewModel.isSuccessGet.observe(this, Observer {
-            if(it) {
+        OptionalViewModel.getInstance().story.observe(this, Observer {
+            if(it != null) {
                 init()
             }
         })
+
         val title = intent.getStringExtra("title")
         if(title != null)
-            storyViewModel.getOptionalStory(title)
+            OptionalViewModel.getInstance().getOptionalStory(title)
     }
 
     private fun init(){
@@ -53,15 +54,15 @@ class SunMoonActivity : AppCompatActivity() {
 
             binding.gotoMainBtn?.visibility=View.GONE
             exitButton?.setOnClickListener {//이야기 나가기 버튼
-                val intent = Intent(this@SunMoonActivity, BooksActivity::class.java)
+                val intent = Intent(this@SunMoonActivity, OptionalActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
             }
 
             postButton?.setOnClickListener {
-                val page = pageViewModel.page.value
-                if(page != null) {
-                    pageViewModel.page.value = page - 1
+
+                if(page.value != null) {
+                    page.value = page.value!! - 1
                 }
             }
             binding.gotoMainBtn?.setOnClickListener {
@@ -74,7 +75,7 @@ class SunMoonActivity : AppCompatActivity() {
     }
 
     private fun refresh(page:Int) {
-        val list = storyViewModel.optionalStoryList.value
+        val list = OptionalViewModel.getInstance().story.value
         if (list != null) {
             for(e in list) {
                 if(e.page == page) {
@@ -89,10 +90,10 @@ class SunMoonActivity : AppCompatActivity() {
         }
     }
 
-    private fun refreshImg(e:OptionalStoryResponse) {
+    private fun refreshImg(e: OptionalStory_Model) {
         val thread = Thread {
 
-            val url = storyViewModel.S3Helper.getImage(e.image.toString())
+            val url = s3Helper.getImage(e.image.toString())
             Log.d("url", url.toString())
 
             val connection = URL(url.toString()).openConnection()
@@ -112,42 +113,40 @@ class SunMoonActivity : AppCompatActivity() {
         thread.start()
     }
 
-    private fun refreshListener(e: OptionalStoryResponse) {
+    private fun refreshListener(e: OptionalStory_Model) {
         binding.apply {
             choiceButton1?.setOnClickListener {//누르는 버튼에 따라 그에 맞는 페이지로 이동함(피그마 참고)
                 if(e.nextPage1 != null)
-                    pageViewModel.page.value = e.nextPage1
+                    page.value = e.nextPage1
             }
             choiceButton2?.setOnClickListener {
                 if(e.nextPage2 != null)
-                    pageViewModel.page.value = e.nextPage2
+                    page.value = e.nextPage2
             }
 
             nextButton?.setOnClickListener {//다음페이지 버튼
-                val page = pageViewModel.page.value
-                if (page != null) {
-                    pageViewModel.page.value = page + 1
+
+                if (page.value != null) {
+                    page.value = page.value!! + 1
                 }
                 if(e.nextPage1 == 0 && e.nextPage1 == 0) {
-                    pageViewModel.page.value = 0
+                    page.value = 0
                 }
-
-
             }
 
 
         }
     }
 
-    private fun refreshWidget(e: OptionalStoryResponse) {
+    private fun refreshWidget(e: OptionalStory_Model) {
         binding.apply {
 
             postButton?.visibility = View.VISIBLE
             if(e.nextPage1 != 0 && e.nextPage2 != 0) {//선택지페이지
                 val thread = Thread {
                     Log.d("in 1 page", "${e.nextPage2 != 0}, ${e.nextPage2.toString()}")
-                    val url1 = storyViewModel.S3Helper.getImage(e.nextImage1.toString())
-                    val url2 = storyViewModel.S3Helper.getImage(e.nextImage2.toString())
+                    val url1 = s3Helper.getImage(e.nextImage1.toString())
+                    val url2 = s3Helper.getImage(e.nextImage2.toString())
                     val connection1 = URL(url1.toString()).openConnection()
                     val connection2 = URL(url2.toString()).openConnection()
                     connection1.doInput = true
@@ -160,12 +159,14 @@ class SunMoonActivity : AppCompatActivity() {
                     val bitmap2 = BitmapFactory.decodeStream(inputStream2)
 
                     runOnUiThread{
+
                         choiceButton1?.setImageDrawable(BitmapDrawable(bitmap1))
                         choiceButton2?.setImageDrawable(BitmapDrawable(bitmap2))
                         choiceButton1?.visibility = View.VISIBLE
                         choiceButton2?.visibility = View.VISIBLE
                         exitButton?.visibility = View.VISIBLE
                         nextButton?.visibility = View.GONE
+
                     }
                 }
                 thread.start()
@@ -187,7 +188,7 @@ class SunMoonActivity : AppCompatActivity() {
                 nextButton?.visibility = View.VISIBLE
             }
 
-            if(pageViewModel.page.value == 1 || pageViewModel.page.value == 0) {
+            if(page.value == 1 || page.value == 0) {
                 postButton?.visibility = View.GONE
 
             }

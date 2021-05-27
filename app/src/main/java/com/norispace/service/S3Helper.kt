@@ -15,6 +15,7 @@ class S3Helper(val context:Context?) {
         val POOLID = "ap-northeast-2:167efb36-dea5-4724-935d-0c419fc48f12"
         val REGION = Regions.AP_NORTHEAST_2
         val BUCKET_NAME = "noristory"
+
     }
 
     fun getImage(fileName:String): URL? {

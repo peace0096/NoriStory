@@ -15,12 +15,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".Login.LoginActivity"
+            android:screenOrientation="landscape"></activity>
 
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
 
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
+                <data
+                    android:host="oauth"
+                    android:scheme="kakao9b8a2642fe34060e0f3992980a574f37" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ShowBookActivity"
             android:screenOrientation="landscape" />
@@ -30,10 +44,12 @@
         <activity
             android:name=".BookMenuActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".LibraryActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".MyInfoActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".LibraryActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MyInfoActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="landscape">
@@ -50,19 +66,16 @@
             android:name=".StoryMenuActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".OptionalActivity"
+            android:name=".OptionalStory.OptionalActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".SubjectActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".BooksActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".MyBooksActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".SunMoonActivity"
+            android:name=".OptionalStory.SunMoonActivity"
             android:screenOrientation="landscape" />
     </application>
 

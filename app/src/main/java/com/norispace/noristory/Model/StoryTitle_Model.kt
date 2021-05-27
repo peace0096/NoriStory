@@ -1,9 +1,9 @@
-package com.norispace.pojo.Story
+package com.norispace.noristory.Model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class StoryTitleCoverResponse {
+class StoryTitle_Model {
     @SerializedName("title")
     @Expose
     var title: String? = null

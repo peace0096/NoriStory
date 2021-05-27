@@ -3,8 +3,11 @@ package com.norispace.noristory
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
+import com.kakao.sdk.common.KakaoSdk.keyHash
+import com.kakao.sdk.common.util.Utility.getKeyHash
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,6 +16,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
+        val keyHash = getKeyHash(this /* context */);
+        Log.i("key", "$keyHash")
     }
 
     private fun init() {

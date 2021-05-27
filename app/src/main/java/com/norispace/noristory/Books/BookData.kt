@@ -1,4 +1,4 @@
-package com.norispace.noristory
+package com.norispace.noristory.Books
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable

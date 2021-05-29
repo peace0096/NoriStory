@@ -22,6 +22,11 @@
             android:enabled="true" />
 
         <activity
+            android:name=".SelectUserActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".LoginActivity"
+        android:screenOrientation="landscape" />
+        <activity
             android:name=".ShowBookActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -30,10 +35,12 @@
         <activity
             android:name=".BookMenuActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".LibraryActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".MyInfoActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".LibraryActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MyInfoActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="landscape">

@@ -1,5 +1,6 @@
 package com.norispace.service
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.util.Log
 import com.amazonaws.auth.CognitoCachingCredentialsProvider
@@ -52,6 +53,7 @@ class S3Helper(val context:Context) {
 
 
     fun downloadImage(data: ArrayList<String>) {
+
         val credentialsProvider = CognitoCachingCredentialsProvider(
             context,
             POOLID, // 자격 증명 풀 ID
@@ -69,6 +71,12 @@ class S3Helper(val context:Context) {
         // 다운로드 실행. object: "SomeFile.mp4". 두 번째 파라메터는 Local경로 File 객체.
         for(i in 0 until data.size) {
             Log.i("download data", data[i].toString())
+            val progressDialog = ProgressDialog(context)
+            progressDialog.setMessage("다운로드 중...")
+            progressDialog.setCancelable(true)
+            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal)
+            progressDialog.show()
+
             val downloadObserver = transferUtility.download(data[i], File(context.cacheDir.toString() + "/" + data[i]))
 
             //TODO 다운받는 과정을 다이얼로그 + 프로그래스바로 표현
@@ -77,6 +85,7 @@ class S3Helper(val context:Context) {
             downloadObserver.setTransferListener(object : TransferListener {
                 override fun onStateChanged(id: Int, state: TransferState) {
                     if (state == TransferState.COMPLETED) {
+                        progressDialog.dismiss()
                         Log.d("AWS", "DOWNLOAD Completed!")
                     }
                 }

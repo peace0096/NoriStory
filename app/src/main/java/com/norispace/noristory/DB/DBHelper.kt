@@ -1,5 +1,6 @@
 package com.norispace.noristory.DB
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -24,6 +25,8 @@ class DBHelper(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
 
 
     fun firstDownload() {
+
+
         var strsql = "select thumbnail from $TABLE_Story"
         val data = ArrayList<String>()
 

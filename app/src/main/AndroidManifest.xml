@@ -24,8 +24,9 @@
         <activity
             android:name=".SelectUserActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".LoginActivity"
-        android:screenOrientation="landscape" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ShowBookActivity"
             android:screenOrientation="landscape" />
@@ -71,6 +72,11 @@
         <activity
             android:name=".SunMoonActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".MakeCardActivity"
+            android:screenOrientation="landscape" />
+
+
     </application>
 
 </manifest>

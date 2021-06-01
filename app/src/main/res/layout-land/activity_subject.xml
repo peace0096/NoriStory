@@ -58,7 +58,18 @@
         android:id="@+id/relativeLayout"
         android:layout_width="905dp"
         android:layout_height="409dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/cardBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="135dp"
+            android:layout_marginBottom="251dp"
+            android:text="Card" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/editText"

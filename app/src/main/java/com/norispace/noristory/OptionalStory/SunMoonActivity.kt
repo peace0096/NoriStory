@@ -9,43 +9,41 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.norispace.noristory.Books.BookData
+import com.norispace.noristory.DB.DBHelper
 import com.norispace.noristory.MainActivity
 import com.norispace.noristory.databinding.ActivitySunMoonBinding
 import com.norispace.noristory.Model.OptionalStory_Model
 import com.norispace.service.S3Helper
+import java.io.File
 import java.net.URL
 
 
 class SunMoonActivity : AppCompatActivity() {
-    val s3Helper = S3Helper(this)
+    val dbHelper = DBHelper(this)
     lateinit var binding : ActivitySunMoonBinding
     val page = MutableLiveData<Int>()
+    lateinit var data:List<OptionalStory_Model>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivitySunMoonBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initData()
-
+        init()
     }
 
 
     private fun initData() {
         page.value = 1
-
         page.observe(this, Observer {
             refresh(it.toInt())
         })
 
-        OptionalViewModel.getInstance().story.observe(this, Observer {
-            if(it != null) {
-                init()
-            }
-        })
-
         val title = intent.getStringExtra("title")
         if(title != null)
-            OptionalViewModel.getInstance().getOptionalStory(title)
+            data = dbHelper.findOptionalStory(title)
+
     }
 
     private fun init(){
@@ -75,42 +73,24 @@ class SunMoonActivity : AppCompatActivity() {
     }
 
     private fun refresh(page:Int) {
-        val list = OptionalViewModel.getInstance().story.value
-        if (list != null) {
-            for(e in list) {
-                if(e.page == page) {
-                    val OptionalStoryResponse = e
-
-                    refreshImg(OptionalStoryResponse)
-                    refreshListener(OptionalStoryResponse)
-                    refreshWidget(OptionalStoryResponse)
-                }
-
+        for(e in data) {
+            if(e.page == page) {
+                val model = e
+                refreshImg(e)
+                refreshListener(e)
+                refreshWidget(e)
             }
         }
     }
 
     private fun refreshImg(e: OptionalStory_Model) {
-        val thread = Thread {
+        val imgFile = File(cacheDir.toString() + "/" + e.image)
+        val bitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
+        binding.apply {
+            imageView?.setImageDrawable(BitmapDrawable(bitmap))
 
-            val url = s3Helper.getImage(e.image.toString())
-            Log.d("url", url.toString())
-
-            val connection = URL(url.toString()).openConnection()
-            connection.doInput = true
-            connection.connect()
-            val inputStream = connection.getInputStream()
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            Thread.sleep(1000)
-            runOnUiThread {
-                binding.apply {
-                    if (imageView != null) {
-                        imageView.setImageDrawable(BitmapDrawable(bitmap))
-                    }
-                }
-            }
         }
-        thread.start()
+
     }
 
     private fun refreshListener(e: OptionalStory_Model) {
@@ -125,54 +105,33 @@ class SunMoonActivity : AppCompatActivity() {
             }
 
             nextButton?.setOnClickListener {//다음페이지 버튼
-
                 if (page.value != null) {
                     page.value = page.value!! + 1
                 }
-                if(e.nextPage1 == 0 && e.nextPage1 == 0) {
+                if(e.nextPage1 == 0 && e.nextPage2 == 0) {
                     page.value = 0
                 }
             }
-
-
         }
     }
 
     private fun refreshWidget(e: OptionalStory_Model) {
         binding.apply {
-
             postButton?.visibility = View.VISIBLE
-            if(e.nextPage1 != 0 && e.nextPage2 != 0) {//선택지페이지
-                val thread = Thread {
-                    Log.d("in 1 page", "${e.nextPage2 != 0}, ${e.nextPage2.toString()}")
-                    val url1 = s3Helper.getImage(e.nextImage1.toString())
-                    val url2 = s3Helper.getImage(e.nextImage2.toString())
-                    val connection1 = URL(url1.toString()).openConnection()
-                    val connection2 = URL(url2.toString()).openConnection()
-                    connection1.doInput = true
-                    connection2.doInput = true
-                    connection1.connect()
-                    connection2.connect()
-                    val inputStream1 = connection1.getInputStream()
-                    val inputStream2 = connection2.getInputStream()
-                    val bitmap1 = BitmapFactory.decodeStream(inputStream1)
-                    val bitmap2 = BitmapFactory.decodeStream(inputStream2)
+            if(e.nextPage1 != 0 && e.nextPage2 != 0) {
+                val imgFile1 = File(cacheDir.toString() + "/" + e.nextImage1)
+                val bitmap1 = BitmapFactory.decodeFile(imgFile1.absolutePath)
+                val imgFile2 = File(cacheDir.toString() + "/" + e.nextImage2)
+                val bitmap2 = BitmapFactory.decodeFile(imgFile2.absolutePath)
 
-                    runOnUiThread{
-
-                        choiceButton1?.setImageDrawable(BitmapDrawable(bitmap1))
-                        choiceButton2?.setImageDrawable(BitmapDrawable(bitmap2))
-                        choiceButton1?.visibility = View.VISIBLE
-                        choiceButton2?.visibility = View.VISIBLE
-                        exitButton?.visibility = View.VISIBLE
-                        nextButton?.visibility = View.GONE
-
-                    }
-                }
-                thread.start()
-
-
+                choiceButton1?.setImageDrawable(BitmapDrawable(bitmap1))
+                choiceButton2?.setImageDrawable(BitmapDrawable(bitmap2))
+                choiceButton1?.visibility = View.VISIBLE
+                choiceButton2?.visibility = View.VISIBLE
+                exitButton?.visibility = View.VISIBLE
+                nextButton?.visibility = View.GONE
             }
+
             else if(e.nextPage1 == 0 && e.nextPage2 == 0 && e.page == 0) { //마지막 페이지
                 exitButton?.visibility = View.GONE
                 nextButton?.visibility = View.GONE

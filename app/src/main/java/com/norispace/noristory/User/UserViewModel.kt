@@ -1,51 +1,60 @@
 package com.norispace.noristory.User
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.user.model.User
+import com.google.gson.Gson
+import com.norispace.noristory.API.RetrofitClient
+import com.norispace.noristory.Model.User_Model
 import com.norispace.noristory.Repository.User_Repo
+import org.json.JSONObject
 
 class UserViewModel {
-    private var token:MutableLiveData<OAuthToken>? = null
-    private var user:MutableLiveData<User>? = null
+    val tokenmodel = MutableLiveData<String>()
+    val usermodel = MutableLiveData<User_Model>()
 
-    fun login(context: Context) {
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-            if (error != null) {
-                Log.e("Callback", "로그인 실패", error)
+    fun login(name:String, gender:String, birthday:String) {
+        User_Repo.callPostUserLogin(name, gender, birthday, object : RetrofitClient.callback {
+            override fun callbackMethod(isSuccessful: Boolean, result: String?) {
+                if(isSuccessful) {
+                    if(result != null) {
+                        val gson = Gson()
+                        val jsonObject = JSONObject(result)
+                        User_Repo.setToken(jsonObject.get("token").toString())
+                        tokenmodel.value = User_Repo.getToken()
+                    }
+                }
+                else {
+                    Log.i("login err", result.toString())
+                }
             }
-            else if (token != null) {
-                Log.i("Callback", "로그인 성공 ${token.accessToken}")
-                User_Repo.getInstance().setModel(token)
-                this.token?.value = User_Repo.getInstance().getModel()
-            }
-        }
-        User_Repo.getInstance().login(context, callback)
+
+
+        })
+
     }
 
-    fun logout() {
-        val callback:(Throwable?) -> Unit = { error ->
-            if(error !=  null) {
-                Log.e("Callback", "로그아웃 실패", error)
-            }
-            else {
-                //로그아웃 성공
-            }
-        }
-        User_Repo.getInstance().logout(callback)
-    }
+    fun getUserMe(token:String) {
+        User_Repo.callGetUserMe(token, object : RetrofitClient.callback {
+            override fun callbackMethod(isSuccessful: Boolean, result: String?) {
+                if(isSuccessful) {
+                    if(result != null) {
+                        val gson = Gson()
+                        val jsonObject = JSONObject(result)
+                        val name = jsonObject.get("name").toString()
+                        val gender = jsonObject.get("gender").toString()
+                        val birthday = jsonObject.get("birthday").toString()
 
-    fun getUserInfoMe() {
-        val callback:(User?, Throwable?) -> Unit = { user, error ->
-            if(error != null) {
-                Log.e("Callback", "카카오 유저 정보가져오기 실패", error)
+                        User_Repo.setModel(User_Model(name, gender, birthday))
+                        usermodel.value = User_Repo.getModel()
+                    }
+                }
+                else {
+                    Log.i("getUserMe err", result.toString())
+                }
             }
-            else {
-                this.user?.value = user
-            }
-        }
+
+
+        })
     }
 
 }

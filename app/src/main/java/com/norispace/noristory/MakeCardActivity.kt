@@ -200,7 +200,9 @@ class MakeCardActivity : AppCompatActivity() {
                 fos.close();
 
             }
+            plusBtn?.setOnClickListener {
 
+            }
         }
     }
 }

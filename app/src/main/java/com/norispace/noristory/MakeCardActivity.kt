@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.norispace.noristory.databinding.ActivityMakeCardBinding
+import kotlinx.android.synthetic.main.activity_make_card.*
 
 import java.io.File
 import java.io.FileOutputStream
@@ -25,6 +26,10 @@ class MakeCardActivity : AppCompatActivity() {
     fun initbtn() {
         binding.apply {
             eraserBtn?.setOnClickListener {
+                eraserBtn?.setImageResource(R.drawable.eraser_small)
+                pencilBtn?.setImageResource(R.drawable.pencil_blur)
+                penBtn?.setImageResource(R.drawable.pen_blur)
+                crayongBtn?.setImageResource(R.drawable.crayong_blur)
                 ptv.lines.clear()
                 ptv.linesState.clear()
                 ptv.tempSave.clear()
@@ -35,13 +40,17 @@ class MakeCardActivity : AppCompatActivity() {
                 if (mode == 1)       //이미 연필 모드였던 경우 비활성화
                 {
                     mode = 0
-                    pencilBtn?.setImageResource(R.drawable.pencil2)
+                    pencilBtn?.setImageResource(R.drawable.pencil_small)
+                    penBtn?.setImageResource(R.drawable.pen_small)
+                    crayongBtn?.setImageResource(R.drawable.crayong_small)
+                    eraserBtn?.setImageResource(R.drawable.eraser_small)
                 }
                 else {
                     mode = 1
-                    pencilBtn?.setImageResource(R.drawable.pencil1)
-                    penBtn?.setImageResource(R.drawable.pen2)
-                    crayongBtn?.setImageResource(R.drawable.crayong0)
+                    pencilBtn?.setImageResource(R.drawable.pencil_big)
+                    penBtn?.setImageResource(R.drawable.pen_blur)
+                    crayongBtn?.setImageResource(R.drawable.crayong_blur)
+                    eraserBtn?.setImageResource(R.drawable.eraser_blur)
                 }
                 ptv.mode = mode
             }
@@ -49,13 +58,17 @@ class MakeCardActivity : AppCompatActivity() {
                 if (mode == 2)       //이미 펜 모드였던 경우 비활성화
                 {
                     mode = 0
-                    penBtn?.setImageResource(R.drawable.pen2)
+                    pencilBtn?.setImageResource(R.drawable.pencil_small)
+                    penBtn?.setImageResource(R.drawable.pen_small)
+                    crayongBtn?.setImageResource(R.drawable.crayong_small)
+                    eraserBtn?.setImageResource(R.drawable.eraser_small)
                 }
                 else {
                     mode = 2
-                    pencilBtn?.setImageResource(R.drawable.pencil2)
-                    penBtn?.setImageResource(R.drawable.pen1)
-                    crayongBtn?.setImageResource(R.drawable.crayong0)
+                    pencilBtn?.setImageResource(R.drawable.pencil_blur)
+                    penBtn?.setImageResource(R.drawable.pen_big)
+                    crayongBtn?.setImageResource(R.drawable.crayong_blur)
+                    eraserBtn?.setImageResource(R.drawable.eraser_blur)
                 }
                 ptv.mode = mode
             }
@@ -94,20 +107,20 @@ class MakeCardActivity : AppCompatActivity() {
                 ptv.mode = mode
                 crayongBtn?.setImageResource(R.drawable.crayong3)
             }
-            Yellow?.setOnClickListener{
-                Buttonlayout?.visibility = View.VISIBLE
-                Colorlayout?.visibility = View.INVISIBLE
-                mode = 6
-                ptv.mode = mode
-                crayongBtn?.setImageResource(R.drawable.crayong4)
-            }
-            LightGreen?.setOnClickListener{
-                Buttonlayout?.visibility = View.VISIBLE
-                Colorlayout?.visibility = View.INVISIBLE
-                mode = 7
-                ptv.mode = mode
-                crayongBtn?.setImageResource(R.drawable.crayong5)
-            }
+//            Yellow?.setOnClickListener{
+//                Buttonlayout?.visibility = View.VISIBLE
+//                Colorlayout?.visibility = View.INVISIBLE
+//                mode = 6
+//                ptv.mode = mode
+//                crayongBtn?.setImageResource(R.drawable.crayong4)
+//            }
+//            LightGreen?.setOnClickListener{
+//                Buttonlayout?.visibility = View.VISIBLE
+//                Colorlayout?.visibility = View.INVISIBLE
+//                mode = 7
+//                ptv.mode = mode
+//                crayongBtn?.setImageResource(R.drawable.crayong5)
+//            }
             Green?.setOnClickListener{
                 Buttonlayout?.visibility = View.VISIBLE
                 Colorlayout?.visibility = View.INVISIBLE
@@ -170,7 +183,7 @@ class MakeCardActivity : AppCompatActivity() {
 
                 ptv.invalidate()
             }
-            saveBtn?.setOnClickListener {
+            card_saveBtn?.setOnClickListener {
 
                 var StoragePath = "/data/data/com.norispace.noristory/cache/Image/Card"
                 var Folder = File(StoragePath)

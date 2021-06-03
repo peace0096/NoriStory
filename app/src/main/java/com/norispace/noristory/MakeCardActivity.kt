@@ -40,10 +40,7 @@ class MakeCardActivity : AppCompatActivity() {
                 if (mode == 1)       //이미 연필 모드였던 경우 비활성화
                 {
                     mode = 0
-                    pencilBtn?.setImageResource(R.drawable.pencil_small)
-                    penBtn?.setImageResource(R.drawable.pen_small)
-                    crayongBtn?.setImageResource(R.drawable.crayong_small)
-                    eraserBtn?.setImageResource(R.drawable.eraser_small)
+                    pencilBtn?.setImageResource(R.drawable.pencil_blur)
                 }
                 else {
                     mode = 1
@@ -58,10 +55,7 @@ class MakeCardActivity : AppCompatActivity() {
                 if (mode == 2)       //이미 펜 모드였던 경우 비활성화
                 {
                     mode = 0
-                    pencilBtn?.setImageResource(R.drawable.pencil_small)
-                    penBtn?.setImageResource(R.drawable.pen_small)
-                    crayongBtn?.setImageResource(R.drawable.crayong_small)
-                    eraserBtn?.setImageResource(R.drawable.eraser_small)
+                    penBtn?.setImageResource(R.drawable.pen_blur)
                 }
                 else {
                     mode = 2
@@ -73,95 +67,173 @@ class MakeCardActivity : AppCompatActivity() {
                 ptv.mode = mode
             }
             crayongBtn?.setOnClickListener {
-                if (mode >= 3 && mode <= 13 )       //이미 크레용 모드였던 경우 비활성화
+                if (mode >= 3 && mode <= 11 )       //이미 크레용 모드였던 경우 비활성화
                 {
                     Buttonlayout?.visibility = View.INVISIBLE
                     Colorlayout?.visibility = View.VISIBLE
                 }
                 else
                 {
-                    pencilBtn?.setImageResource(R.drawable.pencil2)
-                    penBtn?.setImageResource(R.drawable.pen2)
+                    pencilBtn?.setImageResource(R.drawable.pencil_blur)
+                    penBtn?.setImageResource(R.drawable.pen_blur)
+                    crayongBtn?.setImageResource(R.drawable.crayong_blur)
                     Buttonlayout?.visibility = View.INVISIBLE
                     Colorlayout?.visibility = View.VISIBLE
                 }
             }
-            Red?.setOnClickListener{
+            crayon_cancle_btn.setOnClickListener{
                 Buttonlayout?.visibility = View.VISIBLE
                 Colorlayout?.visibility = View.INVISIBLE
+                if(mode == 1)
+                    pencilBtn?.setImageResource(R.drawable.pencil_big)
+                else if(mode == 2)
+                    penBtn?.setImageResource(R.drawable.pen_big)
+                else if(mode == 3)
+                    crayongBtn?.setImageResource(R.drawable.crayong_red_big)
+                else if(mode == 4)
+                    crayongBtn?.setImageResource(R.drawable.crayong_orange_big)
+                else if(mode == 5)
+                    crayongBtn?.setImageResource(R.drawable.crayong_lightorange_big)
+                else if(mode == 6)
+                    crayongBtn?.setImageResource(R.drawable.crayong_green_big)
+                else if(mode == 7)
+                    crayongBtn?.setImageResource(R.drawable.crayong_skyblue_big)
+                else if(mode == 8)
+                    crayongBtn?.setImageResource(R.drawable.crayong_blue_big)
+                else if(mode == 9)
+                    crayongBtn?.setImageResource(R.drawable.crayong_purple_big)
+                else if(mode == 10)
+                    crayongBtn?.setImageResource(R.drawable.crayong_magenta_big)
+                else if(mode == 11)
+                    crayongBtn?.setImageResource(R.drawable.crayong_white_big)
+
+
+                Red?.setImageResource(R.drawable.crayong_red_big)
+                Orange?.setImageResource(R.drawable.crayong_orange_big)
+                LightOrange?.setImageResource(R.drawable.crayong_lightorange_big)
+                Green?.setImageResource(R.drawable.crayong_green_big)
+                SkyBlue?.setImageResource(R.drawable.crayong_skyblue_big)
+                Blue?.setImageResource(R.drawable.crayong_blue_big)
+                Purple?.setImageResource(R.drawable.crayong_purple_big)
+                Magenta?.setImageResource(R.drawable.crayong_magenta_big)
+                White?.setImageResource(R.drawable.crayong_white_big)
+            }
+            Red?.setOnClickListener{
                 mode = 3
                 ptv.mode = mode
-                crayongBtn?.setImageResource(R.drawable.crayong1)
+                Red?.setImageResource(R.drawable.crayong_red_big)
+                Orange?.setImageResource(R.drawable.crayong_orange_blur)
+                LightOrange?.setImageResource(R.drawable.crayong_lightorange_blur)
+                Green?.setImageResource(R.drawable.crayong_green_blur)
+                SkyBlue?.setImageResource(R.drawable.crayong_skyblue_blur)
+                Blue?.setImageResource(R.drawable.crayong_blue_blur)
+                Purple?.setImageResource(R.drawable.crayong_purple_blur)
+                Magenta?.setImageResource(R.drawable.crayong_magenta_blur)
+                White?.setImageResource(R.drawable.crayong_white_blur)
             }
             Orange?.setOnClickListener{
-                Buttonlayout?.visibility = View.VISIBLE
-                Colorlayout?.visibility = View.INVISIBLE
                 mode = 4
                 ptv.mode = mode
-                crayongBtn?.setImageResource(R.drawable.crayong2)
+                Red?.setImageResource(R.drawable.crayong_red_blur)
+                Orange?.setImageResource(R.drawable.crayong_orange_big)
+                LightOrange?.setImageResource(R.drawable.crayong_lightorange_blur)
+                Green?.setImageResource(R.drawable.crayong_green_blur)
+                SkyBlue?.setImageResource(R.drawable.crayong_skyblue_blur)
+                Blue?.setImageResource(R.drawable.crayong_blue_blur)
+                Purple?.setImageResource(R.drawable.crayong_purple_blur)
+                Magenta?.setImageResource(R.drawable.crayong_magenta_blur)
+                White?.setImageResource(R.drawable.crayong_white_blur)
             }
             LightOrange?.setOnClickListener{
-                Buttonlayout?.visibility = View.VISIBLE
-                Colorlayout?.visibility = View.INVISIBLE
                 mode = 5
                 ptv.mode = mode
-                crayongBtn?.setImageResource(R.drawable.crayong3)
+                Red?.setImageResource(R.drawable.crayong_red_blur)
+                Orange?.setImageResource(R.drawable.crayong_orange_blur)
+                LightOrange?.setImageResource(R.drawable.crayong_lightorange_big)
+                Green?.setImageResource(R.drawable.crayong_green_blur)
+                SkyBlue?.setImageResource(R.drawable.crayong_skyblue_blur)
+                Blue?.setImageResource(R.drawable.crayong_blue_blur)
+                Purple?.setImageResource(R.drawable.crayong_purple_blur)
+                Magenta?.setImageResource(R.drawable.crayong_magenta_blur)
+                White?.setImageResource(R.drawable.crayong_white_blur)
             }
-//            Yellow?.setOnClickListener{
-//                Buttonlayout?.visibility = View.VISIBLE
-//                Colorlayout?.visibility = View.INVISIBLE
-//                mode = 6
-//                ptv.mode = mode
-//                crayongBtn?.setImageResource(R.drawable.crayong4)
-//            }
-//            LightGreen?.setOnClickListener{
-//                Buttonlayout?.visibility = View.VISIBLE
-//                Colorlayout?.visibility = View.INVISIBLE
-//                mode = 7
-//                ptv.mode = mode
-//                crayongBtn?.setImageResource(R.drawable.crayong5)
-//            }
             Green?.setOnClickListener{
-                Buttonlayout?.visibility = View.VISIBLE
-                Colorlayout?.visibility = View.INVISIBLE
-                mode = 8
+                mode = 6
                 ptv.mode = mode
-                crayongBtn?.setImageResource(R.drawable.crayong6)
+                Red?.setImageResource(R.drawable.crayong_red_blur)
+                Orange?.setImageResource(R.drawable.crayong_orange_blur)
+                LightOrange?.setImageResource(R.drawable.crayong_lightorange_blur)
+                Green?.setImageResource(R.drawable.crayong_green_big)
+                SkyBlue?.setImageResource(R.drawable.crayong_skyblue_blur)
+                Blue?.setImageResource(R.drawable.crayong_blue_blur)
+                Purple?.setImageResource(R.drawable.crayong_purple_blur)
+                Magenta?.setImageResource(R.drawable.crayong_magenta_blur)
+                White?.setImageResource(R.drawable.crayong_white_blur)
             }
             SkyBlue?.setOnClickListener{
-                Buttonlayout?.visibility = View.VISIBLE
-                Colorlayout?.visibility = View.INVISIBLE
-                mode = 9
+                mode = 7
                 ptv.mode = mode
-                crayongBtn?.setImageResource(R.drawable.crayong7)
+                Red?.setImageResource(R.drawable.crayong_red_blur)
+                Orange?.setImageResource(R.drawable.crayong_orange_blur)
+                LightOrange?.setImageResource(R.drawable.crayong_lightorange_blur)
+                Green?.setImageResource(R.drawable.crayong_green_blur)
+                SkyBlue?.setImageResource(R.drawable.crayong_skyblue_big)
+                Blue?.setImageResource(R.drawable.crayong_blue_blur)
+                Purple?.setImageResource(R.drawable.crayong_purple_blur)
+                Magenta?.setImageResource(R.drawable.crayong_magenta_blur)
+                White?.setImageResource(R.drawable.crayong_white_blur)
             }
             Blue?.setOnClickListener{
-                Buttonlayout?.visibility = View.VISIBLE
-                Colorlayout?.visibility = View.INVISIBLE
-                mode = 10
+                mode = 8
                 ptv.mode = mode
-                crayongBtn?.setImageResource(R.drawable.crayong8)
+                Red?.setImageResource(R.drawable.crayong_red_blur)
+                Orange?.setImageResource(R.drawable.crayong_orange_blur)
+                LightOrange?.setImageResource(R.drawable.crayong_lightorange_blur)
+                Green?.setImageResource(R.drawable.crayong_green_blur)
+                SkyBlue?.setImageResource(R.drawable.crayong_skyblue_blur)
+                Blue?.setImageResource(R.drawable.crayong_blue_big)
+                Purple?.setImageResource(R.drawable.crayong_purple_blur)
+                Magenta?.setImageResource(R.drawable.crayong_magenta_blur)
+                White?.setImageResource(R.drawable.crayong_white_blur)
             }
             Purple?.setOnClickListener{
-                Buttonlayout?.visibility = View.VISIBLE
-                Colorlayout?.visibility = View.INVISIBLE
-                mode = 11
+                mode = 9
                 ptv.mode = mode
-                crayongBtn?.setImageResource(R.drawable.crayong9)
+                Red?.setImageResource(R.drawable.crayong_red_blur)
+                Orange?.setImageResource(R.drawable.crayong_orange_blur)
+                LightOrange?.setImageResource(R.drawable.crayong_lightorange_blur)
+                Green?.setImageResource(R.drawable.crayong_green_blur)
+                SkyBlue?.setImageResource(R.drawable.crayong_skyblue_blur)
+                Blue?.setImageResource(R.drawable.crayong_blue_blur)
+                Purple?.setImageResource(R.drawable.crayong_purple_big)
+                Magenta?.setImageResource(R.drawable.crayong_magenta_blur)
+                White?.setImageResource(R.drawable.crayong_white_blur)
             }
             Magenta?.setOnClickListener{
-                Buttonlayout?.visibility = View.VISIBLE
-                Colorlayout?.visibility = View.INVISIBLE
-                mode = 12
+                mode = 10
                 ptv.mode = mode
-                crayongBtn?.setImageResource(R.drawable.crayong10)
+                Red?.setImageResource(R.drawable.crayong_red_blur)
+                Orange?.setImageResource(R.drawable.crayong_orange_blur)
+                LightOrange?.setImageResource(R.drawable.crayong_lightorange_blur)
+                Green?.setImageResource(R.drawable.crayong_green_blur)
+                SkyBlue?.setImageResource(R.drawable.crayong_skyblue_blur)
+                Blue?.setImageResource(R.drawable.crayong_blue_blur)
+                Purple?.setImageResource(R.drawable.crayong_purple_blur)
+                Magenta?.setImageResource(R.drawable.crayong_magenta_big)
+                White?.setImageResource(R.drawable.crayong_white_blur)
             }
             White?.setOnClickListener{
-                Buttonlayout?.visibility = View.VISIBLE
-                Colorlayout?.visibility = View.INVISIBLE
-                mode = 13
+                mode = 11
                 ptv.mode = mode
-                crayongBtn?.setImageResource(R.drawable.crayong11)
+                Red?.setImageResource(R.drawable.crayong_red_blur)
+                Orange?.setImageResource(R.drawable.crayong_orange_blur)
+                LightOrange?.setImageResource(R.drawable.crayong_lightorange_blur)
+                Green?.setImageResource(R.drawable.crayong_green_blur)
+                SkyBlue?.setImageResource(R.drawable.crayong_skyblue_blur)
+                Blue?.setImageResource(R.drawable.crayong_blue_blur)
+                Purple?.setImageResource(R.drawable.crayong_purple_blur)
+                Magenta?.setImageResource(R.drawable.crayong_magenta_blur)
+                White?.setImageResource(R.drawable.crayong_white_big)
             }
             BackBtn?.setOnClickListener{
                 if(ptv.lines.isNotEmpty())
@@ -200,7 +272,7 @@ class MakeCardActivity : AppCompatActivity() {
                 fos.close();
 
             }
-            plusBtn?.setOnClickListener {
+            imoticonBtn?.setOnClickListener {
 
             }
         }

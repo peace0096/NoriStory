@@ -109,34 +109,26 @@ class MyPainterView(context: Context):View(context) {
                 size = 10.0f
             }
             6 -> {
-                color = Color.YELLOW
-                size = 10.0f
-            }
-            7 -> {
-                color = Color.rgb(181,230,29)
-                size = 10.0f
-            }
-            8 -> {
                 color = Color.GREEN
                 size = 10.0f
             }
-            9 -> {
+            7 -> {
                 color = Color.rgb(0,162,232)
                 size = 10.0f
             }
-            10 -> {
+            8-> {
                 color = Color.BLUE
                 size = 10.0f
             }
-            11 -> {
+            9 -> {
                 color = Color.rgb(163,73,164)
                 size = 10.0f
             }
-            12 -> {
+            10 -> {
                 color = Color.MAGENTA
                 size = 10.0f
             }
-            13 -> {
+            11 -> {
                 color = Color.WHITE
                 size = 10.0f
             }

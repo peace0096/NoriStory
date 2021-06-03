@@ -48,6 +48,12 @@ class MyBooksActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
+        help_btn.setOnClickListener {
+            popupImg.visibility=View.VISIBLE
+            totalView.setOnClickListener {
+                popupImg.visibility=View.GONE
+            }
+        }
     }
 
     private fun initData(){

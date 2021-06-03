@@ -1,5 +1,6 @@
 package com.norispace.noristory
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +9,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
-import com.norispace.noristory.databinding.ActivityMainBinding
 import com.norispace.noristory.databinding.ActivitySubjectBinding
 import kotlinx.android.synthetic.main.activity_subject.*
 import kotlin.math.sqrt
@@ -16,6 +16,7 @@ import kotlin.math.sqrt
 class SubjectActivity : AppCompatActivity() {
     //private var images: ArrayList<ImageView> = ArrayList()
     //private var texts: ArrayList<TextView> = ArrayList()
+    val iconControl=IconControl("")
     private var imageCount = 0
     private var textCount = 0
     lateinit var binding: ActivitySubjectBinding
@@ -54,6 +55,10 @@ class SubjectActivity : AppCompatActivity() {
         val basicHeight = 400
         val basicWidth = 400
         binding.apply {
+            cardBtn?.setOnClickListener {
+                val i = Intent(this@SubjectActivity,MakeCardActivity::class.java)
+                startActivity(i)
+            }
             imageView?.setOnClickListener {
 
                 val imageView = ImageView(this@SubjectActivity)
@@ -74,13 +79,14 @@ class SubjectActivity : AppCompatActivity() {
 //                }
 
 
-                initDrag(imageCount+textCount-1,1)
+                initDrag(imageCount+textCount,1)
 //                for(i in 0 until relativeLayout.childCount){//텍스트를 그림보다 앞에 나오게
 //                    if(relativeLayout.getChildAt(i) is TextView) {
 //                        relativeLayout.getChildAt(i).bringToFront()
 //                        relativeLayout.invalidate()
 //                    }
 //                }
+
 
 //                var xDelta = 0
 //                var yDelta = 0
@@ -168,13 +174,14 @@ class SubjectActivity : AppCompatActivity() {
 //                    }
 //                }
 
-                initDrag(imageCount+textCount-1,1)
+                initDrag(imageCount+textCount,1)
 //                for(i in 0 until relativeLayout.childCount){//텍스트를 그림보다 앞에 나오게
 //                    if(relativeLayout.getChildAt(i) is TextView) {
 //                        relativeLayout.getChildAt(i).bringToFront()
 //                        relativeLayout.invalidate()
 //                    }
 //                }
+
 //                var xDelta = 0
 //                var yDelta = 0
 //                var locationX = 0
@@ -259,7 +266,8 @@ class SubjectActivity : AppCompatActivity() {
                 relativeLayout?.addView(textView)
 
                 editText?.setText("")
-                initDrag(imageCount+textCount-1,2)
+                initDrag(imageCount+textCount,2)
+
 
 //                var xDelta = 0
 //                var yDelta = 0
@@ -391,6 +399,13 @@ class SubjectActivity : AppCompatActivity() {
         }
     }
 
+//    private fun initDrag(count:Int,contentType: Int){
+//        lastTouchTag=iconControl.getTag()
+//        iconControl.initDrag(count,contentType,relativeLayout,sliceSize,lastTouchTag,xCoordiante,yCoordiante,contentData)
+//
+//        Toast.makeText(this,lastTouchTag,Toast.LENGTH_SHORT).show()
+//    }
+
 
     private fun initDrag(count:Int,contentType: Int){
         //val start=imageCount+textCount-1
@@ -401,55 +416,55 @@ class SubjectActivity : AppCompatActivity() {
         var locationY = 0
         binding.apply {
             //for(i in start until relativeLayout?.childCount!!){
-                relativeLayout?.getChildAt(childNum)?.setOnTouchListener(View.OnTouchListener { v, event ->
-                    for(i in 0 until relativeLayout.childCount){
-                        if(relativeLayout.getChildAt(i)?.tag == lastTouchTag){
-                            relativeLayout.getChildAt(i).background=null
-                            break
-                        }
+            relativeLayout?.getChildAt(childNum)?.setOnTouchListener(View.OnTouchListener { v, event ->
+                for(i in 0 until relativeLayout.childCount){
+                    if(relativeLayout.getChildAt(i)?.tag == lastTouchTag){
+                        relativeLayout.getChildAt(i).background=null
+                        break
                     }
-                    lastTouchTag = relativeLayout.getChildAt(childNum).tag.toString()
-                    relativeLayout.getChildAt(childNum).setBackgroundResource(R.drawable.img_border)
-                    val x = event.rawX.toInt()
-                    val y = event.rawY.toInt()
-                    when (event.getAction() and MotionEvent.ACTION_MASK) {
-                        MotionEvent.ACTION_DOWN -> {
-                            val lParams = v.layoutParams as RelativeLayout.LayoutParams
-                            xDelta = x - lParams.leftMargin
-                            yDelta = y - lParams.topMargin
-                        }
-                        MotionEvent.ACTION_MOVE -> {
-                            val layoutParams = v.layoutParams as RelativeLayout.LayoutParams
-                            //layoutParams.leftMargin = x - xDelta
-                            //layoutParams.topMargin = y - yDelta
-                            //layoutParams.rightMargin = 0
-                            //layoutParams.bottomMargin = 0
-                            var min = 10000.0f
-                            var tempX = 0.0f
-                            var tempY = 0.0f
-                            for (i in 0 until sliceSize) {
-                                for (j in 1 until sliceSize) {
-                                    val temp =
-                                        sqrt((yCoordiante[i] - y+yDelta) * (yCoordiante[i] - y+yDelta) + (xCoordiante[j] - x) * (xCoordiante[j] - x))
-                                    if (min > temp) {
-                                        min = temp
-                                        tempX = xCoordiante[j-1]
-                                        tempY = yCoordiante[i]
-                                        locationX = j
-                                        locationY = i
-                                    }
+                }
+                lastTouchTag = relativeLayout.getChildAt(childNum).tag.toString()
+                relativeLayout.getChildAt(childNum).setBackgroundResource(R.drawable.img_border)
+                val x = event.rawX.toInt()
+                val y = event.rawY.toInt()
+                when (event.getAction() and MotionEvent.ACTION_MASK) {
+                    MotionEvent.ACTION_DOWN -> {
+                        val lParams = v.layoutParams as RelativeLayout.LayoutParams
+                        xDelta = x - lParams.leftMargin
+                        yDelta = y - lParams.topMargin
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        val layoutParams = v.layoutParams as RelativeLayout.LayoutParams
+                        //layoutParams.leftMargin = x - xDelta
+                        //layoutParams.topMargin = y - yDelta
+                        //layoutParams.rightMargin = 0
+                        //layoutParams.bottomMargin = 0
+                        var min = 10000.0f
+                        var tempX = 0.0f
+                        var tempY = 0.0f
+                        for (i in 0 until sliceSize) {
+                            for (j in 1 until sliceSize) {
+                                val temp =
+                                    sqrt((yCoordiante[i] - y+yDelta) * (yCoordiante[i] - y+yDelta) + (xCoordiante[j] - x) * (xCoordiante[j] - x))
+                                if (min > temp) {
+                                    min = temp
+                                    tempX = xCoordiante[j-1]
+                                    tempY = yCoordiante[i]
+                                    locationX = j
+                                    locationY = i
                                 }
                             }
-
-                            relativeLayout.getChildAt(childNum).x=tempX
-                            relativeLayout.getChildAt(childNum).y=tempY
-                            v.layoutParams = layoutParams
                         }
+
+                        relativeLayout.getChildAt(childNum).x=tempX
+                        relativeLayout.getChildAt(childNum).y=tempY
+                        v.layoutParams = layoutParams
                     }
-                    relativeLayout.invalidate()
-                    addContentData(1,childNum,locationX,locationY,contentType,"tempname")
-                    true
-                })
+                }
+                relativeLayout.invalidate()
+                addContentData(1,childNum,locationX,locationY,contentType,"tempname")
+                true
+            })
             //}
 
         }

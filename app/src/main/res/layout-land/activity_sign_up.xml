@@ -5,16 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#BBF7FE"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:alpha="0.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/screen_landscape1" />
+        app:srcCompat="@drawable/login_screen" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
@@ -27,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView11"
+            android:id="@+id/logo_noristory_blur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,7 +37,7 @@
             app:layout_constraintStart_toEndOf="@+id/front_btn"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/logo_noristory" />
+            app:srcCompat="@drawable/logo_noristory_blur" />
 
         <ImageView
             android:id="@+id/back_btn"
@@ -43,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="300dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView11"
+            app:layout_constraintEnd_toStartOf="@+id/logo_noristory_blur"
             app:layout_constraintHorizontal_bias="0.45"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/back_btn" />
@@ -56,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.45"
-            app:layout_constraintStart_toEndOf="@+id/imageView11"
+            app:layout_constraintStart_toEndOf="@+id/logo_noristory_blur"
             app:srcCompat="@drawable/front_btn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -64,7 +66,7 @@
         android:id="@+id/showText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="로그인할 때 사용할 아이디를 입력해주세요!"
+        android:text="친구의 이름을 알려주세요!"
         android:textColor="#434343"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/imageView12"
@@ -105,13 +107,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/setAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7">
+        app:layout_constraintVertical_bias="0.7"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/imageView15"
@@ -129,7 +133,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.095">
+            app:layout_constraintVertical_bias="0.095"
+            >
 
             <TextView
                 android:id="@+id/textView9"
@@ -245,5 +250,25 @@
             app:srcCompat="@drawable/signup_girl" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.489"
+        app:srcCompat="@drawable/signup_character" />
+
+    <ImageView
+        android:id="@+id/loadingSecreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        app:srcCompat="@drawable/signup_screen_loading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

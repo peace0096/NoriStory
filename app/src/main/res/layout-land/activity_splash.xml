@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFDA8B">
+    android:background="#BBF7FE">
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/screen_start" />
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/start_screen" />
 </LinearLayout>

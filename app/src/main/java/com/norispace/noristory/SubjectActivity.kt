@@ -16,6 +16,7 @@ import kotlin.math.sqrt
 class SubjectActivity : AppCompatActivity() {
     //private var images: ArrayList<ImageView> = ArrayList()
     //private var texts: ArrayList<TextView> = ArrayList()
+    val iconControl=IconControl("")
     private var imageCount = 0
     private var textCount = 0
     lateinit var binding: ActivitySubjectBinding
@@ -85,6 +86,7 @@ class SubjectActivity : AppCompatActivity() {
 //                        relativeLayout.invalidate()
 //                    }
 //                }
+
 
 //                var xDelta = 0
 //                var yDelta = 0
@@ -179,6 +181,7 @@ class SubjectActivity : AppCompatActivity() {
 //                        relativeLayout.invalidate()
 //                    }
 //                }
+
 //                var xDelta = 0
 //                var yDelta = 0
 //                var locationX = 0
@@ -264,6 +267,7 @@ class SubjectActivity : AppCompatActivity() {
 
                 editText?.setText("")
                 initDrag(imageCount+textCount,2)
+
 
 //                var xDelta = 0
 //                var yDelta = 0
@@ -394,6 +398,13 @@ class SubjectActivity : AppCompatActivity() {
             }
         }
     }
+
+//    private fun initDrag(count:Int,contentType: Int){
+//        lastTouchTag=iconControl.getTag()
+//        iconControl.initDrag(count,contentType,relativeLayout,sliceSize,lastTouchTag,xCoordiante,yCoordiante,contentData)
+//
+//        Toast.makeText(this,lastTouchTag,Toast.LENGTH_SHORT).show()
+//    }
 
 
     private fun initDrag(count:Int,contentType: Int){

@@ -12,6 +12,7 @@ import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
+import com.norispace.noristory.Repository.User_Repo
 import java.io.File
 import java.net.URL
 import java.util.*
@@ -27,28 +28,6 @@ class S3Helper(val context:Context) {
 
     init {
 
-    }
-
-
-    fun getImage(fileName:String): URL? {
-
-        val credentialsProvider = CognitoCachingCredentialsProvider(
-            context,
-            POOLID, // 자격 증명 풀 ID
-            REGION // 리전
-        );
-        TransferNetworkLossHandler.getInstance(context)
-
-
-        val expires = Date (Date().time + 1000 * 120);
-        val generatePresignedUrlRequest = GeneratePresignedUrlRequest(BUCKET_NAME, fileName)
-        generatePresignedUrlRequest.expiration = expires
-        val s3client = AmazonS3Client(credentialsProvider, Region.getRegion(REGION))
-        val url = s3client.generatePresignedUrl(generatePresignedUrlRequest)
-
-
-
-        return url
     }
 
     fun uploadImage(data: ArrayList<String>) {
@@ -67,7 +46,7 @@ class S3Helper(val context:Context) {
             .build()
 
         for(i in 0 until data.size) {
-            val uploadObserver = transferUtility.upload(data[i], File(context.cacheDir.toString() + "/" + data[i]))
+            val uploadObserver = transferUtility.upload(data[i], File(context.cacheDir.toString() + "/" + User_Repo.getToken() +" /" + data[i]))
             Log.i("upload data", data[i].toString())
             val progressDialog = ProgressDialog(context)
             progressDialog.setMessage("다운로드 중...")
@@ -129,7 +108,7 @@ class S3Helper(val context:Context) {
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal)
             progressDialog.show()
 
-            val downloadObserver = transferUtility.download(data[i], File(context.cacheDir.toString() + "/" + data[i]))
+            val downloadObserver = transferUtility.download(data[i], File(context.cacheDir.toString() + "/" + User_Repo.getToken() +" /" + data[i]))
 
             //TODO 다운받는 과정을 다이얼로그 + 프로그래스바로 표현
 

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.norispace.noristory.MainActivity
 import com.norispace.noristory.SelectUserActivity
+import com.norispace.noristory.SignUpActivity
 import com.norispace.noristory.User.UserViewModel
 import com.norispace.noristory.databinding.ActivityLoginBinding
 import kotlinx.android.synthetic.main.activity_login.*
@@ -42,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
         binding.apply {
 
             loginNoris?.setOnClickListener {
-                val i= Intent(baseContext, SelectUserActivity::class.java)
+                val i= Intent(baseContext, SignUpActivity::class.java)
                 startActivity(i)
             }
         }

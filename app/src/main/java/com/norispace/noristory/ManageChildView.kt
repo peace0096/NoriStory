@@ -91,16 +91,27 @@ class ManageChildView {
             sizeX=(relativeLayout.getChildAt(childNum) as TextView).textSize.toInt()
             sizeY=0
         }
-        contentData.add(
-            SubjectStoryData(
-                page,
-                sizeX,
-                sizeY,
-                locationX,
-                locationY,
-                contentType,
-                content
+        if(contentData[childNum]==null){
+            contentData.add(
+                SubjectStoryData(
+                    page,
+                    sizeX,
+                    sizeY,
+                    locationX,
+                    locationY,
+                    contentType,
+                    content
+                )
             )
-        )
+        }else{
+            contentData[childNum].page=page
+            contentData[childNum].sizeX=sizeX
+            contentData[childNum].sizeY=sizeY
+            contentData[childNum].locationX=locationX
+            contentData[childNum].locationY=locationY
+            contentData[childNum].contentType=contentType
+            contentData[childNum].content=content
+        }
+
     }
 }

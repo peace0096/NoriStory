@@ -26,7 +26,7 @@ class StoryMenuActivity : AppCompatActivity() {
             }
 
             subject_btn.setOnClickListener {
-                val intent = Intent(this@StoryMenuActivity, SubjectActivity::class.java)
+                val intent = Intent(this@StoryMenuActivity, SelectSubjectActivity::class.java)
                 startActivity(intent)
             }
 

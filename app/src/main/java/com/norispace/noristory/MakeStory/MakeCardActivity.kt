@@ -12,6 +12,7 @@ import com.norispace.noristory.MyPainterView
 import com.norispace.noristory.R
 import com.norispace.noristory.databinding.ActivityMakeCardBinding
 import kotlinx.android.synthetic.main.activity_make_card.*
+import java.io.File
 
 import kotlin.math.sqrt
 
@@ -327,6 +328,20 @@ class MakeCardActivity : AppCompatActivity() {
             cardSave?.visibility= View.VISIBLE
             if(flag==1){
                 ///////////////////////////////////////주제 사진 저장하기
+//                var StoragePath = "/data/data/com.norispace.noristory/cache/Image/Card"
+//                var Folder = File(StoragePath)
+//                if(!Folder.exists())        //폴더 없으면 생성
+//                    Folder.mkdirs()
+//
+//                val fileName = "card" + ".jpg";
+//
+//                PainterView?.buildDrawingCache()
+//                val bitmap: Bitmap? = PainterView?.getDrawingCache()
+//                val file = File(StoragePath, fileName)
+//                val fos = FileOutputStream(file);
+//                bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fos); //썸네일로 사용하므로 퀄리티를 낮게설정
+//                fos.close();
+
                 cardSave?.setImageResource(R.drawable.card_subject_saved)
             }else{
                 ///////////////////////////////////////캐릭터 사진 저장하기

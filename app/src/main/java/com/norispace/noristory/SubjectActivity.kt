@@ -2,14 +2,12 @@ package com.norispace.noristory
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewTreeObserver
 import android.widget.*
+import com.norispace.noristory.Model.SubjectStoryData
 import com.norispace.noristory.databinding.ActivitySubjectBinding
 import kotlinx.android.synthetic.main.activity_subject.*
 import kotlin.math.sqrt

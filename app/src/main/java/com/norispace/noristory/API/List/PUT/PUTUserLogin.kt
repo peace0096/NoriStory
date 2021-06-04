@@ -1,6 +1,5 @@
-package com.norispace.noristory.API.List
+package com.norispace.noristory.API.List.PUT
 
-import android.util.Log
 import com.norispace.noristory.API.RetrofitClient
 import com.norispace.noristory.Model.User_Model
 import org.json.JSONException

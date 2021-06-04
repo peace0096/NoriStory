@@ -1,6 +1,5 @@
 package com.norispace.noristory.DB
 
-import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -10,12 +9,10 @@ import android.graphics.drawable.BitmapDrawable
 import android.util.Log
 import com.norispace.noristory.Books.BookData
 import com.norispace.noristory.Model.OptionalStory_Model
-import com.norispace.noristory.R
 import com.norispace.noristory.Repository.User_Repo
-import com.norispace.noristory.SubjectStoryData
+import com.norispace.noristory.Model.SubjectStoryData
 import com.norispace.service.S3Helper
 import java.io.File
-import java.io.FileOutputStream
 
 class DBHelper(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
     companion object {
@@ -177,12 +174,11 @@ class DBHelper(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
 
 
 
-    fun insertContent(title:String, data:SubjectStoryData) {
+    fun insertContent(title:String, data: SubjectStoryData) {
         //콘텐츠 넣기. 만약 콘텐츠 내용물이 변했다면, delete를 하고 insert하는 것이 빠를 것임.
         val values = ContentValues()
         values.put("token", User_Repo.getToken())
         values.put("title", title)
-        values.put("name", data.name)
         values.put("page", data.page)
         values.put("sizeX", data.sizeX)
         values.put("sizeY", data.sizeY)
@@ -196,15 +192,15 @@ class DBHelper(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
         db.close()
     }
 
-    fun deleteContent(title:String, data:SubjectStoryData) : Boolean {
+    fun deleteContent(title:String, data: SubjectStoryData) : Boolean {
         //DB안에서만 삭제되므로, 그림판 내에 있는 내용은 따로 삭제해야함.
-        val strsql = "select * from SubjectStoryContent where token = '${User_Repo.getToken()}' and title = '$title' and page = ${data.page} and name = '${data.name}';"
+        val strsql = "select * from SubjectStoryContent where token = '${User_Repo.getToken()}' and title = '$title' and page = ${data.page} and locationX = ${data.locationX} and locationY = ${data.locationY};"
         val db = writableDatabase
         val cursor = db.rawQuery(strsql, null)
         val flag = cursor.count != 0
         if(flag) {
             cursor.moveToFirst()
-            db.delete("SubjectStoryContent", "token = '${User_Repo.getToken()}' and title='$title' and page = ${data.page} and name = $'{data.name}'", null)
+            db.delete("SubjectStoryContent", "token = '${User_Repo.getToken()}' and title='$title' and page = ${data.page} and locationX = ${data.locationX} and locationY = ${data.locationY}", null)
 
         }
         cursor.close()
@@ -230,7 +226,17 @@ class DBHelper(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
                 val locationY = cursor.getInt(cursor.getColumnIndex("locationY"))
                 val contentType = cursor.getInt(cursor.getColumnIndex("contentType"))
                 val content = cursor.getString(cursor.getColumnIndex("content"))
-                list.add(SubjectStoryData(name, page, sizeX, sizeY, locationX, locationY, contentType, content))
+                list.add(
+                    SubjectStoryData(
+                        page,
+                        sizeX,
+                        sizeY,
+                        locationX,
+                        locationY,
+                        contentType,
+                        content
+                    )
+                )
 
             } while(cursor.moveToNext())
         }

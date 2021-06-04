@@ -2,19 +2,33 @@ package com.norispace.noristory
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import com.norispace.noristory.databinding.ActivityMakeCardBinding
 import kotlinx.android.synthetic.main.activity_make_card.*
 
 import java.io.File
 import java.io.FileOutputStream
+import kotlin.math.sqrt
 
 class MakeCardActivity : AppCompatActivity() {
     val binding by lazy {ActivityMakeCardBinding.inflate(layoutInflater)}
     var mode = -1
     lateinit var ptv:MyPainterView
 
+    /////////////////////
+    private val sliceSize = 5
+    private var xCoordinate = Array(sliceSize, { 0.0f })
+    private var yCoordinate = Array(sliceSize, { 0.0f })
+    private var manageChildView= ManageChildView()
+    private var lastTouchTag = ""
+    ////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -22,7 +36,19 @@ class MakeCardActivity : AppCompatActivity() {
         binding.PainterView?.addView(ptv)
         initbtn()
     }
-
+    ////////////////////////////
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        binding.apply {
+            for (i in 1 until sliceSize) {
+                for (j in 1..i) {
+                    yCoordinate[i] = yCoordinate[i] + (PainterView?.height?.div(sliceSize) ?: 0)
+                    xCoordinate[i] = xCoordinate[i] + (PainterView?.width?.div(sliceSize) ?: 0)
+                }
+            }
+        }
+    }
+    ////////////////////////////
     fun initbtn() {
         binding.apply {
             eraserBtn?.setOnClickListener {
@@ -264,17 +290,98 @@ class MakeCardActivity : AppCompatActivity() {
 
                 val fileName = "card" + ".jpg";
 
-                ptv.buildDrawingCache()
-                val bitmap: Bitmap = ptv.getDrawingCache()
+                PainterView?.buildDrawingCache()
+                val bitmap: Bitmap? = PainterView?.getDrawingCache()
                 val file = File(StoragePath, fileName)
                 val fos = FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos); //썸네일로 사용하므로 퀄리티를 낮게설정
+                bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fos); //썸네일로 사용하므로 퀄리티를 낮게설정
                 fos.close();
 
             }
-            imoticonBtn?.setOnClickListener {
 
+            imoticonBtn?.setOnClickListener {
+                val layout=LinearLayout(this@MakeCardActivity)
+                layout.layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
+                layout.orientation=LinearLayout.HORIZONTAL
+                layout.tag="layout" + manageChildView.imageCount.toString()
+                val imageView = ImageView(this@MakeCardActivity)
+                imageView.layoutParams = LinearLayout.LayoutParams(200, 200)
+                imageView.tag = "image" + manageChildView.imageCount.toString()
+                imageView.setImageResource(R.drawable.ic_android_black_24dp)
+                val cancleView = ImageView(this@MakeCardActivity)
+                cancleView.layoutParams = LinearLayout.LayoutParams(120, 120)
+                cancleView.setImageResource(R.drawable.cancle_btn_small)
+                layout.addView(imageView)
+                layout.addView(cancleView)
+                manageChildView.imageCount++
+                PainterView?.addView(layout)
+                initDrag(manageChildView.imageCount+manageChildView.textCount,1)
             }
+        }
+    }
+    private fun initDrag(count:Int,contentType: Int){
+        var childNum=count
+        var xDelta = 0
+        var yDelta = 0
+        var locationX = 0
+        var locationY = 0
+        binding.apply {
+            val layout=PainterView?.getChildAt(childNum) as LinearLayout  // PainterView 안에 LinearLayout 위치함
+            PainterView.getChildAt(childNum)?.setOnTouchListener(View.OnTouchListener { v, event ->
+                for(i in 0 until PainterView.childCount){
+                    if(PainterView.getChildAt(i)?.tag == lastTouchTag){
+                        //PainterView.getChildAt(i).background=null
+                        val latestChild = PainterView?.getChildAt(i) as LinearLayout
+                        latestChild.getChildAt(1).visibility=View.GONE
+                        latestChild.getChildAt(0).background=null // 1 번이 삭제버튼 0번이 이미지 or 텍스트 source
+                        break
+                    }
+                }
+                lastTouchTag = PainterView.getChildAt(childNum).tag.toString()
+                layout.getChildAt(1).visibility=View.VISIBLE
+                layout.getChildAt(0).setBackgroundResource(R.drawable.img_border)
+                //PainterView.getChildAt(childNum).setBackgroundResource(R.drawable.img_border)
+                val x = event.rawX.toInt()
+                val y = event.rawY.toInt()
+                when (event.getAction() and MotionEvent.ACTION_MASK) {
+                    MotionEvent.ACTION_DOWN -> {
+                        //val lParams = v.layoutParams as RelativeLayout.LayoutParams
+                        val lParams = v.layoutParams as FrameLayout.LayoutParams
+                        xDelta = x - lParams.leftMargin
+                        yDelta = y - lParams.topMargin
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        //val layoutParams = v.layoutParams as RelativeLayout.LayoutParams
+                        val layoutParams = v.layoutParams as FrameLayout.LayoutParams
+                        var min = 1000.0f
+//                        var tempX = 0.0f
+//                        var tempY = 0.0f
+                        for (i in 0 until sliceSize) {
+                            for (j in 0 until sliceSize) {
+                                val temp =
+                                    sqrt((yCoordinate[i] - y+yDelta) * (yCoordinate[i] - y+yDelta) + (xCoordinate[j] - x+xDelta) * (xCoordinate[j] - x+xDelta))
+                                if (min > temp) {
+                                    min = temp
+//                                    tempX = xCoordinate[j]
+//                                    tempY = yCoordinate[i]
+                                    PainterView.getChildAt(childNum).x=xCoordinate[j]
+                                    PainterView.getChildAt(childNum).y=yCoordinate[i]
+                                    locationX = j
+                                    locationY = i
+                                }
+                            }
+                        }
+
+//                        PainterView.getChildAt(childNum).x=tempX
+//                        PainterView.getChildAt(childNum).y=tempY
+                        v.layoutParams = layoutParams
+
+                    }
+                }
+                PainterView.invalidate()
+                manageChildView.updateContentData(1,childNum,locationX,locationY,contentType,"tempname",PainterView)
+                true
+            })
         }
     }
 }

@@ -15,17 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-<!--        <activity android:name=".TempActivity"></activity>-->
-
+        <activity android:name=".MakeStoryActivity"></activity>
+        <activity android:name=".SelectCharacterActivity" /> <!-- <activity android:name=".TempActivity"></activity> -->
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
 
         <activity
             android:name=".SelectUserActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".LoginActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".ShowBookActivity"
@@ -61,19 +58,16 @@
             android:name=".StoryMenuActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".OptionalActivity"
+            android:name=".Login.LoginActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".SubjectActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".BooksActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".MyBooksActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".SunMoonActivity"
+            android:name=".OptionalStory.SunMoonActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".MakeCardActivity"

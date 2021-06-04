@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/screen_login">
+    android:background="#BBF7FE">
 
-    <com.google.android.material.textfield.TextInputLayout
+
+    <ImageView
+        android:id="@+id/login_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/login_screen" />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nameEditText"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/login_screen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.501">
+
+        <ImageView
+            android:id="@+id/logo_noristory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="이름"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_gravity="center"
+            android:padding="30dp"
+            app:srcCompat="@drawable/logo_noristory" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/genderEditText"
+        <ImageView
+            android:id="@+id/login_kakao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="성별(남/여)"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_gravity="center"
+            android:padding="10dp"
+            app:srcCompat="@drawable/login_kakao" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/birthdayEditText"
+        <ImageView
+            android:id="@+id/login_noris"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="생년월일 ex:2000-02-26"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_gravity="center"
+            android:padding="10dp"
+            app:srcCompat="@drawable/login_noris" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/screen_subject_make_char" />
+        app:srcCompat="@drawable/make_story_screen" />
 
     <ImageView
         android:id="@+id/helpBtn"
@@ -67,34 +67,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="36dp"
-            app:srcCompat="@drawable/save_btn"/>
+            app:srcCompat="@drawable/save_btn"
+            android:layout_marginEnd="36dp"/>
 
     </LinearLayout>
 
 
     <ImageView
-        android:id="@+id/card_character"
+        android:id="@+id/imageView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.58"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.509"
-        app:srcCompat="@drawable/card_character" />
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/make_story_field" />
 
     <FrameLayout
         android:id="@+id/PainterView"
-        android:layout_width="398dp"
-        android:layout_height="589dp"
+        android:layout_width="916dp"
+        android:layout_height="532dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.556"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.502">
+        app:layout_constraintVertical_bias="0.65">
 
     </FrameLayout>
 
@@ -130,7 +130,7 @@
         android:id="@+id/Buttonlayout"
         android:layout_width="272dp"
         android:layout_height="373dp"
-        android:layout_marginEnd="1008dp"
+        android:layout_marginEnd="1048dp"
         android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -300,6 +300,20 @@
         app:layout_constraintVertical_bias="0.923"
         app:srcCompat="@drawable/add_icon_btn" />
 
+    <TextView
+        android:id="@+id/sentence"
+        android:layout_width="727dp"
+        android:layout_height="59dp"
+        android:background="@drawable/textview_round2"
+        android:hint="문장을 입력해주세요!"
+        android:padding="10dp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.94" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

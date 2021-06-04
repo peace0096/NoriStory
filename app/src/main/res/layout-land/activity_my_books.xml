@@ -20,21 +20,23 @@
         app:srcCompat="@drawable/screen_my_books"
         tools:layout_editor_absoluteY="104dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="1069dp"
-        android:layout_height="625dp"
-        android:layout_marginBottom="36dp"
+    <fragment
+        android:id="@+id/selectMyBookFragment"
+        class="com.norispace.noristory.ListFragment.BookItemFragment"
+        android:layout_width="1023dp"
+        android:layout_height="514dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+    </fragment>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

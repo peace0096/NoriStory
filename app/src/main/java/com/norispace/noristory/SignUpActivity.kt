@@ -66,7 +66,7 @@ class SignUpActivity : AppCompatActivity() {
 
         binding.apply {
             val ageButton= arrayOf(age3,age4,age5,age6,age7,age8,age9,age10)
-            for(i in 0 .. ageButton.size){
+            for(i in 0 .. ageButton.size-1){
                 ageButton[i]?.setOnClickListener {
                     age=i+3
                 }

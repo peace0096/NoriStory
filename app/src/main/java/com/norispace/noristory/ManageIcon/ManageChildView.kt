@@ -1,7 +1,6 @@
-package com.norispace.noristory
+package com.norispace.noristory.ManageIcon
 
 import android.widget.*
-import kotlinx.android.synthetic.main.activity_subject.*
 
 class ManageChildView {
     var contentData= ArrayList<SubjectStoryData>()
@@ -94,6 +93,7 @@ class ManageChildView {
         if(contentData[childNum]==null){
             contentData.add(
                 SubjectStoryData(
+                    "name",
                     page,
                     sizeX,
                     sizeY,

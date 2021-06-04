@@ -1,10 +1,12 @@
-package com.norispace.noristory
+package com.norispace.noristory.MakeStory
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.norispace.noristory.MainActivity
 import com.norispace.noristory.R
+import com.norispace.noristory.StoryMenuActivity
 import com.norispace.noristory.databinding.ActivitySelectSubjectBinding
 import kotlinx.android.synthetic.main.activity_select_subject.*
 
@@ -81,17 +83,20 @@ class SelectSubjectActivity : AppCompatActivity() {
             }
             subject_select_complete?.setOnClickListener {
                 if(flag==1){
-                    val intent= Intent(this@SelectSubjectActivity,MakeCardActivity::class.java)
+                    val intent= Intent(this@SelectSubjectActivity,
+                        SelectCharacterActivity::class.java)
                     startActivity(intent)
                 }
             }
             homeBtn?.setOnClickListener {
-                val intent= Intent(this@SelectSubjectActivity,MainActivity::class.java)
+                val intent= Intent(this@SelectSubjectActivity,
+                    MainActivity::class.java)
                 intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
             }
             backBtn?.setOnClickListener {
-                val intent= Intent(this@SelectSubjectActivity,StoryMenuActivity::class.java)
+                val intent= Intent(this@SelectSubjectActivity,
+                    StoryMenuActivity::class.java)
                 intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
             }

@@ -1,34 +1,31 @@
-package com.norispace.noristory
+package com.norispace.noristory.MakeStory
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
+import com.norispace.noristory.ManageIcon.ManageChildView
+import com.norispace.noristory.MyPainterView
+import com.norispace.noristory.R
 import com.norispace.noristory.databinding.ActivityMakeCardBinding
 import kotlinx.android.synthetic.main.activity_make_card.*
 
-import java.io.File
-import java.io.FileOutputStream
 import kotlin.math.sqrt
 
 class MakeCardActivity : AppCompatActivity() {
     val binding by lazy {ActivityMakeCardBinding.inflate(layoutInflater)}
     var mode = -1
-    lateinit var ptv:MyPainterView
+    lateinit var ptv: MyPainterView
 
-    /////////////////////
     private val sliceSize = 5
     private var xCoordinate = Array(sliceSize, { 0.0f })
     private var yCoordinate = Array(sliceSize, { 0.0f })
-    private var manageChildView= ManageChildView()
+    private var manageChildView=
+        ManageChildView()
     private var lastTouchTag = ""
-    ////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -36,7 +33,7 @@ class MakeCardActivity : AppCompatActivity() {
         binding.PainterView?.addView(ptv)
         initbtn()
     }
-    ////////////////////////////
+
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         binding.apply {
@@ -48,7 +45,7 @@ class MakeCardActivity : AppCompatActivity() {
             }
         }
     }
-    ////////////////////////////
+
     fun initbtn() {
         binding.apply {
             eraserBtn?.setOnClickListener {
@@ -282,21 +279,7 @@ class MakeCardActivity : AppCompatActivity() {
                 ptv.invalidate()
             }
             card_saveBtn?.setOnClickListener {
-
-                var StoragePath = "/data/data/com.norispace.noristory/cache/Image/Card"
-                var Folder = File(StoragePath)
-                if(!Folder.exists())        //폴더 없으면 생성
-                    Folder.mkdirs()
-
-                val fileName = "card" + ".jpg";
-
-                PainterView?.buildDrawingCache()
-                val bitmap: Bitmap? = PainterView?.getDrawingCache()
-                val file = File(StoragePath, fileName)
-                val fos = FileOutputStream(file);
-                bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fos); //썸네일로 사용하므로 퀄리티를 낮게설정
-                fos.close();
-
+                drawComplete()
             }
 
             imoticonBtn?.setOnClickListener {
@@ -319,6 +302,44 @@ class MakeCardActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun drawComplete(){
+        binding.apply {
+            var flag=1
+            screenBlur?.visibility=View.VISIBLE
+            chooseCardKind?.visibility=View.VISIBLE
+            subjectCard?.setOnClickListener {
+                flag=1
+                saveCard(flag)
+            }
+            characterCard?.setOnClickListener {
+                flag=2
+                saveCard(flag)
+            }
+
+        }
+    }
+
+    private fun saveCard(flag:Int){
+        binding.apply {
+            chooseCardKind?.visibility=View.GONE
+            saveComplete?.visibility=View.VISIBLE
+            cardSave?.visibility= View.VISIBLE
+            if(flag==1){
+                ///////////////////////////////////////주제 사진 저장하기
+                cardSave?.setImageResource(R.drawable.card_subject_saved)
+            }else{
+                ///////////////////////////////////////캐릭터 사진 저장하기
+                cardSave?.setImageResource(R.drawable.card_char_saved)
+            }
+            //setImage?.setImageResource()        저장된 사진 보여주기
+            screenBlur?.setOnClickListener {
+                screenBlur?.visibility=View.GONE
+                saveComplete?.visibility= View.GONE
+            }
+        }
+    }
+
     private fun initDrag(count:Int,contentType: Int){
         var childNum=count
         var xDelta = 0

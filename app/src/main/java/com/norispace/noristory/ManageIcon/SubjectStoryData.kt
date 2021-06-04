@@ -1,4 +1,4 @@
-package com.norispace.noristory
+package com.norispace.noristory.ManageIcon
 
 data class SubjectStoryData(
     val name:String, //content이름

@@ -1,4 +1,4 @@
-package com.norispace.noristory
+package com.norispace.noristory.Books
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,14 +6,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.norispace.noristory.R
 
 class BooksAdapater(val items:ArrayList<BookData>) : RecyclerView.Adapter<BooksAdapater.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun OnItemClick(holder:ViewHolder, view:View, list: BookData, position: Int)
+        fun OnItemClick(holder: ViewHolder, view:View, list: BookData, position: Int)
     }
 
-    var itemClickListener:OnItemClickListener? = null
+    var itemClickListener: OnItemClickListener? = null
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView = itemView.findViewById<ImageView>(R.id.imageView2)

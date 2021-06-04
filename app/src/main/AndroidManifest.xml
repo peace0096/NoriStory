@@ -31,9 +31,6 @@
             android:name=".SelectUserActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".ShowBookActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -67,19 +64,16 @@
             android:name=".StoryMenuActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".OptionalActivity"
+            android:name=".Login.LoginActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".SubjectActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".BooksActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".MyBooksActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".SunMoonActivity"
+            android:name=".OptionalStory.SunMoonActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".MakeCardActivity"

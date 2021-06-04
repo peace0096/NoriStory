@@ -53,18 +53,5 @@
             android:padding="10dp"
             app:srcCompat="@drawable/login_noris" />
     </LinearLayout>
-    <![CDATA[
 
-
-
-
-
-
-
-    />
-
-
-
-
-]]>
 </androidx.constraintlayout.widget.ConstraintLayout>

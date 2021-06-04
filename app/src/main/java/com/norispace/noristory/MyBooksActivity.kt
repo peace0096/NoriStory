@@ -7,6 +7,8 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.norispace.noristory.Books.BookData
+import com.norispace.noristory.Books.BooksAdapater
 import kotlinx.android.synthetic.main.activity_my_books.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -25,7 +27,7 @@ class MyBooksActivity : AppCompatActivity() {
     private fun initRecyclerView(){
         recyclerView=findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager= GridLayoutManager(this, 3)
-        adapter=BooksAdapater(data)
+        adapter= BooksAdapater(data)
         adapter.itemClickListener=object : BooksAdapater.OnItemClickListener{
             override fun OnItemClick(
                 holder: BooksAdapater.ViewHolder,
@@ -62,7 +64,13 @@ class MyBooksActivity : AppCompatActivity() {
             val id = resources.getIdentifier(imgName, "drawable", packageName)
             val cover= ContextCompat.getDrawable(this, id)
 
-            data.add(BookData(title,cover!!, "sunmoon"))
+            data.add(
+                BookData(
+                    title,
+                    cover!!,
+                    "sunmoon"
+                )
+            )
         }
         scan.close()
     }

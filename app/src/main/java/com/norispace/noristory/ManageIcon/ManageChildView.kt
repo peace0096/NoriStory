@@ -110,7 +110,6 @@ class ManageChildView {
         if(contentData.size<childNum){ //이모티콘이 추가된 경우
             contentData.add(
                 SubjectStoryData(
-                    "name",
                     page,
                     sizeX,
                     sizeY,

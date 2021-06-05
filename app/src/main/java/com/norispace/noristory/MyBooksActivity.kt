@@ -26,23 +26,23 @@ class MyBooksActivity : AppCompatActivity() {
         initRecyclerView()
     }
     private fun initRecyclerView(){
-//        recyclerView=findViewById<RecyclerView>(R.id.recyclerView)
-//        recyclerView.layoutManager= GridLayoutManager(this, 3)
-//        adapter= BooksAdapater(data)
-//        adapter.itemClickListener=object : BooksAdapater.OnItemClickListener{
-//            override fun OnItemClick(
-//                holder: BooksAdapater.ViewHolder,
-//                view: View,
-//                list: BookData,
-//                position: Int
-//            ) {
-//                if(position==0){
-//                    val intent= Intent(this@MyBooksActivity, BookMenuActivity::class.java)
-//                    startActivity(intent)
-//                }
-//            }
-//        }
-//        recyclerView.adapter=adapter
+        recyclerView=findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager= GridLayoutManager(this, 3)
+        adapter= BooksAdapater(data)
+        adapter.itemClickListener=object : BooksAdapater.OnItemClickListener{
+            override fun OnItemClick(
+                holder: BooksAdapater.ViewHolder,
+                view: View,
+                list: BookData,
+                position: Int
+            ) {
+                if(position==0){
+                    val intent= Intent(this@MyBooksActivity, BookMenuActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
+        recyclerView.adapter=adapter
 
         home_btn.setOnClickListener{
             val intent = Intent(this@MyBooksActivity, MainActivity::class.java)

@@ -1,7 +1,6 @@
-package com.norispace.noristory.API.List
+package com.norispace.noristory.API.List.GET
 
 import com.norispace.noristory.API.RetrofitClient
-import com.norispace.noristory.Model.User_Model
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call

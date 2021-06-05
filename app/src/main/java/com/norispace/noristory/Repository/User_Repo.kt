@@ -1,7 +1,7 @@
 package com.norispace.noristory.Repository
 
-import com.norispace.noristory.API.List.GETUserMe
-import com.norispace.noristory.API.List.PUTUserLogin
+import com.norispace.noristory.API.List.GET.GETUserMe
+import com.norispace.noristory.API.List.PUT.PUTUserLogin
 import com.norispace.noristory.API.RetrofitClient
 import com.norispace.noristory.Model.User_Model
 

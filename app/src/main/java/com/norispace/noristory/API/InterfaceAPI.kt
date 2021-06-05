@@ -14,8 +14,135 @@ interface InterfaceAPI {
     ): Call<String?>
 
     @Headers("Content-Type: application/json")
-    @PUT("User/login")
+    @POST("User/login")
     fun login(
         @Body body: User_Model
     ): Call<String?>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("User/card/")
+    fun insertCard(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @GET("User/card/")
+    fun getAllCard(
+        @Header("Authorization") token : String
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("User/card/")
+    fun deleteCard(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("User/subjectStoryContent/")
+    fun insertContent(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @GET("User/subjectStoryContent/")
+    fun getAllContent(
+        @Header("Authorization") token : String,
+        @Body body:String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("User/subjectStoryContent/")
+    fun deleteContent(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("User/subjectStory/")
+    fun insertSubjectStory(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @GET("User/subjectStory/")
+    fun getAllSubjectStory(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("User/subjectStory/")
+    fun deleteSubjectStory(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @POST("Story/subjectStoryThumbnail/")
+    fun insertSubjectStoryThumbnail(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @GET("Story/subjectStoryThumbnail/")
+    fun getAllSubjectStoryThumbnail(
+        @Header("Authorization") token : String
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("Story/subjectStoryThumbnail/")
+    fun deleteSubjectStoryThumbnail(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @POST("Story/sharedStory/")
+    fun insertSharedStory(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @GET("Story/sharedStory/")
+    fun getAllSharedStory(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("Story/sharedStory/")
+    fun deleteSharedStory(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @POST("Story/sharedStoryThumbnail/")
+    fun insertSharedStoryThumbnail(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @GET("Story/sharedStoryThumbnail/")
+    fun getAllSharedStoryThumbnail(
+        @Header("Authorization") token : String
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("Story/sharedStoryThumbnail/")
+    fun deleteSharedStoryThumbnail(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
 }

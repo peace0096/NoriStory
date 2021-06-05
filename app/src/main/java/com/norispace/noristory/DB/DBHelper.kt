@@ -177,7 +177,6 @@ class DBHelper(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
         val values = ContentValues()
         values.put("token", User_Repo.getToken())
         values.put("title", title)
-        values.put("name", data.name)
         values.put("page", data.page)
         values.put("sizeX", data.sizeX)
         values.put("sizeY", data.sizeY)
@@ -193,7 +192,7 @@ class DBHelper(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
 
     fun deleteContent(title:String, data: SubjectStoryData) : Boolean {
         //DB안에서만 삭제되므로, 그림판 내에 있는 내용은 따로 삭제해야함.
-        val strsql = "select * from SubjectStoryContent where token = '${User_Repo.getToken()}' and title = '$title' and page = ${data.page} and name = '${data.name}';"
+        val strsql = "select * from SubjectStoryContent where token = '${User_Repo.getToken()}' and title = '$title' and page = ${data.page} ;"
         val db = writableDatabase
         val cursor = db.rawQuery(strsql, null)
         val flag = cursor.count != 0
@@ -227,7 +226,6 @@ class DBHelper(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
                 val content = cursor.getString(cursor.getColumnIndex("content"))
                 list.add(
                     SubjectStoryData(
-                        name,
                         page,
                         sizeX,
                         sizeY,

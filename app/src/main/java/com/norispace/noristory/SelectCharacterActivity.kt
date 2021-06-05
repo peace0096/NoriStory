@@ -1,12 +1,11 @@
-package com.norispace
+package com.norispace.noristory
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.norispace.noristory.R
 
-class ReadMyBookActivity : AppCompatActivity() {
+class SelectCharacterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_read_my_book)
+        setContentView(R.layout.activity_select_character)
     }
 }

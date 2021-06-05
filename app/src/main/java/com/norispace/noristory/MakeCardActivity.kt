@@ -3,7 +3,6 @@ package com.norispace.noristory.MakeStory
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
@@ -18,7 +17,6 @@ import com.norispace.noristory.MyPainterView
 import com.norispace.noristory.R
 import com.norispace.noristory.databinding.ActivityMakeCardBinding
 import kotlinx.android.synthetic.main.activity_make_card.*
-import kotlinx.android.synthetic.main.activity_subject.*
 import java.io.File
 import java.io.FileOutputStream
 

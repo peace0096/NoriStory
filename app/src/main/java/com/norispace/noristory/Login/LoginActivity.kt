@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
         binding.apply {
 
             loginNoris?.setOnClickListener {
-                val i= Intent(baseContext, SelectUserActivity::class.java)
+                val i= Intent(baseContext, SignUpActivity::class.java)
                 startActivity(i)
             }
         }

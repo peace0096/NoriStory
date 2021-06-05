@@ -1,13 +1,20 @@
-package com.norispace.noristory.ManageIcon
+package com.norispace.noristory
 
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.renderscript.ScriptGroup
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
+import android.view.View
+import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
-import com.norispace.noristory.R
+import kotlinx.android.synthetic.main.activity_library.view.*
+import kotlinx.android.synthetic.main.activity_subject.*
 import kotlin.math.sqrt
 
 class IconControl(context: Context, attrs: AttributeSet?) :
@@ -28,9 +35,7 @@ class IconControl(context: Context, attrs: AttributeSet?) :
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        val b=BitmapFactory.decodeResource(context.resources,
-            R.drawable.ic_android_black_24dp
-        )
+        val b=BitmapFactory.decodeResource(context.resources,R.drawable.ic_android_black_24dp)
         canvas?.drawBitmap(b,10.0f,10.0f,null)
     }
 
@@ -46,9 +51,7 @@ class IconControl(context: Context, attrs: AttributeSet?) :
             }
         }
         lastTouchTag = relativeLayout.getChildAt(childNum).tag.toString()
-        relativeLayout.getChildAt(childNum).setBackgroundResource(
-            R.drawable.img_border
-        )
+        relativeLayout.getChildAt(childNum).setBackgroundResource(R.drawable.img_border)
         try {
             val x = event?.rawX?.toInt()
             val y = event?.rawY?.toInt()

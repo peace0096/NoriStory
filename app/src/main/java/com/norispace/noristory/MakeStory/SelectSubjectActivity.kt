@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.norispace.noristory.MainActivity
+import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.R
 import com.norispace.noristory.StoryMenuActivity
 import com.norispace.noristory.databinding.ActivitySelectSubjectBinding

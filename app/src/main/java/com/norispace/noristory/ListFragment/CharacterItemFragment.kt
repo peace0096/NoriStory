@@ -57,10 +57,11 @@ class CharacterItemFragment : Fragment() {
     }
 
     private fun initData(){
-        data.add(R.drawable.signup_boy)
-        data.add(R.drawable.signup_boy)
-        data.add(R.drawable.signup_boy)
-        data.add(R.drawable.signup_girl)
-        data.add(R.drawable.signup_girl)
+        val characterNum=12
+        for(i in 1..characterNum){
+            val imgName="character"+i.toString()
+            val id = resources.getIdentifier(imgName, "drawable", context?.packageName)
+            data.add(id)
+        }
     }
 }

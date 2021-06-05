@@ -17,7 +17,7 @@ class EmoticonFragment : Fragment() {
     private var data = arrayListOf<Int>()
     var showState=false
     interface  OnDataPass{
-        fun onDataPass(data:Int)
+        fun onEmoticonPass(data:Int)
     }
 
     lateinit var dataPasser: OnDataPass
@@ -28,7 +28,7 @@ class EmoticonFragment : Fragment() {
     }
 
     fun passData(data:Int){
-        dataPasser.onDataPass(data)
+        dataPasser.onEmoticonPass(data)
     }
 
     override fun onCreateView(
@@ -50,7 +50,7 @@ class EmoticonFragment : Fragment() {
                 view: View,
                 position: Int
             ) {
-                passData(position)
+                passData(data[position])
             }
         }
         showBtn.setOnClickListener {
@@ -69,20 +69,11 @@ class EmoticonFragment : Fragment() {
     }
 
     private fun initData() {
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
-        data.add(R.drawable.cancle_btn_big)
+        val emoticonNum=10
+        for(i in 1..emoticonNum){
+            val imgName="emoticon_face"+i.toString()
+            val id = resources.getIdentifier(imgName, "drawable", context?.packageName)
+            data.add(id)
+        }
     }
 }

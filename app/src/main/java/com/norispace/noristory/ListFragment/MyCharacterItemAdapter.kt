@@ -38,7 +38,7 @@ class MyCharacterItemAdapter(
         val image: ImageView = view.findViewById(R.id.book_cover)
         val heart: ImageView = view.findViewById(R.id.heart)
         init {
-            heart.setOnClickListener {
+            view.setOnClickListener {
                 itemClickListener?.OnHeartClick(this,it,absoluteAdapterPosition)
             }
         }

@@ -10,7 +10,7 @@ import android.util.Log
 import com.norispace.noristory.Books.BookData
 import com.norispace.noristory.Model.OptionalStory_Model
 import com.norispace.noristory.Repository.User_Repo
-import com.norispace.noristory.ManageIcon.SubjectStoryData
+import com.norispace.noristory.Model.SubjectStoryData
 import com.norispace.service.S3Helper
 import java.io.File
 

@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import com.norispace.noristory.MakeStory.MakeCardActivity
+import com.norispace.noristory.Model.SubjectStoryData
 import com.norispace.noristory.R
 import com.norispace.noristory.databinding.ActivitySubjectBinding
 import kotlinx.android.synthetic.main.activity_subject.*
@@ -137,7 +138,7 @@ class SubjectActivity : AppCompatActivity() {
 
 
         deleteBtn?.setOnClickListener {
-            var num=manageChildView.deleteChild(lastTouchTag,relativeLayout)
+            var num=manageChildView.deleteChild(lastTouchTag,FrameLayout(this))
 //            for (i in 0 until relativeLayout?.childCount!!) {
 //                if (relativeLayout.getChildAt(i)?.tag == lastTouchTag) {
 //                    if(relativeLayout.getChildAt(i) is ImageView){

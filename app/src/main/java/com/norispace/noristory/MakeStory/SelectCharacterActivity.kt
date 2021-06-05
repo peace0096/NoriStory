@@ -3,7 +3,7 @@ package com.norispace.noristory.MakeStory
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.norispace.noristory.MainActivity
+import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.databinding.ActivitySelectCharacterBinding
 import kotlinx.android.synthetic.main.activity_make_card.*
 

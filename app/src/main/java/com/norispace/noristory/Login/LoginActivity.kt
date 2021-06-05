@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.norispace.noristory.MainActivity
+import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.SelectUserActivity
 import com.norispace.noristory.SignUpActivity
 import com.norispace.noristory.User.UserViewModel

@@ -1,7 +1,7 @@
 package com.norispace.noristory.API.List.DELETE
 
 import com.norispace.noristory.API.RetrofitClient
-import com.norispace.noristory.Model.SharedStoryThumbnail_Model
+import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
 import com.norispace.noristory.Repository.User_Repo
 import org.json.JSONException
 import org.json.JSONObject
@@ -10,7 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object DeleteSharedStoryThumbnailAPI {
-    fun call(model: SharedStoryThumbnail_Model, callback: RetrofitClient.callback) {
+    fun call(model: SubjectStoryThumbnail_Model, callback: RetrofitClient.callback) {
         val body = JSONObject()
         try {
             body.put("title", model.title)

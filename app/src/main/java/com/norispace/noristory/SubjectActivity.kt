@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
-import com.norispace.noristory.Model.SubjectStoryData
 import com.norispace.noristory.databinding.ActivitySubjectBinding
 import kotlinx.android.synthetic.main.activity_subject.*
 import kotlin.math.sqrt

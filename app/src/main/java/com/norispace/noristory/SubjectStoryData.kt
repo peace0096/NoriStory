@@ -1,4 +1,4 @@
-package com.norispace.noristory.Model
+package com.norispace.noristory
 
 data class SubjectStoryData(
     var page: Int, //content 페이지

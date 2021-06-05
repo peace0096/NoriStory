@@ -1,4 +1,4 @@
-package com.norispace.noristory
+package com.norispace.noristory.MainMenu
 
 import android.app.ProgressDialog
 import android.content.DialogInterface
@@ -9,6 +9,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import com.norispace.noristory.DB.DBHelper
 import com.norispace.noristory.Login.LoginActivity
+import com.norispace.noristory.R
 import java.io.FileOutputStream
 
 class SplashActivity : AppCompatActivity() {

@@ -1,7 +1,6 @@
 package com.norispace.noristory.API.List.DELETE
 
 import com.norispace.noristory.API.RetrofitClient
-import com.norispace.noristory.Model.SharedStoryThumbnail_Model
 import com.norispace.noristory.Model.SubjectStory_Model
 import com.norispace.noristory.Repository.User_Repo
 import org.json.JSONException

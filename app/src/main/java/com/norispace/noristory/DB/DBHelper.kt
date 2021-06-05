@@ -10,7 +10,9 @@ import android.util.Log
 import com.norispace.noristory.Books.BookData
 import com.norispace.noristory.Model.OptionalStory_Model
 import com.norispace.noristory.Repository.User_Repo
-import com.norispace.noristory.Model.SubjectStoryData
+import com.norispace.noristory.SubjectStoryData
+import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
+import com.norispace.noristory.Model.SubjectStory_Model
 import com.norispace.service.S3Helper
 import java.io.File
 
@@ -162,18 +164,6 @@ class DBHelper(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
         return list
     }
 
-    //필요없을 것 같음 배경은 drawable에 넣을거니까 아마?
-//    fun insertBackground(background:String) {
-//        val values = ContentValues()
-//        values.put("name", background)
-//        val db = writableDatabase
-//        db.insert("Background", null, values)
-//        db.close()
-//
-//    }
-
-
-
     fun insertContent(title:String, data: SubjectStoryData) {
         //콘텐츠 넣기. 만약 콘텐츠 내용물이 변했다면, delete를 하고 insert하는 것이 빠를 것임.
         val values = ContentValues()
@@ -239,6 +229,106 @@ class DBHelper(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
                 )
 
             } while(cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return list
+    }
+
+    fun insertSubjectStory(data:SubjectStory_Model) {
+        val values = ContentValues()
+
+        values.put("token", User_Repo.getToken())
+        values.put("title", data.title)
+        values.put("page", data.page)
+        values.put("image", data.image)
+        val db = writableDatabase
+        db.insert("SubjectStory", null, values)
+        db.close()
+
+    }
+
+    fun deleteSubjectStory(data: SubjectStory_Model) : Boolean {
+        val strsql = "select * from SubjectStory where token = '${User_Repo.getToken()}' and title = '${data.title}' and page = ${data.page};"
+        val db = writableDatabase
+        val cursor = db.rawQuery(strsql, null)
+        val flag = cursor.count != 0
+        if(flag) {
+            cursor.moveToFirst()
+            db.delete("SubjectStory", "token = '${User_Repo.getToken()}' and title = '${data.title}' and page = ${data.page}", null)
+            val cardFile = File(context.cacheDir.toString() + "/" + data.image)
+            cardFile.delete()
+        }
+        cursor.close()
+        db.close()
+        return flag
+    }
+
+    fun getAllSubjectStory() : ArrayList<SubjectStory_Model> {
+        val list = ArrayList<SubjectStory_Model>()
+        val sqlstr = "select * from SubjectStory where token = '${User_Repo.getToken()}';"
+        val db = readableDatabase
+        val cursor = db.rawQuery(sqlstr, null)
+        val flag = cursor.count != 0
+        if(flag) {
+            do {
+                cursor.moveToFirst()
+                val title = cursor.getString(cursor.getColumnIndex("title"))
+                val page = cursor.getInt(cursor.getColumnIndex("page"))
+                val image = cursor.getString(cursor.getColumnIndex("image"))
+                list.add(SubjectStory_Model(title, page, image))
+            } while(cursor.moveToNext())
+
+
+        }
+        cursor.close()
+        db.close()
+        return list
+    }
+
+    fun insertSubjectStoryThumbnail(data: SubjectStoryThumbnail_Model) {
+        val values = ContentValues()
+
+        values.put("token", User_Repo.getToken())
+        values.put("title", data.title)
+        values.put("coverImage", data.coverImage)
+        val db = writableDatabase
+        db.insert("SubjectStoryThumbnail", null, values)
+        db.close()
+
+    }
+
+    fun deleteSubjectStoryThumbnail(data: SubjectStoryThumbnail_Model) : Boolean {
+        val strsql = "select * from SubjectStory where token = '${User_Repo.getToken()}' and title = '${data.title}';"
+        val db = writableDatabase
+        val cursor = db.rawQuery(strsql, null)
+        val flag = cursor.count != 0
+        if(flag) {
+            cursor.moveToFirst()
+            db.delete("SubjectStoryThumbnail", "token = '${User_Repo.getToken()}' and title = '${data.title}'", null)
+            val cardFile = File(context.cacheDir.toString() + "/" + data.coverImage)
+            cardFile.delete()
+        }
+        cursor.close()
+        db.close()
+        return flag
+    }
+
+    fun getAllSubjectStoryThumbnail() : ArrayList<SubjectStoryThumbnail_Model> {
+        val list = ArrayList<SubjectStoryThumbnail_Model>()
+        val sqlstr = "select * from SubjectStoryThumbnail where token = '${User_Repo.getToken()}';"
+        val db = readableDatabase
+        val cursor = db.rawQuery(sqlstr, null)
+        val flag = cursor.count != 0
+        if(flag) {
+            do {
+                cursor.moveToFirst()
+                val title = cursor.getString(cursor.getColumnIndex("title"))
+                val coverImage = cursor.getString(cursor.getColumnIndex("coverImage"))
+                list.add(SubjectStoryThumbnail_Model(title, coverImage))
+            } while(cursor.moveToNext())
+
+
         }
         cursor.close()
         db.close()

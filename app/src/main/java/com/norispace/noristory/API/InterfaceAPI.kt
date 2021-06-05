@@ -14,14 +14,14 @@ interface InterfaceAPI {
     ): Call<String?>
 
     @Headers("Content-Type: application/json")
-    @PUT("User/login")
+    @POST("User/login")
     fun login(
         @Body body: User_Model
     ): Call<String?>
 
 
     @Headers("Content-Type: application/json")
-    @PUT("User/card/")
+    @POST("User/card/")
     fun insertCard(
         @Header("Authorization") token : String,
         @Body body: String?
@@ -42,7 +42,7 @@ interface InterfaceAPI {
 
 
     @Headers("Content-Type: application/json")
-    @PUT("User/subjectStoryContent/")
+    @POST("User/subjectStoryContent/")
     fun insertContent(
         @Header("Authorization") token : String,
         @Body body: String?
@@ -64,7 +64,7 @@ interface InterfaceAPI {
 
 
     @Headers("Content-Type: application/json")
-    @PUT("User/subjectStory/")
+    @POST("User/subjectStory/")
     fun insertSubjectStory(
         @Header("Authorization") token : String,
         @Body body: String?
@@ -85,7 +85,27 @@ interface InterfaceAPI {
     ): Call<String?>
 
     @Headers("Content-Type: application/json")
-    @PUT("Story/sharedStory/")
+    @POST("Story/subjectStoryThumbnail/")
+    fun insertSubjectStoryThumbnail(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @GET("Story/subjectStoryThumbnail/")
+    fun getAllSubjectStoryThumbnail(
+        @Header("Authorization") token : String
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("Story/subjectStoryThumbnail/")
+    fun deleteSubjectStoryThumbnail(
+        @Header("Authorization") token : String,
+        @Body body: String?
+    ): Call<String?>
+
+    @Headers("Content-Type: application/json")
+    @POST("Story/sharedStory/")
     fun insertSharedStory(
         @Header("Authorization") token : String,
         @Body body: String?
@@ -106,7 +126,7 @@ interface InterfaceAPI {
     ): Call<String?>
 
     @Headers("Content-Type: application/json")
-    @PUT("Story/sharedStoryThumbnail/")
+    @POST("Story/sharedStoryThumbnail/")
     fun insertSharedStoryThumbnail(
         @Header("Authorization") token : String,
         @Body body: String?

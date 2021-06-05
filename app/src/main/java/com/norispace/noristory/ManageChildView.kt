@@ -1,7 +1,6 @@
 package com.norispace.noristory
 
 import android.widget.*
-import com.norispace.noristory.Model.SubjectStoryData
 
 class ManageChildView {
     var contentData= ArrayList<SubjectStoryData>()

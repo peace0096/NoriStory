@@ -1,5 +1,6 @@
 package com.norispace.noristory.MakeStory
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -7,12 +8,14 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.norispace.noristory.DB.DBHelper
 import com.norispace.noristory.ManageIcon.ManageChildView
 import com.norispace.noristory.MyPainterView
 import com.norispace.noristory.R
 import com.norispace.noristory.databinding.ActivityMakeCardBinding
 import kotlinx.android.synthetic.main.activity_make_card.*
 import java.io.File
+import java.io.FileOutputStream
 
 import kotlin.math.sqrt
 
@@ -20,6 +23,7 @@ class MakeCardActivity : AppCompatActivity() {
     val binding by lazy {ActivityMakeCardBinding.inflate(layoutInflater)}
     var mode = -1
     lateinit var ptv: MyPainterView
+    val mydb = DBHelper(this)
 
     private val sliceSize = 5
     private var xCoordinate = Array(sliceSize, { 0.0f })
@@ -326,32 +330,44 @@ class MakeCardActivity : AppCompatActivity() {
             chooseCardKind?.visibility=View.GONE
             saveComplete?.visibility=View.VISIBLE
             cardSave?.visibility= View.VISIBLE
-            if(flag==1){
-                ///////////////////////////////////////주제 사진 저장하기
-//                var StoragePath = "/data/data/com.norispace.noristory/cache/Image/Card"
-//                var Folder = File(StoragePath)
-//                if(!Folder.exists())        //폴더 없으면 생성
-//                    Folder.mkdirs()
-//
-//                val fileName = "card" + ".jpg";
-//
-//                PainterView?.buildDrawingCache()
-//                val bitmap: Bitmap? = PainterView?.getDrawingCache()
-//                val file = File(StoragePath, fileName)
-//                val fos = FileOutputStream(file);
-//                bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fos); //썸네일로 사용하므로 퀄리티를 낮게설정
-//                fos.close();
 
+            var StoragePath = cacheDir.toString()
+            if(flag==1){
+                StoragePath += "/Image/Card/Subject"
                 cardSave?.setImageResource(R.drawable.card_subject_saved)
             }else{
-                ///////////////////////////////////////캐릭터 사진 저장하기
+                StoragePath += "/Image/Card/Character"
                 cardSave?.setImageResource(R.drawable.card_char_saved)
             }
-            //setImage?.setImageResource()        저장된 사진 보여주기
+            var Folder = File(StoragePath)
+            if(!Folder.exists())        //폴더 없으면 생성
+                Folder.mkdirs()
+
+            var cardcount = 0
+            var fileName = "card" + cardcount.toString()+".png"
+            var file = File(StoragePath, fileName)
+
+            while (file.exists())   //같은 이름이 있으면 다른 이름으로
+            {
+                cardcount += 1
+                fileName = "card" + cardcount.toString()+".png"
+                file = File(StoragePath, fileName)
+            }
+
+            PainterView?.buildDrawingCache()
+            val bitmap: Bitmap? = PainterView?.getDrawingCache()
+            val fos = FileOutputStream(file);
+            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fos); //썸네일로 사용하므로 퀄리티를 낮게설정
+            fos.close();
+            setImage?.setImageBitmap(bitmap)
+            PainterView?.removeAllViews()
+
+            mydb.insertCard(StoragePath+"/"+fileName)
             screenBlur?.setOnClickListener {
                 screenBlur?.visibility=View.GONE
                 saveComplete?.visibility= View.GONE
             }
+
         }
     }
 

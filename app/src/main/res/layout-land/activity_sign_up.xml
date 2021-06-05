@@ -115,7 +115,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.7"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/imageView15"
@@ -144,101 +144,76 @@
                 android:padding="10dp"
                 android:text="몇살이에요?"
                 android:textColor="#434343"
-                android:textSize="40sp"
-                />
+                android:textSize="40sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageView
                     android:id="@+id/age3"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:background="@drawable/round_button_pressed"
-                    android:text="3"
-                    android:textColor="#F49519"
-                    android:textSize="30sp"
-                    />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/signup_age3" />
 
-                <Button
+                <ImageView
                     android:id="@+id/age4"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/round_button_pressed"
-                    android:text="4"
-                    android:textColor="#F49519"
-                    android:textSize="30sp"
-                    android:layout_marginLeft="10dp"/>
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/signup_age4" />
 
-                <Button
+                <ImageView
                     android:id="@+id/age5"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/round_button_pressed"
-                    android:text="5"
-                    android:textColor="#F49519"
-                    android:textSize="30sp"
-                    android:layout_marginLeft="10dp"/>
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/signup_age5" />
 
-                <Button
+                <ImageView
                     android:id="@+id/age6"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/round_button_pressed"
-                    android:text="6"
-                    android:textColor="#F49519"
-                    android:textSize="30sp"
-                    android:layout_marginLeft="10dp"/>
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/signup_age6" />
 
-                <Button
+                <ImageView
                     android:id="@+id/age7"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/round_button_pressed"
-                    android:text="7"
-                    android:textColor="#F49519"
-                    android:textSize="30sp"
-                    android:layout_marginLeft="10dp"/>
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/signup_age7" />
 
-                <Button
+                <ImageView
                     android:id="@+id/age8"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/round_button_pressed"
-                    android:text="8"
-                    android:textColor="#F49519"
-                    android:textSize="30sp"
-                    android:layout_marginLeft="10dp"/>
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/signup_age8" />
 
-                <Button
+                <ImageView
                     android:id="@+id/age9"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/round_button_pressed"
-                    android:text="9"
-                    android:textColor="#F49519"
-                    android:textSize="30sp"
-                    android:layout_marginLeft="10dp"/>
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/signup_age9" />
 
-                <Button
+                <ImageView
                     android:id="@+id/age10"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/round_button_pressed"
-                    android:text="10+"
-                    android:textColor="#F49519"
-                    android:textSize="30sp"
-                    android:layout_marginLeft="10dp"/>
-
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/signup_age10" />
             </LinearLayout>
 
             <TextView

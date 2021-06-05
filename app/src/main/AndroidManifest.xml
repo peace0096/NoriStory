@@ -16,16 +16,21 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".SelectCharacterActivity" /> <!-- <activity android:name=".TempActivity"></activity> -->
+        <activity android:name="com.norispace.ReadMyBookActivity" /> <!-- <activity android:name=".TempActivity"></activity> -->
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
 
+        <activity android:name=".SetCharacterActivity"
+            android:screenOrientation="landscape" />
         <activity
-            android:name=".SelectSubjectActivity"
-            android:screenOrientation="landscape"/>
+            android:name=".MakeStory.SelectCharacterActivity"
+            android:screenOrientation="landscape" />
         <activity
-            android:name=".MakeStoryActivity"
+            android:name=".MakeStory.SelectSubjectActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MakeStory.MakeStoryActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".SelectUserActivity"
@@ -67,7 +72,7 @@
             android:name=".Login.LoginActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".SubjectActivity"
+            android:name=".ManageIcon.SubjectActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".MyBooksActivity"
@@ -76,7 +81,7 @@
             android:name=".OptionalStory.SunMoonActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MakeCardActivity"
+            android:name=".MakeStory.MakeCardActivity"
             android:screenOrientation="landscape" />
     </application>
 

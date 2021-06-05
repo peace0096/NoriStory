@@ -90,7 +90,7 @@ class ManageChildView {
             sizeX=(relativeLayout.getChildAt(childNum) as TextView).textSize.toInt()
             sizeY=0
         }
-        if(contentData[childNum]==null){
+        if(contentData.size<childNum){ //이모티콘이 추가된 경우
             contentData.add(
                 SubjectStoryData(
                     "name",
@@ -104,13 +104,14 @@ class ManageChildView {
                 )
             )
         }else{
-            contentData[childNum].page=page
-            contentData[childNum].sizeX=sizeX
-            contentData[childNum].sizeY=sizeY
-            contentData[childNum].locationX=locationX
-            contentData[childNum].locationY=locationY
-            contentData[childNum].contentType=contentType
-            contentData[childNum].content=content
+            val index=childNum-1 // childNum은 1부터 시작임
+            contentData[index].page=page
+            contentData[index].sizeX=sizeX
+            contentData[index].sizeY=sizeY
+            contentData[index].locationX=locationX
+            contentData[index].locationY=locationY
+            contentData[index].contentType=contentType
+            contentData[index].content=content
         }
 
     }

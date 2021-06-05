@@ -13,4 +13,6 @@
         android:layout_weight="1"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/start_screen" />
+
+
 </LinearLayout>

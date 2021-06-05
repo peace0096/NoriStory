@@ -54,4 +54,5 @@
             app:srcCompat="@drawable/login_noris" />
     </LinearLayout>
 
+
 </androidx.constraintlayout.widget.ConstraintLayout>

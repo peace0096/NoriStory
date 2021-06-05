@@ -29,6 +29,7 @@ class SignUpActivity : AppCompatActivity() {
                 page++
                 if(page==2){ //page == 2 -> 나이 , 캐릭터 선택
                     id=inputText?.text.toString()
+                    inputText?.visibility=View.GONE
                     setAge?.visibility= View.VISIBLE
                     signupBoy?.setOnClickListener {
                         signupBoy.setImageResource(R.drawable.signup_boy_big)
@@ -57,6 +58,7 @@ class SignUpActivity : AppCompatActivity() {
                     startActivity(intent)
                 }else if(page==1){
                     setAge?.visibility= View.GONE
+                    inputText?.visibility=View.VISIBLE
                 }
             }
         }

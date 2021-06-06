@@ -16,8 +16,6 @@ class MyBooksActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMyBooksBinding
 
-    var data:ArrayList<BookData> = ArrayList()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyBooksBinding.inflate(layoutInflater)
@@ -50,6 +48,7 @@ class MyBooksActivity : AppCompatActivity() {
                 val intent = Intent(this@MyBooksActivity, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
+
             }
             mybook_home.setOnClickListener{
                 val intent = Intent(this@MyBooksActivity, MainActivity::class.java)

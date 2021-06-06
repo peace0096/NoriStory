@@ -9,6 +9,7 @@ import android.widget.ImageView
 import com.norispace.noristory.LibraryActivity
 import com.norispace.noristory.MyBooksActivity
 import com.norispace.noristory.R
+import com.norispace.noristory.Repository.User_Repo
 import com.norispace.noristory.StoryMenuActivity
 //import com.kakao.sdk.common.KakaoSdk.keyHash
 //import com.kakao.sdk.common.util.Utility.getKeyHash
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.d("main", User_Repo.getToken())
         init()
 //        val keyHash = getKeyHash(this /* context */);
 //        Log.i("key", "$keyHash")

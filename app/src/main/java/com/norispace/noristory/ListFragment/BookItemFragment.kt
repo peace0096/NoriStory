@@ -1,5 +1,6 @@
 package com.norispace.noristory.ListFragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -26,6 +27,11 @@ class BookItemFragment : Fragment() {
     private lateinit var storyViewModel:StoryViewModel
     var btn = -1
     val myAdapter=MyBookItemAdapter(data)
+
+    override fun onStop() {
+        super.onStop()
+        data.clear()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,7 +79,7 @@ class BookItemFragment : Fragment() {
                             intent.putExtra("title", data[position].title)
                             startActivity(intent)
                         }
-
+                        data.clear()
                     }
 
                 }

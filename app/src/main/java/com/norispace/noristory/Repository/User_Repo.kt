@@ -1,12 +1,20 @@
 package com.norispace.noristory.Repository
 
+import com.norispace.noristory.API.List.DELETE.DeleteSubjectStoryAPI
+import com.norispace.noristory.API.List.DELETE.DeleteSubjectStoryContentAPI
 import com.norispace.noristory.API.List.DELETE.DeleteUserCardAPI
 import com.norispace.noristory.API.List.GET.GETUserMe
+import com.norispace.noristory.API.List.GET.GetSubjectStoryAPI
+import com.norispace.noristory.API.List.GET.GetSubjectStoryContentAPI
 import com.norispace.noristory.API.List.GET.GetUserCardAPI
+import com.norispace.noristory.API.List.POST.PostSubjectStoryAPI
+import com.norispace.noristory.API.List.POST.PostSubjectStoryContentAPI
 import com.norispace.noristory.API.List.POST.PostUserCardAPI
 import com.norispace.noristory.API.List.POST.PostUserLoginAPI
 import com.norispace.noristory.API.RetrofitClient
+import com.norispace.noristory.Model.SubjectStory_Model
 import com.norispace.noristory.Model.User_Model
+
 
 object User_Repo {
 

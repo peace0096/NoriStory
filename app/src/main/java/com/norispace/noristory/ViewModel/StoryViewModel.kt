@@ -7,6 +7,7 @@ import com.norispace.noristory.Model.SubjectStoryData
 import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
 import com.norispace.noristory.Model.SubjectStory_Model
 import com.norispace.noristory.Repository.Story_Repo
+import com.norispace.noristory.Repository.User_Repo
 
 import org.json.JSONArray
 import org.json.JSONObject

@@ -59,6 +59,7 @@ class SplashActivity : AppCompatActivity() {
                 output.close()
                 val dbhelp = DBHelper(this)
                 dbhelp.firstDownload()
+                loadImage.visibility = View.GONE
             })
             builder.show()
 

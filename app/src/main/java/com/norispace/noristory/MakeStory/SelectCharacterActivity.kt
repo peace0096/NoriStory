@@ -57,8 +57,8 @@ class SelectCharacterActivity : AppCompatActivity(),CharacterItemFragment.OnData
             }
             nextBtn?.setOnClickListener {
                 val i= Intent(this@SelectCharacterActivity, MakeStoryActivity::class.java)
-//                i.putExtra("basicCharacter",basicSelectedList)
-//                i.putExtra("myCharacter",mySelectedList)
+                i.putExtra("basicCharacter",basicSelectedList)
+                i.putExtra("myCharacter",mySelectedList)
                 startActivity(i)
             }
             basicCard?.setOnClickListener {

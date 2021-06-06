@@ -84,7 +84,7 @@ class SignUpActivity : AppCompatActivity() {
                 }
 
             }
-            back_btn?.setOnClickListener {
+            backBtn?.setOnClickListener {
                 page--
                 if (page==0){
                     val intent= Intent(this@SignUpActivity,SelectUserActivity::class.java)

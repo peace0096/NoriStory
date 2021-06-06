@@ -2,9 +2,7 @@ package com.norispace.noristory.ListFragment
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +16,9 @@ import androidx.lifecycle.Observer
 import com.norispace.noristory.*
 import com.norispace.noristory.DB.DBHelper
 import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
+import com.norispace.noristory.MyBooksActivity2
+import com.norispace.noristory.R
+import com.norispace.noristory.Repository.Story_Repo
 import com.norispace.noristory.Repository.User_Repo
 import com.norispace.noristory.ViewModel.StoryViewModel
 import com.norispace.noristory.databinding.FragmentBookItemBinding
@@ -52,7 +53,7 @@ class BookItemFragment : Fragment() {
                 btn = arguments!!.getInt("btn")
 
             initData()
-            initObserve()
+            //initObserve()
             // Set the adapter
             if (view is RecyclerView) {
                 with(view) {
@@ -111,10 +112,43 @@ class BookItemFragment : Fragment() {
         }
     }
 
-    private fun initObserve() {
-        storyViewModel.subjectstorythumbnailmodellistmodel.observe(this, Observer {
+//    private fun initObserve() {
+//        storyViewModel.subjectstorythumbnailmodellistmodel.observe(this, Observer {
+//            data.clear()
+//            data.addAll(it)
+//            var list:ArrayList<SubjectStoryThumbnail_Model>? = null
+//            if(btn == 0) {
+//                //서재
+//                list = dbHelper.getAllSubjectStoryThumbnail()
+//            }
+//            if(list != null) {
+//                for(e in list) {
+//                    var flag = true
+//                    for(i in 0 until data.size) {
+//                        if(e.title == data[i].title) {
+//                            flag = false
+//                            break
+//                        }
+//
+//                    }
+//                    if(flag) {
+//                        data.add(e)
+//                    }
+//                }
+//            }
+//
+//            myAdapter.notifyDataSetChanged()
+//        })
+//    }
+
+    private fun initData(){
+        //storyViewModel = StoryViewModel()
+        dbHelper = DBHelper(context!!)
+        if(btn == 0)
+        {
             data.clear()
-            data.addAll(it)
+            data.addAll(Story_Repo.getSubjectStoryThumbnailListModel())
+
             var list:ArrayList<SubjectStoryThumbnail_Model>? = null
             if(btn == 0) {
                 //서재
@@ -136,18 +170,7 @@ class BookItemFragment : Fragment() {
                 }
             }
 
-            myAdapter.notifyDataSetChanged()
-        })
-
-
-    }
-
-    private fun initData(){
-        storyViewModel = StoryViewModel()
-        dbHelper = DBHelper(context!!)
-        if(btn == 0)
-        {
-            storyViewModel.getSubjectStoryThumbnail()
+            //storyViewModel.getSubjectStoryThumbnail()
 
 //            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"나만의 서재","작자미상"))
 //            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
@@ -159,7 +182,9 @@ class BookItemFragment : Fragment() {
         }
         else
         {
-            storyViewModel.getSharedStoryThumbnail()
+            data.clear()
+            data.addAll(Story_Repo.getSharedStoryThumbnailListModel())
+            //storyViewModel.getSharedStoryThumbnail()
 //            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"도서관","작자미상"))
 //            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
 //            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))

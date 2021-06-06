@@ -84,26 +84,5 @@ class SelectCharacterActivity : AppCompatActivity(),CharacterItemFragment.OnData
     }
 
     override fun onSelectedCharacterPass(data: ArrayList<Int>) {
-//        if(data[0]==1){ // 기본 제공 캐릭터
-//            if(data[2]==1){//선택됨
-//                basicSelectedList.add(data[1])
-//            }else{//선택취소
-//                for(i in 0 until basicSelectedList.lastIndex){
-//                    if(data[1]==basicSelectedList[i]){
-//                        basicSelectedList.removeAt(i)
-//                    }
-//                }
-//            }
-//        }else{ //내 캐릭터들
-//            if(data[2]==1){//선택됨
-//                mySelectedList.add(data[1])
-//            }else{//선택취소
-//                for(i in 0 until mySelectedList.lastIndex){
-//                    if(data[1]==mySelectedList[i]){
-//                        mySelectedList.removeAt(i)
-//                    }
-//                }
-//            }
-//        }
     }
 }

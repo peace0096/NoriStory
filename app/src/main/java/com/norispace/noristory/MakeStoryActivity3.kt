@@ -89,8 +89,10 @@ class MakeStoryActivity3 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyC
 //                val i = Intent(this@MakeStoryActivity, MakeCoverActivity::class.java)
 //                startActivity(i)
 //            }
-            val i =Intent(this@MakeStoryActivity3,MakeStoryActivity4::class.java)
-            startActivity(i)
+            nextPage3?.setOnClickListener {
+                val i =Intent(this@MakeStoryActivity3,MakeStoryActivity4::class.java)
+                startActivity(i)
+            }
         }
     }
 

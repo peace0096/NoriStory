@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_make_card.PainterView
 import kotlinx.android.synthetic.main.activity_make_card.card_saveBtn
 import kotlinx.android.synthetic.main.activity_make_card.crayon_cancle_btn
 import kotlinx.android.synthetic.main.activity_make_story.*
+import kotlinx.android.synthetic.main.activity_select_character.*
 import java.io.File
 import java.lang.Exception
 import kotlin.math.sqrt
@@ -40,7 +41,7 @@ class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
         ManageChildView()
     private var lastTouchTag = ""
     private var emoticonNum = 0 // 선택된 이모티콘 번호
-    lateinit var myCardListFragment : MyCardListFragment
+    private val  myCardListFragment = MyCardListFragment()
     private val myBackgroundFragment=BackgroundFragment()
     var selectedCardNumber =ArrayList<Int>()
 
@@ -70,7 +71,7 @@ class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
     }
 
     private fun initCards(){
-        myCardListFragment=MyCardListFragment()
+        //myCardListFragment=MyCardListFragment()
 //        val i=intent
 //        var num=0
 //        val basic=i.getIntegerArrayListExtra("basicCharacter")
@@ -113,8 +114,11 @@ class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
 //                val i = Intent(this@MakeStoryActivity, MakeCoverActivity::class.java)
 //                startActivity(i)
 //            }
-            val i =Intent(this@MakeStoryActivity,MakeStoryActivity2::class.java)
-            startActivity(i)
+            nextPage?.setOnClickListener {
+                val i =Intent(this@MakeStoryActivity,MakeStoryActivity2::class.java)
+                startActivity(i)
+            }
+
         }
     }
 

@@ -84,7 +84,7 @@ class SignUpActivity : AppCompatActivity() {
                 }
 
             }
-            backBtn?.setOnClickListener {
+            mybookBack?.setOnClickListener {
                 page--
                 if (page==0){
                     val intent= Intent(this@SignUpActivity,SelectUserActivity::class.java)
@@ -102,11 +102,15 @@ class SignUpActivity : AppCompatActivity() {
 
     }
 
-    public fun initObserve() {
+    fun initObserve() {
         userViewModel = UserViewModel()
 
         userViewModel.tokenmodel.observe(this, Observer {
             if(it != "none" && it != null) {
+                binding.apply {
+                    loadingSecreen?.visibility=View.GONE
+                }
+
                 Log.i("login", "로그인되었습니다!")
                 val intent= Intent(this@SignUpActivity,MainActivity::class.java)
                 intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP

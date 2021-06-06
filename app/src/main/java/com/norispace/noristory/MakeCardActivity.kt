@@ -359,8 +359,8 @@ class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass {
 
             PainterView?.buildDrawingCache()
             val bitmap: Bitmap? = PainterView?.getDrawingCache()
-            val fos = FileOutputStream(file);
-            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fos); //썸네일로 사용하므로 퀄리티를 낮게설정
+            val fos = FileOutputStream(file)
+            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fos) //썸네일로 사용하므로 퀄리티를 낮게설정
             fos.close();
             setImage?.setImageBitmap(bitmap)
             PainterView?.removeAllViews()

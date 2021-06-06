@@ -1,15 +1,20 @@
 package com.norispace.noristory.ListFragment
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
 import com.norispace.noristory.R
+import java.io.File
+import java.io.FileOutputStream
 
 class MyBookItemAdapter(
-    private val values: ArrayList<SharedBookData>
+    private val values: ArrayList<SubjectStoryThumbnail_Model>
 ) : RecyclerView.Adapter<MyBookItemAdapter.ViewHolder>() {
 
     var checkAry =Array(values.size,{0})
@@ -35,8 +40,14 @@ class MyBookItemAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         //holder.image.
-        holder.title.text = item.title
-        holder.info.text=item.info
+        val image = File(item.coverImage)
+        val bitmap = BitmapFactory.decodeFile(image.absolutePath)
+
+        if(image.exists())
+        {
+            holder.image.setImageBitmap(bitmap)
+            holder.title.text = item.title
+        }
     }
 
     override fun getItemCount(): Int = values.size

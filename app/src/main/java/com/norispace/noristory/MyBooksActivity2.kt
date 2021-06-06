@@ -1,9 +1,12 @@
 package com.norispace.noristory
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.norispace.noristory.DB.DBHelper
 import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
@@ -18,7 +21,7 @@ class MyBooksActivity2 : AppCompatActivity() {
     private var data = ArrayList<SubjectStoryThumbnail_Model>()
     private lateinit var dbHelper: DBHelper
     private lateinit var storyViewModel: StoryViewModel
-
+    lateinit var thumbnailModel: SubjectStoryThumbnail_Model
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyBooks2Binding.inflate(layoutInflater)
@@ -30,14 +33,18 @@ class MyBooksActivity2 : AppCompatActivity() {
         val title = intent.getStringExtra("title")
         storyViewModel = StoryViewModel()
         dbHelper = DBHelper(this)
-        val list = dbHelper.getAllSubjectStoryThumbnail()
+        val list1 = dbHelper.getAllSubjectStoryThumbnail()
         var imgPath = ""
 
-        for(i in list)
+        for(i in list1)
         {
-            if(title == i.title)
+            if(title == i.title) {
                 imgPath = i.coverImage
+                thumbnailModel = i
+                break
+            }
         }
+
         val image = File("data/data/com.norispace.noristory/cache/" + imgPath)
         val bitmap = BitmapFactory.decodeFile(image.absolutePath)
         BookImageView.setImageBitmap(bitmap)
@@ -64,12 +71,34 @@ class MyBooksActivity2 : AppCompatActivity() {
                 startActivity(intent)
             }
             RemoveBook?.setOnClickListener{
+                var builder = AlertDialog.Builder(this@MyBooksActivity2)
+                builder.setTitle(title)
+                builder.setMessage("이 책을 삭제하시겠습니까?")
+                    .setPositiveButton("삭제"){
+                            _, _ ->
+                        dbHelper.deleteSubjectStoryThumbnail(thumbnailModel)
+                        storyViewModel.deleteSubjectStoryThumbnail(thumbnailModel)
+                        val list2 = dbHelper.getAllSubjectStory()
+                        for(i in list2)
+                        {
+                            if(title == i.title)
+                            {
+                                dbHelper.deleteSubjectStory(i)
+                                storyViewModel.deleteSubjectStory(i)
+                            }
+                        }
 
-            }
-            RewriteBook?.setOnClickListener{
+                        val intent = Intent(this@MyBooksActivity2, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
 
-            }
+                    }
+                    .setNegativeButton("취소"){
+                            _, _ ->
+                    }
+                    .show()
 
+                }
 
         }
     }

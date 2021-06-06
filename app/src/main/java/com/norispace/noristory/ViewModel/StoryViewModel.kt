@@ -1,5 +1,6 @@
 package com.norispace.noristory.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.norispace.noristory.API.RetrofitClient
@@ -138,6 +139,7 @@ class StoryViewModel {
     fun getSubjectStoryThumbnail() {
         Story_Repo.callGetSubjectStoryThumbnail(object : RetrofitClient.callback{
             override fun callbackMethod(isSuccessful: Boolean, result: String?) {
+                Log.d("err111", result.toString())
                 if(isSuccessful) {
                     if(result != null) {
                         val list = ArrayList<SubjectStoryThumbnail_Model>()
@@ -150,6 +152,10 @@ class StoryViewModel {
                         Story_Repo.setSubjectStoryThumbnailListModel(list)
                         subjectstorythumbnailmodellistmodel.value = Story_Repo.getSubjectStoryThumbnailListModel()
                     }
+                    Log.d("err1", result.toString())
+                }
+                else {
+                    Log.d("err", result.toString())
                 }
             }
         })

@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d("main", User_Repo.getToken())
-        initObserve()
+        //initObserve()
         init()
 //        val keyHash = getKeyHash(this /* context */);
 //        Log.i("key", "$keyHash")
@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity() {
                 val title = e.title
                 storyViewModel.getSubjectStory(title)
             }
-
         })
 
         storyViewModel.sharedstorymodellistmodel.observe(this, Observer {
@@ -93,14 +92,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-
-
-
-
-
-
-
-
 
 
         val storyBtn = findViewById<ImageView>(R.id.create_btn)

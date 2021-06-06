@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import com.norispace.noristory.databinding.ActivitySignUpBinding
+import com.norispace.noristory.MainMenu.MainActivity
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {

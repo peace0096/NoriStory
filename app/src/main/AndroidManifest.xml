@@ -16,7 +16,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
 
-        <activity android:name="com.norispace.ReadMyBookActivity" /> <!-- <activity android:name=".TempActivity"></activity> -->
+<!--        <activity android:name=".ReadMyBookActivity" /> &lt;!&ndash; <activity android:name=".TempActivity"></activity> &ndash;&gt;-->
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
@@ -30,7 +30,7 @@
             android:name=".MakeStory.SelectSubjectActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MakeStory.MakeStoryActivity"
+            android:name=".MakeStoryActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".SelectUserActivity"
@@ -51,7 +51,7 @@
             android:name=".MyInfoActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".MainMenu.SplashActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,7 +60,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".MainMenu.MainActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".SignUpActivity"

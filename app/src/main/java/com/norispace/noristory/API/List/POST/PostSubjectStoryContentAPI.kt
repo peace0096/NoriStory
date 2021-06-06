@@ -2,7 +2,7 @@ package com.norispace.noristory.API.List.POST
 
 import com.norispace.noristory.API.RetrofitClient
 import com.norispace.noristory.Repository.User_Repo
-import com.norispace.noristory.SubjectStoryData
+import com.norispace.noristory.Model.SubjectStoryData
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call

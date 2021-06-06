@@ -1,5 +1,7 @@
 package com.norispace.noristory.MakeStory
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -7,32 +9,40 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-
+import com.norispace.noristory.DB.DBHelper
+import com.norispace.noristory.ListFragment.EmoticonFragment
+import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.ManageIcon.ManageChildView
 import com.norispace.noristory.MyPainterView
 import com.norispace.noristory.R
 import com.norispace.noristory.databinding.ActivityMakeCardBinding
 import kotlinx.android.synthetic.main.activity_make_card.*
 import java.io.File
+import java.io.FileOutputStream
 
 import kotlin.math.sqrt
 
-class MakeCardActivity : AppCompatActivity() {
+class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass {
     val binding by lazy {ActivityMakeCardBinding.inflate(layoutInflater)}
     var mode = -1
     lateinit var ptv: MyPainterView
+    val mydb = DBHelper(this)
 
     private val sliceSize = 5
     private var xCoordinate = Array(sliceSize, { 0.0f })
     private var yCoordinate = Array(sliceSize, { 0.0f })
     private var manageChildView=
-        com.norispace.noristory.ManageIcon.ManageChildView()
+        ManageChildView()
     private var lastTouchTag = ""
+    private var emoticonNum =0 // 선택된 이모티콘 번호
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         ptv = MyPainterView(this)
         binding.PainterView?.addView(ptv)
+        initBasiceBtn()
+        initShowCards()
+        initEmoticon()
         initbtn()
     }
 
@@ -47,6 +57,20 @@ class MakeCardActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun initBasiceBtn(){
+        binding.apply {
+            backBtn?.setOnClickListener {
+                finish()
+            }
+            homeBtn?.setOnClickListener {
+                val i= Intent(this@MakeCardActivity, MainActivity::class.java)
+                i.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(i)
+            }
+        }
+    }
+
 
     fun initbtn() {
         binding.apply {
@@ -281,27 +305,9 @@ class MakeCardActivity : AppCompatActivity() {
                 ptv.invalidate()
             }
             card_saveBtn?.setOnClickListener {
+                lastTouchTag=manageChildView.setBorder(-1,lastTouchTag,PainterView!!)
                 drawComplete()
             }
-
-//            imoticonBtn?.setOnClickListener {
-//                val layout=LinearLayout(this@MakeCardActivity)
-//                layout.layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
-//                layout.orientation=LinearLayout.HORIZONTAL
-//                layout.tag="layout" + manageChildView.imageCount.toString()
-//                val imageView = ImageView(this@MakeCardActivity)
-//                imageView.layoutParams = LinearLayout.LayoutParams(200, 200)
-//                imageView.tag = "image" + manageChildView.imageCount.toString()
-//                imageView.setImageResource(R.drawable.ic_android_black_24dp)
-//                val cancleView = ImageView(this@MakeCardActivity)
-//                cancleView.layoutParams = LinearLayout.LayoutParams(120, 120)
-//                cancleView.setImageResource(R.drawable.cancle_btn_small)
-//                layout.addView(imageView)
-//                layout.addView(cancleView)
-//                manageChildView.imageCount++
-//                PainterView?.addView(layout)
-//                initDrag(manageChildView.imageCount+manageChildView.textCount,1)
-//            }
         }
     }
 
@@ -327,34 +333,126 @@ class MakeCardActivity : AppCompatActivity() {
             chooseCardKind?.visibility=View.GONE
             saveComplete?.visibility=View.VISIBLE
             cardSave?.visibility= View.VISIBLE
-            if(flag==1){
-                ///////////////////////////////////////주제 사진 저장하기
-//                var StoragePath = "/data/data/com.norispace.noristory/cache/Image/Card"
-//                var Folder = File(StoragePath)
-//                if(!Folder.exists())        //폴더 없으면 생성
-//                    Folder.mkdirs()
-//
-//                val fileName = "card" + ".jpg";
-//
-//                PainterView?.buildDrawingCache()
-//                val bitmap: Bitmap? = PainterView?.getDrawingCache()
-//                val file = File(StoragePath, fileName)
-//                val fos = FileOutputStream(file);
-//                bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fos); //썸네일로 사용하므로 퀄리티를 낮게설정
-//                fos.close();
 
+            var StoragePath = cacheDir.toString()
+            if(flag==1){
+                StoragePath += "/Image/Card/Subject"
                 cardSave?.setImageResource(R.drawable.card_subject_saved)
             }else{
-                ///////////////////////////////////////캐릭터 사진 저장하기
+                StoragePath += "/Image/Card/Character"
                 cardSave?.setImageResource(R.drawable.card_char_saved)
             }
-            //setImage?.setImageResource()        저장된 사진 보여주기
+            var Folder = File(StoragePath)
+            if(!Folder.exists())        //폴더 없으면 생성
+                Folder.mkdirs()
+
+            var cardcount = 0
+            var fileName = "card" + cardcount.toString()+".png"
+            var file = File(StoragePath, fileName)
+
+            while (file.exists())   //같은 이름이 있으면 다른 이름으로
+            {
+                cardcount += 1
+                fileName = "card" + cardcount.toString()+".png"
+                file = File(StoragePath, fileName)
+            }
+
+            PainterView?.buildDrawingCache()
+            val bitmap: Bitmap? = PainterView?.getDrawingCache()
+            val fos = FileOutputStream(file);
+            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fos); //썸네일로 사용하므로 퀄리티를 낮게설정
+            fos.close();
+            setImage?.setImageBitmap(bitmap)
+            PainterView?.removeAllViews()
+
+            mydb.insertCard(StoragePath+"/"+fileName)
             screenBlur?.setOnClickListener {
                 screenBlur?.visibility=View.GONE
                 saveComplete?.visibility= View.GONE
             }
+
         }
     }
+
+    private fun initShowCards(){
+        binding.apply {
+            cardShowBtn?.setOnClickListener {
+                chooseCardKind?.visibility=View.GONE
+                screenBlur?.visibility=View.VISIBLE
+                showCrads?.visibility=View.VISIBLE
+                cancleBtnBig?.setOnClickListener {
+                    screenBlur?.visibility=View.GONE
+                    showCrads?.visibility=View.GONE
+                }
+            }
+
+        }
+    }
+    override fun onEmoticonPass(data: Int) { //프래그먼트에서 이모티콘 정보 받아와 이모티콘 출력
+        emoticonNum=data
+        binding.apply {
+            val layout=LinearLayout(this@MakeCardActivity)
+            layout.layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
+            layout.orientation=LinearLayout.HORIZONTAL
+            layout.tag="layout" + (manageChildView.imageCount+manageChildView.textCount).toString()
+            val imageView = ImageView(this@MakeCardActivity)
+            imageView.layoutParams = LinearLayout.LayoutParams(200, 200)
+            imageView.tag = "image" + manageChildView.imageCount.toString()
+            imageView.setImageResource(emoticonNum)
+            val cancleView = ImageView(this@MakeCardActivity)
+            cancleView.layoutParams = LinearLayout.LayoutParams(120, 120)
+            cancleView.setImageResource(R.drawable.cancle_btn_small)
+            cancleView.setOnClickListener {
+                deleteEmoticon()
+            }
+            layout.addView(imageView)
+            layout.addView(cancleView)
+            manageChildView.imageCount++
+            PainterView?.addView(layout)
+            initDrag(manageChildView.imageCount+manageChildView.textCount,1)
+        }
+    }
+
+    private fun deleteEmoticon(){
+        binding.apply {
+            val num=manageChildView.deleteChild(lastTouchTag,PainterView!!)
+            for(i in num until PainterView?.childCount!!){
+                val latestChild = PainterView.getChildAt(i) as LinearLayout
+                if(latestChild.getChildAt(0) is ImageView) { // 1 번이 삭제버튼 0번이 이미지 or 텍스트 source
+                    initDrag(i,1)
+                }else{
+                    initDrag(i,2)
+                }
+            }
+        }
+
+    }
+
+    private fun initEmoticon(){
+        binding.apply {
+//            imoticonBtn?.setOnClickListener {
+//                val layout=LinearLayout(this@MakeCardActivity)
+//                layout.layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
+//                layout.orientation=LinearLayout.HORIZONTAL
+//                layout.tag="layout" + manageChildView.imageCount.toString()
+//                val imageView = ImageView(this@MakeCardActivity)
+//                imageView.layoutParams = LinearLayout.LayoutParams(200, 200)
+//                imageView.tag = "image" + manageChildView.imageCount.toString()
+//                imageView.setImageResource(R.drawable.ic_android_black_24dp)
+//                val cancleView = ImageView(this@MakeCardActivity)
+//                cancleView.layoutParams = LinearLayout.LayoutParams(120, 120)
+//                cancleView.setImageResource(R.drawable.cancle_btn_small)
+//                layout.addView(imageView)
+//                layout.addView(cancleView)
+//                manageChildView.imageCount++
+//                PainterView?.addView(layout)
+//                initDrag(manageChildView.imageCount+manageChildView.textCount,1)
+//            }
+
+        }
+    }
+
+
 
     private fun initDrag(count:Int,contentType: Int){
         var childNum=count
@@ -363,32 +461,18 @@ class MakeCardActivity : AppCompatActivity() {
         var locationX = 0
         var locationY = 0
         binding.apply {
-            val layout=PainterView?.getChildAt(childNum) as LinearLayout  // PainterView 안에 LinearLayout 위치함
-            PainterView.getChildAt(childNum)?.setOnTouchListener(View.OnTouchListener { v, event ->
-                for(i in 0 until PainterView.childCount){
-                    if(PainterView.getChildAt(i)?.tag == lastTouchTag){
-                        //PainterView.getChildAt(i).background=null
-                        val latestChild = PainterView?.getChildAt(i) as LinearLayout
-                        latestChild.getChildAt(1).visibility=View.GONE
-                        latestChild.getChildAt(0).background=null // 1 번이 삭제버튼 0번이 이미지 or 텍스트 source
-                        break
-                    }
-                }
-                lastTouchTag = PainterView.getChildAt(childNum).tag.toString()
-                layout.getChildAt(1).visibility=View.VISIBLE
-                layout.getChildAt(0).setBackgroundResource(R.drawable.img_border)
-                //PainterView.getChildAt(childNum).setBackgroundResource(R.drawable.img_border)
+
+            PainterView?.getChildAt(childNum)?.setOnTouchListener(View.OnTouchListener { v, event ->
+                lastTouchTag=manageChildView.setBorder(childNum,lastTouchTag,PainterView)
                 val x = event.rawX.toInt()
                 val y = event.rawY.toInt()
                 when (event.getAction() and MotionEvent.ACTION_MASK) {
                     MotionEvent.ACTION_DOWN -> {
-                        //val lParams = v.layoutParams as RelativeLayout.LayoutParams
                         val lParams = v.layoutParams as FrameLayout.LayoutParams
                         xDelta = x - lParams.leftMargin
                         yDelta = y - lParams.topMargin
                     }
                     MotionEvent.ACTION_MOVE -> {
-                        //val layoutParams = v.layoutParams as RelativeLayout.LayoutParams
                         val layoutParams = v.layoutParams as FrameLayout.LayoutParams
                         var min = 1000.0f
 //                        var tempX = 0.0f
@@ -408,11 +492,9 @@ class MakeCardActivity : AppCompatActivity() {
                                 }
                             }
                         }
-
 //                        PainterView.getChildAt(childNum).x=tempX
 //                        PainterView.getChildAt(childNum).y=tempY
                         v.layoutParams = layoutParams
-
                     }
                 }
                 PainterView.invalidate()

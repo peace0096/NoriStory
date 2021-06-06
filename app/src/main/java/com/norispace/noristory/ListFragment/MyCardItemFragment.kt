@@ -30,19 +30,19 @@ class MyCardItemFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 initData()
-                val myAdapter = MyCardItemAdapter(data)
-                myAdapter.itemClickListener= object :
-                    MyCardItemAdapter.OnItemClickListener {
-                    override fun OnItemClick(
-                        holder: MyCardItemAdapter.ViewHolder,
-                        view: View,
-                        position: Int
-                    ) {
-                        //액티비티에 이미지 띄우기
-                    }
-
-                }
-                adapter = myAdapter
+//                val myAdapter =MyCardItemAdapter(data)
+//                myAdapter.itemClickListener= object :
+//                    MyCardItemAdapter.OnItemClickListener {
+//                    override fun OnItemClick(
+//                        holder: MyCardItemAdapter.ViewHolder,
+//                        view: View,
+//                        position: Int
+//                    ) {
+//                        //액티비티에 이미지 띄우기
+//                    }
+//
+//                }
+//                adapter = myAdapter
             }
         }
         return view

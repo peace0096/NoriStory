@@ -1,6 +1,7 @@
 package com.norispace.noristory
 
 import android.content.Intent
+import com.norispace.noristory.MainMenu.MainActivity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView

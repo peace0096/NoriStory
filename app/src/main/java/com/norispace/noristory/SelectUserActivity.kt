@@ -3,6 +3,7 @@ package com.norispace.noristory
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.databinding.ActivitySelectUserBinding
 
 class SelectUserActivity : AppCompatActivity() {

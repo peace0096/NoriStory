@@ -11,7 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.norispace.noristory.Books.BookData
 import com.norispace.noristory.DB.DBHelper
-import com.norispace.noristory.MainActivity
+import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.databinding.ActivitySunMoonBinding
 import com.norispace.noristory.Model.OptionalStory_Model
 import com.norispace.service.S3Helper

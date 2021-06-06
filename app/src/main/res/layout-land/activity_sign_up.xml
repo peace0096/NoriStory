@@ -151,7 +151,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/signup_age3"
+                    android:id="@+id/age3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -159,7 +159,7 @@
                     app:srcCompat="@drawable/signup_age3" />
 
                 <ImageView
-                    android:id="@+id/signup_age4"
+                    android:id="@+id/age4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -168,7 +168,7 @@
                     app:srcCompat="@drawable/signup_age4" />
 
                 <ImageView
-                    android:id="@+id/signup_age5"
+                    android:id="@+id/age5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -176,7 +176,7 @@
                     app:srcCompat="@drawable/signup_age5" />
 
                 <ImageView
-                    android:id="@+id/signup_age6"
+                    android:id="@+id/age6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -184,7 +184,7 @@
                     app:srcCompat="@drawable/signup_age6" />
 
                 <ImageView
-                    android:id="@+id/signup_age7"
+                    android:id="@+id/age7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -192,7 +192,7 @@
                     app:srcCompat="@drawable/signup_age7" />
 
                 <ImageView
-                    android:id="@+id/signup_age8"
+                    android:id="@+id/age8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -200,7 +200,7 @@
                     app:srcCompat="@drawable/signup_age8" />
 
                 <ImageView
-                    android:id="@+id/signup_age9"
+                    android:id="@+id/age9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -208,7 +208,7 @@
                     app:srcCompat="@drawable/signup_age9" />
 
                 <ImageView
-                    android:id="@+id/signup_age10"
+                    android:id="@+id/age10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

@@ -1,5 +1,6 @@
 package com.norispace.noristory.ListFragment
 
+import android.graphics.Bitmap
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import com.norispace.noristory.R
 
 
 class MyCardItemAdapter(
-    private val values: ArrayList<Int>
+    private val values: ArrayList<Bitmap>
 ) : RecyclerView.Adapter<MyCardItemAdapter.ViewHolder>() {
 
     interface OnItemClickListener{
@@ -27,7 +28,8 @@ class MyCardItemAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.image.setImageResource(item)
+        //holder.image.setImageResource(item)
+        holder.image.setImageBitmap(item)
     }
 
     override fun getItemCount(): Int = values.size

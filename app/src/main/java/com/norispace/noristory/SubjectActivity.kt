@@ -1,4 +1,4 @@
-package com.norispace.noristory
+package com.norispace.noristory.ManageIcon
 
 import android.content.Intent
 import android.graphics.Color
@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
+import com.norispace.noristory.MakeStory.MakeCardActivity
+import com.norispace.noristory.Model.SubjectStoryData
+import com.norispace.noristory.R
 import com.norispace.noristory.databinding.ActivitySubjectBinding
 import kotlinx.android.synthetic.main.activity_subject.*
 import kotlin.math.sqrt
@@ -23,7 +26,8 @@ class SubjectActivity : AppCompatActivity() {
     private val sliceSize = 10
     private var xCoordiante = Array(sliceSize, { 0.0f })
     private var yCoordiante = Array(sliceSize, { 0.0f })
-    private var manageChildView= ManageChildView()
+    private var manageChildView=
+        ManageChildView()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySubjectBinding.inflate(layoutInflater)
@@ -55,7 +59,8 @@ class SubjectActivity : AppCompatActivity() {
         val basicWidth = 400
         binding.apply {
             cardBtn?.setOnClickListener {
-                val i = Intent(this@SubjectActivity,MakeCardActivity::class.java)
+                val i = Intent(this@SubjectActivity,
+                    MakeCardActivity::class.java)
                 startActivity(i)
             }
             imageView?.setOnClickListener {
@@ -133,7 +138,7 @@ class SubjectActivity : AppCompatActivity() {
 
 
         deleteBtn?.setOnClickListener {
-            var num=manageChildView.deleteChild(lastTouchTag,relativeLayout)
+            var num=manageChildView.deleteChild(lastTouchTag,FrameLayout(this))
 //            for (i in 0 until relativeLayout?.childCount!!) {
 //                if (relativeLayout.getChildAt(i)?.tag == lastTouchTag) {
 //                    if(relativeLayout.getChildAt(i) is ImageView){

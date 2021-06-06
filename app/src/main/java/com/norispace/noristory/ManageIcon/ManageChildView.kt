@@ -1,38 +1,53 @@
 package com.norispace.noristory.ManageIcon
 
+import android.view.View
 import android.widget.*
-import com.norispace.noristory.Model.SubjectStory_Model
-import com.norispace.noristory.SubjectStoryData
+import com.norispace.noristory.Model.SubjectStoryData
+import com.norispace.noristory.R
 
 class ManageChildView {
     var contentData= ArrayList<SubjectStoryData>()
     var imageCount=0
     var textCount=0
-    //lateinit var myPainterView:MyPainterView
-    fun deleteChild(lastTouchTag:String,relativeLayout:RelativeLayout):Int{
-        //var num=0
-        for (i in 0 until relativeLayout?.childCount!!) {
-            if (relativeLayout.getChildAt(i)?.tag == lastTouchTag) {
-                if(relativeLayout.getChildAt(i) is ImageView){
+
+    fun deleteChild(lastTouchTag:String,myLayout:FrameLayout):Int{
+        for (i in 0 until myLayout?.childCount!!) {
+            if (myLayout.getChildAt(i)?.tag == lastTouchTag) {
+                val latestChild = myLayout?.getChildAt(i) as LinearLayout
+                if(latestChild.getChildAt(0) is ImageView){
                     imageCount-=1
                 }else{
                     textCount-=1
                 }
-                relativeLayout.removeViewAt(i)
-                contentData.removeAt(i)
-                //num=i
+                myLayout.removeViewAt(i)
+                val index=i-1  // 1번째 child가 0번째 index에서부터 저장되므로!
+                contentData.removeAt(index)
                 return i
             }
         }
+        return -1
+    }
 
-//        for(i in num until relativeLayout?.childCount!!){
-//            if(relativeLayout.getChildAt(i) is ImageView) {
-//                initDrag(i,1)
-//            }else{
-//                initDrag(i,2)
-//            }
-//        }
-        return 100
+    fun setBorder(childNum:Int,lastTouchTag:String,myLayout:FrameLayout):String{
+        for(i in 0 until myLayout.childCount){
+            if(myLayout.getChildAt(i)?.tag == lastTouchTag){
+                val latestChild = myLayout?.getChildAt(i) as LinearLayout
+                latestChild.getChildAt(1).visibility= View.GONE
+                latestChild.getChildAt(0).background=null // 1 번이 삭제버튼 0번이 이미지 or 텍스트 source
+                break
+            }
+        }
+        if(childNum<0) {
+            return "finish"
+        }
+        else {
+            val layout =
+                myLayout.getChildAt(childNum) as LinearLayout  // PainterView 안에 LinearLayout 위치함
+
+            layout.getChildAt(1).visibility = View.VISIBLE
+            layout.getChildAt(0).setBackgroundResource(R.drawable.img_border)
+            return myLayout.getChildAt(childNum).tag.toString()
+        }
     }
 
     fun biggerChild(lastTouchTag:String,relativeLayout:RelativeLayout){
@@ -81,15 +96,15 @@ class ManageChildView {
         }
     }
 
-    fun updateContentData( page: Int,childNum:Int,locationX: Int,locationY: Int,contentType:Int,content:String,relativeLayout:FrameLayout){
+    fun updateContentData( page: Int,childNum:Int,locationX: Int,locationY: Int,contentType:Int,content:String,myLayout:FrameLayout){
         var sizeX=0
         var sizeY=0
         if(contentType==1){
-            sizeX= relativeLayout.getChildAt(childNum).x.toInt()
-            sizeY= relativeLayout.getChildAt(childNum).y.toInt()
+            sizeX= myLayout.getChildAt(childNum).x.toInt()
+            sizeY= myLayout.getChildAt(childNum).y.toInt()
         }
         else{
-            sizeX=(relativeLayout.getChildAt(childNum) as TextView).textSize.toInt()
+            sizeX=(myLayout.getChildAt(childNum) as TextView).textSize.toInt()
             sizeY=0
         }
         if(contentData.size<childNum){ //이모티콘이 추가된 경우

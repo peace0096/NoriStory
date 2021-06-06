@@ -2,7 +2,6 @@ package com.norispace.noristory.ListFragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,15 +9,23 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import com.norispace.noristory.DB.DBHelper
+import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
 import com.norispace.noristory.MyBooksActivity2
 import com.norispace.noristory.R
+import com.norispace.noristory.Repository.User_Repo
+import com.norispace.noristory.ViewModel.StoryViewModel
 
 
 class BookItemFragment : Fragment() {
 
     private var columnCount = 3
-    private var data = ArrayList<SharedBookData>()
+    private var data = ArrayList<SubjectStoryThumbnail_Model>()
+    private lateinit var dbHelper:DBHelper
+    private lateinit var storyViewModel:StoryViewModel
     var btn = -1
+    val myAdapter=MyBookItemAdapter(data)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +35,8 @@ class BookItemFragment : Fragment() {
 
         if(arguments!=null)
             btn = arguments!!.getInt("btn")
-
+        initData()
+        initObserve()
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -36,8 +44,8 @@ class BookItemFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                initData()
-                val myAdapter=MyBookItemAdapter(data)
+
+
                 myAdapter.itemClickListener = object :
                     MyBookItemAdapter.OnItemClickListener {
                     override fun OnHeartClick(
@@ -84,26 +92,63 @@ class BookItemFragment : Fragment() {
         }
         return view
     }
+
+    private fun initObserve() {
+        storyViewModel.subjectstorythumbnailmodellistmodel.observe(this, Observer {
+            data.clear()
+            data.addAll(it)
+            var list:ArrayList<SubjectStoryThumbnail_Model>? = null
+            if(btn == 0) {
+                //서재
+                list = dbHelper.getAllSubjectStoryThumbnail()
+            }
+            if(list != null) {
+                for(e in list) {
+                    var flag = true
+                    for(i in 0 until data.size) {
+                        if(e.title == data[i].title) {
+                            flag = false
+                            break
+                        }
+
+                    }
+                    if(flag) {
+                        data.add(e)
+                    }
+                }
+            }
+
+            myAdapter.notifyDataSetChanged()
+        })
+
+
+    }
+
     private fun initData(){
+        storyViewModel = StoryViewModel()
+        dbHelper = DBHelper(context!!)
         if(btn == 0)
         {
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"나만의 서재","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+            storyViewModel.getSubjectStoryThumbnail()
+
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"나만의 서재","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
         }
         else
         {
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"도서관","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+            storyViewModel.getSharedStoryThumbnail()
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"도서관","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
+//            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
         }
 
     }

@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.norispace.noristory.DB.DBHelper
 import com.norispace.noristory.ListFragment.EmoticonFragment
+import com.norispace.noristory.ListFragment.MyCardListFragment
 import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.ManageIcon.ManageChildView
 import com.norispace.noristory.MyPainterView
@@ -22,7 +23,7 @@ import java.io.FileOutputStream
 
 import kotlin.math.sqrt
 
-class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass {
+class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass,MyCardListFragment.OnDataPass {
     val binding by lazy {ActivityMakeCardBinding.inflate(layoutInflater)}
     var mode = -1
     lateinit var ptv: MyPainterView
@@ -35,6 +36,7 @@ class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass {
         ManageChildView()
     private var lastTouchTag = ""
     private var emoticonNum =0 // 선택된 이모티콘 번호
+    private val myCardListFragment=MyCardListFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -376,14 +378,17 @@ class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass {
 
     private fun initShowCards(){
         binding.apply {
+            val fragment=supportFragmentManager.beginTransaction()
+            fragment.replace(R.id.myCardFragment,myCardListFragment)
+            fragment.commit()
             cardShowBtn?.setOnClickListener {
                 chooseCardKind?.visibility=View.GONE
                 screenBlur?.visibility=View.VISIBLE
-                showCrads?.visibility=View.VISIBLE
-                cancleBtnBig?.setOnClickListener {
-                    screenBlur?.visibility=View.GONE
-                    showCrads?.visibility=View.GONE
-                }
+                myCardFragment?.visibility=View.VISIBLE
+//                cancleBtnBig?.setOnClickListener {
+//                    screenBlur?.visibility=View.GONE
+//                    showCrads?.visibility=View.GONE
+//                }
             }
 
         }
@@ -501,6 +506,15 @@ class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass {
                 manageChildView.updateContentData(1,childNum,locationX,locationY,contentType,"tempname",PainterView)
                 true
             })
+        }
+    }
+
+    override fun onSelectedCardPass(data: ArrayList<Int>) {
+        binding.apply{
+            if(data[0]==-1){
+                screenBlur?.visibility=View.GONE
+                myCardFragment?.visibility=View.GONE
+            }
         }
     }
 }

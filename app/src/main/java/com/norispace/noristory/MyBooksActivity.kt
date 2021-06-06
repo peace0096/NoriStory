@@ -33,12 +33,14 @@ class MyBooksActivity : AppCompatActivity() {
             if(btn == 0)
             {
                 TitleView?.text = "나만의 서재"
+                screen_my_books.setImageResource(R.drawable.screen_my_books)
                 bundle.putInt("btn", 0)
 
             }
             else if(btn == 1)
             {
                 TitleView?.text = "우리의 도서관"
+                screen_my_books.setImageResource(R.drawable.screen_library)
                 bundle.putInt("btn", 1)
             }
             frag.arguments = bundle

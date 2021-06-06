@@ -18,6 +18,7 @@ class ReadMyBookActivity : AppCompatActivity() {
     lateinit var title:String
     private lateinit var dbHelper: DBHelper
     private lateinit var storyViewModel: StoryViewModel
+    var back = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +36,18 @@ class ReadMyBookActivity : AppCompatActivity() {
 
             }
             read_back?.setOnClickListener{
-                Log.d("btn", "back")
-                val intent = Intent(this@ReadMyBookActivity, MyBooksActivity2::class.java)
-                intent.putExtra("title", title)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(intent)
+                if(back == 1) {
+                    val intent = Intent(this@ReadMyBookActivity, MyBooksActivity2::class.java)
+                    intent.putExtra("title", title)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                }
+                else if(back == 2) {
+                    val intent = Intent(this@ReadMyBookActivity, LibraryActivity::class.java)
+                    intent.putExtra("title", title)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                }
             }
             read_home?.setOnClickListener{
                 Log.d("btn", "back")
@@ -52,9 +60,18 @@ class ReadMyBookActivity : AppCompatActivity() {
 
     fun initData()
     {
+        data.clear()
         title = intent.getStringExtra("title").toString()
+        back = intent.getIntExtra("back", -1)
         storyViewModel = StoryViewModel()
         dbHelper = DBHelper(this)
+        var list = dbHelper.getAllSubjectStory()
+
+        for(i in list)
+        {
+            if(i.title == title)
+                data.add(i)
+        }
 
     }
 }

@@ -15,6 +15,7 @@ import kotlin.collections.ArrayList
 class MyBooksActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMyBooksBinding
+
     var data:ArrayList<BookData> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {

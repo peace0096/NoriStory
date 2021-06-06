@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.norispace.noristory.ListFragment.CharacterItemFragment
 import com.norispace.noristory.MainMenu.MainActivity
+import com.norispace.noristory.MakeStoryActivity
 import com.norispace.noristory.R
-import com.norispace.noristory.SetCharacterActivity
 import com.norispace.noristory.databinding.ActivitySelectCharacterBinding
-import kotlinx.android.synthetic.main.activity_make_card.*
 
 class SelectCharacterActivity : AppCompatActivity(),CharacterItemFragment.OnDataPass {
     lateinit var binding:ActivitySelectCharacterBinding
@@ -57,9 +56,9 @@ class SelectCharacterActivity : AppCompatActivity(),CharacterItemFragment.OnData
                 startActivity(intent)
             }
             nextBtn?.setOnClickListener {
-                val i= Intent(this@SelectCharacterActivity, SetCharacterActivity::class.java)
-                i.putExtra("basicCharacter",basicSelectedList)
-                i.putExtra("myCharacter",mySelectedList)
+                val i= Intent(this@SelectCharacterActivity, MakeStoryActivity::class.java)
+//                i.putExtra("basicCharacter",basicSelectedList)
+//                i.putExtra("myCharacter",mySelectedList)
                 startActivity(i)
             }
             basicCard?.setOnClickListener {

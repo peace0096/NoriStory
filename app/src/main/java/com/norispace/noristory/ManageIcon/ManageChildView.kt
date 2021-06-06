@@ -104,7 +104,8 @@ class ManageChildView {
             sizeY= myLayout.getChildAt(childNum).y.toInt()
         }
         else{
-            sizeX=(myLayout.getChildAt(childNum) as TextView).textSize.toInt()
+            val latestChild = myLayout?.getChildAt(childNum) as LinearLayout
+            sizeX=(latestChild.getChildAt(0) as TextView).textSize.toInt()
             sizeY=0
         }
         if(contentData.size<childNum){ //이모티콘이 추가된 경우

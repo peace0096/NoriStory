@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.norispace.noristory.R
 import com.norispace.noristory.databinding.FragmentBackgroundBinding
@@ -78,17 +77,23 @@ class MyCardListFragment : Fragment() {
             showCharacterCardBtn?.setOnClickListener {
                 showCharacterCardBtn.setImageResource(R.drawable.card_char_active)
                 showSubjectCardBtn?.setImageResource(R.drawable.card_subject_inactive)
+                myCardRecyclerView?.adapter=characterAdapter
                 type=1
             }
             showSubjectCardBtn?.setOnClickListener {
                 showCharacterCardBtn?.setImageResource(R.drawable.card_char_inactive)
                 showSubjectCardBtn.setImageResource(R.drawable.card_subject_active)
+                myCardRecyclerView?.adapter=subjectAdapter
                 type=2
             }
-            if(type==1){
+//            if(type==1){
                 myCardRecyclerView?.adapter=characterAdapter
-            }else{
-                myCardRecyclerView?.adapter=subjectAdapter
+//            }else{
+//                myCardRecyclerView?.adapter=subjectAdapter
+//            }
+            cancleBtn?.setOnClickListener {
+                //root.visibility=View.GONE
+                passData(-1,-1)
             }
         }
     }

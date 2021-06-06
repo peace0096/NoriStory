@@ -1,19 +1,12 @@
 package com.norispace.noristory.ListFragment
 
 import android.content.Context
-import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.norispace.noristory.R
 import com.norispace.noristory.databinding.FragmentBackgroundBinding
 
 
@@ -50,28 +43,37 @@ class BackgroundFragment : Fragment() {
             val layoutManager= GridLayoutManager(activity, 3)
             backgroundRecyclerView?.layoutManager=layoutManager
             initData()
-            val myAdapter= EmoticonAdapter(data)
-            myAdapter.itemClickListener=object  : EmoticonAdapter.OnItemClickListener{
+            val myAdapter= BackgroundItemAdapter(data)
+            myAdapter.itemClickListener=object  : BackgroundItemAdapter.OnItemClickListener{
                 override fun OnItemClick(
-                    holder: EmoticonAdapter.ViewHolder,
+                    holder: BackgroundItemAdapter.ViewHolder,
                     view: View,
                     position: Int
                 ) {
                     passData(data[position])
                 }
             }
-            showBackgroundBtn?.setOnClickListener {
-                if(!showState){ // 리스트가 보여지지 않을 경우 리스트 출력
-                    showBackgroundBtn.visibility=View.GONE
-                    backgroundList?.visibility=View.VISIBLE
-                    showState=true
-                    cancleBtn?.setOnClickListener{
-                        backgroundList?.visibility=View.GONE
-                        showBackgroundBtn.visibility=View.VISIBLE
-                        showState=false
-                    }
-                }
+            if(!showState){
+                root?.visibility=View.VISIBLE
+                showState=true
             }
+//            showBackgroundBtn?.setOnClickListener {
+//                if(!showState){ // 리스트가 보여지지 않을 경우 리스트 출력
+//                    showBackgroundBtn.visibility=View.GONE
+//                    root?.visibility=View.VISIBLE
+//                    backgroundList?.visibility=View.VISIBLE
+//                    showState=true
+                    cancleBtn?.setOnClickListener{
+                        //root?.visibility=View.GONE
+                        showState=false
+                        passData(-1)
+                        //showBackgroundBtn.visibility=View.VISIBLE
+//
+//                        showState=false
+//                    }
+//                }
+            }
+            backgroundRecyclerView?.adapter=myAdapter
         }
     }
 
@@ -82,6 +84,7 @@ class BackgroundFragment : Fragment() {
             val id = resources.getIdentifier(bgName, "drawable", context?.packageName)
             data.add(id)
         }
+
     }
 
     override fun onDestroyView() {

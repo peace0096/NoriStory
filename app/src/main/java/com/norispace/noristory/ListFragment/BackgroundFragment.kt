@@ -19,7 +19,6 @@ import com.norispace.noristory.databinding.FragmentBackgroundBinding
 
 class BackgroundFragment : Fragment() {
     var binding:FragmentBackgroundBinding?=null
-    lateinit var myAdapter: EmoticonAdapter
     private var data = arrayListOf<Int>()
     var showState=false
     interface  OnDataPass{

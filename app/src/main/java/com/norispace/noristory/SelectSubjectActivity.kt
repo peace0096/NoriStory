@@ -103,10 +103,7 @@ class SelectSubjectActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             backBtn?.setOnClickListener {
-                val intent= Intent(this@SelectSubjectActivity,
-                    StoryMenuActivity::class.java)
-                intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(intent)
+                finish()
             }
         }
     }

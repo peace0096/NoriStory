@@ -14,7 +14,7 @@ import com.norispace.noristory.API.List.POST.PostUserLoginAPI
 import com.norispace.noristory.API.RetrofitClient
 import com.norispace.noristory.Model.SubjectStory_Model
 import com.norispace.noristory.Model.User_Model
-import com.norispace.noristory.SubjectStoryData
+
 
 object User_Repo {
 

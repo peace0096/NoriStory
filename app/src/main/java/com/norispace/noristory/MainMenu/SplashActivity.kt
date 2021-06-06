@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import com.norispace.noristory.DB.DBHelper
@@ -45,7 +46,8 @@ class SplashActivity : AppCompatActivity() {
             })
 
             builder.setPositiveButton("시작", DialogInterface.OnClickListener{ dialogInterface: DialogInterface, i: Int ->
-
+                val loadImage = findViewById<ImageView>(R.id.loadingSecreen)
+                loadImage.visibility = View.VISIBLE
                 val file = resources.openRawResource(R.raw.storydb)
                 val fileSize = file.available()
                 val buffer = ByteArray(fileSize)

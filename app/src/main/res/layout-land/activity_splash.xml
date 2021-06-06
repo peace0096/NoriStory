@@ -14,5 +14,13 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/start_screen" />
 
+    <ImageView
+        android:id="@+id/loadingSecreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        app:srcCompat="@drawable/signup_screen_loading" />
+
 
 </LinearLayout>

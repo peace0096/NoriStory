@@ -3,11 +3,12 @@ package com.norispace.noristory.ViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.norispace.noristory.API.RetrofitClient
+import com.norispace.noristory.Model.SubjectStoryData
 import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
 import com.norispace.noristory.Model.SubjectStory_Model
 import com.norispace.noristory.Repository.Story_Repo
 import com.norispace.noristory.Repository.User_Repo
-import com.norispace.noristory.SubjectStoryData
+
 import org.json.JSONArray
 import org.json.JSONObject
 

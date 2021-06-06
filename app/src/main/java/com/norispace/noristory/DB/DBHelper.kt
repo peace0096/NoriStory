@@ -243,12 +243,6 @@ class DBHelper(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
         return list
     }
 
-
-    fun initDB() {
-
-
-    }
-
     override fun onCreate(p0: SQLiteDatabase?) {
 
 

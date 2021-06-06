@@ -1,14 +1,19 @@
 package com.norispace.noristory.ManageIcon
 
+import android.content.Context
 import android.view.View
 import android.widget.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.norispace.noristory.Model.SubjectStoryData
 import com.norispace.noristory.R
+import com.norispace.noristory.ViewModel.StoryViewModel
 
 class ManageChildView {
     var contentData= ArrayList<SubjectStoryData>()
     var imageCount=0
     var textCount=0
+
 
     fun deleteChild(lastTouchTag:String,myLayout:FrameLayout):Int{
         for (i in 0 until myLayout?.childCount!!) {

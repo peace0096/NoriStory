@@ -16,7 +16,7 @@ class SelectUserActivity : AppCompatActivity() {
     }
     private fun init(){
         binding.apply {
-            backBtn?.setOnClickListener {
+            mybookBack?.setOnClickListener {
                 val intent= Intent(this@SelectUserActivity,MainActivity::class.java)
                 intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)

@@ -60,10 +60,10 @@ class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass {
 
     private fun initBasiceBtn(){
         binding.apply {
-            backBtn?.setOnClickListener {
+            mybookBack?.setOnClickListener {
                 finish()
             }
-            homeBtn?.setOnClickListener {
+            mybookHome?.setOnClickListener {
                 val i= Intent(this@MakeCardActivity, MainActivity::class.java)
                 i.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(i)

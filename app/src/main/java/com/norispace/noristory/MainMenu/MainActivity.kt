@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         val bookshelfBtn=findViewById<ImageView>(R.id.bookshelf_btn)
         bookshelfBtn.setOnClickListener {
             val intent = Intent(this, MyBooksActivity::class.java)
+            intent.putExtra("btn", 0)
             startActivity(intent)
         }
         val myInfoBtn=findViewById<ImageView>(R.id.my_info_btn)
@@ -42,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         }
         val libraryBtn=findViewById<ImageView>(R.id.library_btn)
         libraryBtn.setOnClickListener {
-            val intent = Intent(this, LibraryActivity::class.java)
+            val intent = Intent(this, MyBooksActivity::class.java)
+            intent.putExtra("btn", 1)
             startActivity(intent)
         }
     }

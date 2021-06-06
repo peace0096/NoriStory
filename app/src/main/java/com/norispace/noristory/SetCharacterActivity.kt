@@ -24,10 +24,10 @@ class SetCharacterActivity : AppCompatActivity() {
             val id = resources.getIdentifier(imgName, "drawable", packageName)
             characterImg?.setImageResource(id)
 
-            backBtn?.setOnClickListener {
+            mybookBack?.setOnClickListener {
                 finish()
             }
-            homeBtn?.setOnClickListener {
+            mybookHome?.setOnClickListener {
                 val intent= Intent(this@SetCharacterActivity,
                     MainActivity::class.java)
                 intent.flags= Intent.FLAG_ACTIVITY_CLEAR_TOP

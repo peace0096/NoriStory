@@ -44,7 +44,7 @@
             app:srcCompat="@drawable/header" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/TitleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="창작할 이야기를 선택해 주세요!"
@@ -57,7 +57,7 @@
             app:layout_constraintVertical_bias="0.445" />
 
         <ImageView
-            android:id="@+id/help_btn"
+            android:id="@+id/mybook_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="54dp"
@@ -67,7 +67,7 @@
             app:srcCompat="@drawable/help_btn" />
 
         <ImageView
-            android:id="@+id/home_btn"
+            android:id="@+id/mybook_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="36dp"
@@ -77,13 +77,13 @@
             app:srcCompat="@drawable/home_btn" />
 
         <ImageView
-            android:id="@+id/back_btn"
+            android:id="@+id/mybook_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
             android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/home_btn"
+            app:layout_constraintEnd_toStartOf="@+id/mybook_home"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/back_btn" />
 

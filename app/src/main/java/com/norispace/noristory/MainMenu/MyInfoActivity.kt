@@ -13,7 +13,7 @@ class MyInfoActivity : AppCompatActivity() {
         init()
     }
     private fun init(){
-        val homeBtn=findViewById<ImageView>(R.id.home_btn)
+        val homeBtn=findViewById<ImageView>(R.id.mybook_home)
         homeBtn.setOnClickListener {
             val i= Intent(this,MainActivity::class.java)
             i.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP

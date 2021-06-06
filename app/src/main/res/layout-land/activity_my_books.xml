@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/totalView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFDA8B"
-    android:orientation="vertical"
-    android:id="@+id/totalView">
+    android:orientation="vertical">
 
 
     <ImageView
@@ -32,27 +32,26 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/header" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="36dp"
+    <FrameLayout
+        android:id="@+id/fragmentContainerView"
+        android:name="com.norispace.noristory.ListFragment.BookItemFragment"
+        android:layout_width="match_parent"
+        android:layout_height="345dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/TitleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="나만의 책장"
@@ -65,7 +64,7 @@
             app:layout_constraintVertical_bias="0.445" />
 
         <ImageView
-            android:id="@+id/help_btn"
+            android:id="@+id/mybook_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="54dp"
@@ -75,6 +74,7 @@
             app:srcCompat="@drawable/help_btn" />
 
         <LinearLayout
+            android:id="@+id/linearLayout5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="42dp"
@@ -85,14 +85,14 @@
             app:layout_constraintVertical_bias="0.0">
 
             <ImageView
-                android:id="@+id/back_btn"
+                android:id="@+id/mybook_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="28dp"
                 app:srcCompat="@drawable/back_btn" />
 
             <ImageView
-                android:id="@+id/home_btn"
+                android:id="@+id/mybook_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="36dp"

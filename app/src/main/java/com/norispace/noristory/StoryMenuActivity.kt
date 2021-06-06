@@ -31,7 +31,7 @@ class StoryMenuActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
-            home_btn.setOnClickListener {
+            mybook_home.setOnClickListener {
                 val intent = Intent(this@StoryMenuActivity, MainActivity::class.java)
                 intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)

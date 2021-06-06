@@ -16,9 +16,15 @@ class MyBookItemAdapter(
 
     interface OnItemClickListener{
         fun OnHeartClick(holder: MyBookItemAdapter.ViewHolder, view: View, position: Int)
+        fun OnBookClick(holder: MyBookItemAdapter.ViewHolder, view: View, position: Int)
+    }
+
+    interface OnSetting{
+        fun onHeartSetting(holder: MyBookItemAdapter.ViewHolder):Boolean
     }
 
     var itemClickListener: MyBookItemAdapter.OnItemClickListener?=null
+    var set: MyBookItemAdapter.OnSetting?=null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -40,10 +46,18 @@ class MyBookItemAdapter(
         val heart: ImageView = view.findViewById(R.id.heart)
         val title:TextView=view.findViewById(R.id.book_title)
         val info:TextView=view.findViewById(R.id.book_info)
-        init {
+        init
+        {
             heart.setOnClickListener {
                 itemClickListener?.OnHeartClick(this,it,absoluteAdapterPosition)
             }
+            image.setOnClickListener{
+                itemClickListener?.OnBookClick(this,it,absoluteAdapterPosition)
+            }
+            if(set?.onHeartSetting(this) == true)
+                heart.visibility = View.INVISIBLE
+            else
+                heart.visibility = View.VISIBLE
         }
     }
 

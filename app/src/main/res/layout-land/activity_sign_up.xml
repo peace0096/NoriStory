@@ -33,14 +33,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/back_btn"
+            app:layout_constraintEnd_toStartOf="@+id/mybook_back"
             app:layout_constraintStart_toEndOf="@+id/front_btn"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/logo_noristory_blur" />
 
         <ImageView
-            android:id="@+id/back_btn"
+            android:id="@+id/mybook_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="300dp"

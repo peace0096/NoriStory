@@ -55,7 +55,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/TitleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="어떻게 이야기를 창작해 볼까요?"
@@ -68,7 +68,7 @@
             app:layout_constraintVertical_bias="0.445" />
 
         <ImageView
-            android:id="@+id/help_btn"
+            android:id="@+id/mybook_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="54dp"
@@ -88,14 +88,14 @@
             app:layout_constraintVertical_bias="0.0">
 
             <ImageView
-                android:id="@+id/back_btn"
+                android:id="@+id/mybook_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="28dp"
                 app:srcCompat="@drawable/back_btn" />
 
             <ImageView
-                android:id="@+id/home_btn"
+                android:id="@+id/mybook_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="36dp"

@@ -44,13 +44,13 @@ class SelectCharacterActivity : AppCompatActivity(),CharacterItemFragment.OnData
                     MakeCardActivity::class.java)
                 startActivity(intent)
             }
-            homeBtn?.setOnClickListener {
+            mybookBack?.setOnClickListener {
                 val intent= Intent(this@SelectCharacterActivity,
                     MainActivity::class.java)
                 intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
             }
-            backBtn?.setOnClickListener {
+            mybookHome?.setOnClickListener {
                 val intent= Intent(this@SelectCharacterActivity,
                     SelectSubjectActivity::class.java)
                 intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP

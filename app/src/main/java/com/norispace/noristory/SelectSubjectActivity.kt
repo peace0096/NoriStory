@@ -96,13 +96,13 @@ class SelectSubjectActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
-            homeBtn?.setOnClickListener {
+            mybookBack?.setOnClickListener {
                 val intent= Intent(this@SelectSubjectActivity,
                     MainActivity::class.java)
                 intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
             }
-            backBtn?.setOnClickListener {
+            mybookHome?.setOnClickListener {
                 finish()
             }
         }

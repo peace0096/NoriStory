@@ -45,6 +45,10 @@ class MainActivity : AppCompatActivity() {
         storyViewModel = StoryViewModel()
         userViewModel = UserViewModel()
 
+        storyViewModel.getSubjectStoryThumbnail()
+        storyViewModel.getSharedStoryThumbnail()
+        userViewModel.getCard()
+
         storyViewModel.subjectstorymodellistmodel.observe(this, Observer {
             val list = ArrayList<String>()
             for(e in it) {
@@ -57,6 +61,10 @@ class MainActivity : AppCompatActivity() {
             }
             if(list.size > 0) {
                 s3Helper.downloadImage(list)
+            }
+            for(e in Story_Repo.getSubjectStoryThumbnailListModel()) {
+                val title = e.title
+                storyViewModel.getSubjectStory(title)
             }
 
         })
@@ -74,6 +82,11 @@ class MainActivity : AppCompatActivity() {
             if(list.size > 0) {
                 s3Helper.downloadImage(list)
             }
+            for(e in Story_Repo.getSharedStoryThumbnailListModel()) {
+                val title = e.title
+                storyViewModel.getSharedStory(title)
+
+            }
 
         })
 
@@ -81,21 +94,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
 
-        storyViewModel.getSubjectStoryThumbnail()
-        storyViewModel.getSharedStoryThumbnail()
 
-        userViewModel.getCard()
 
-        for(e in Story_Repo.getSubjectStoryThumbnailListModel()) {
-            val title = e.title
-            storyViewModel.getSubjectStory(title)
-        }
 
-        for(e in Story_Repo.getSharedStoryThumbnailListModel()) {
-            val title = e.title
-            storyViewModel.getSharedStory(title)
 
-        }
+
+
 
 
 

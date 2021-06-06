@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.norispace.noristory.R
+import com.norispace.noristory.Repository.User_Repo
+import com.norispace.service.S3Helper
 import java.io.File
 
 class CharacterItemFragment : Fragment() {
@@ -122,14 +125,30 @@ class CharacterItemFragment : Fragment() {
                     drawableData.add(id)
                 }
             } else{
-                var storagePath = context?.cacheDir.toString()
+
+                val list = ArrayList<String>()
+                for(e in User_Repo.getCardModel()) {
+                    var path = context?.cacheDir.toString() + e
+                    val file = File(path)
+
+                    if (!file.exists()) {
+                        list.add(e)
+                    }
+                }
+                if(list.size > 0) {
+                    val s3Helper = S3Helper(context!!)
+                    s3Helper.downloadImage(list)
+                }
+                var storagePath = context?.cacheDir.toString() + "/" + User_Repo.getToken()
                 storagePath += "/Image/Card/Character"
                 var count=0
                 while(true){
                     val fileName = "card" + count.toString()+".png"
+                    Log.d("card", storagePath + "/" +  fileName)
                     val file = File(storagePath, fileName)
                     if(file.exists()){
                         val dir=storagePath+"/"+fileName
+
                         val bmp=BitmapFactory.decodeFile(dir)
                         bitmapData.add(bmp)
                         count++

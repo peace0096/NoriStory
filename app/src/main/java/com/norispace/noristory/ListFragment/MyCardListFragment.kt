@@ -10,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.norispace.noristory.R
+import com.norispace.noristory.Repository.User_Repo
 import com.norispace.noristory.databinding.FragmentBackgroundBinding
 import com.norispace.noristory.databinding.FragmentMyCardListBinding
+import com.norispace.service.S3Helper
 import java.io.File
 
 class MyCardListFragment : Fragment() {
@@ -99,7 +101,22 @@ class MyCardListFragment : Fragment() {
     }
 
     private fun initCharacterData(){
-        var storagePath = context?.cacheDir.toString()
+        val list = ArrayList<String>()
+        for(e in User_Repo.getCardModel()) {
+            var path = context?.cacheDir.toString() + e
+            val file = File(path)
+
+            if (!file.exists()) {
+                list.add(e)
+            }
+        }
+        if(list.size > 0) {
+            val s3Helper = S3Helper(context!!)
+            s3Helper.downloadImage(list)
+        }
+
+
+        var storagePath = context?.cacheDir.toString() + "/" + User_Repo.getToken()
         storagePath += "/Image/Card/Character"
         var count=0
         while(true){

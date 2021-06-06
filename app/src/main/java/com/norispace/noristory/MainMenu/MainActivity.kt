@@ -12,6 +12,7 @@ import com.norispace.noristory.R
 import com.norispace.noristory.Repository.User_Repo
 import com.norispace.noristory.StoryMenuActivity
 import com.norispace.noristory.ViewModel.StoryViewModel
+import com.norispace.noristory.ViewModel.UserViewModel
 //import com.kakao.sdk.common.KakaoSdk.keyHash
 //import com.kakao.sdk.common.util.Utility.getKeyHash
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var storyViewModel: StoryViewModel
+    lateinit var userViewModel:UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +33,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         storyViewModel = StoryViewModel()
+        userViewModel = UserViewModel()
         storyViewModel.getSubjectStoryThumbnail()
         storyViewModel.getSharedStoryThumbnail()
 
+        userViewModel.getCard()
 
         val storyBtn = findViewById<ImageView>(R.id.create_btn)
         storyBtn.setOnClickListener {

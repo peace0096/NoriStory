@@ -18,6 +18,7 @@ import com.norispace.noristory.Model.User_Model
 
 object User_Repo {
 
+    private var cardmodel:ArrayList<String> = ArrayList<String>()
     private lateinit var usermodel:User_Model
     private var token : String = "none"
 
@@ -35,6 +36,14 @@ object User_Repo {
 
     fun setToken(token: String) {
         this.token = token
+    }
+
+    fun setCardModel(model: ArrayList<String>) {
+        this.cardmodel = model
+    }
+
+    fun getCardModel() : ArrayList<String> {
+        return this.cardmodel
     }
 
 

@@ -46,7 +46,7 @@ class S3Helper(val context:Context) {
             .build()
 
         for(i in 0 until data.size) {
-            val uploadObserver = transferUtility.upload(data[i], File(context.cacheDir.toString() + "/" + User_Repo.getToken() +" /" + data[i]))
+            val uploadObserver = transferUtility.upload(data[i], File(context.cacheDir.toString() + "/" + data[i]))
             Log.i("upload data", data[i].toString())
             val progressDialog = ProgressDialog(context)
             progressDialog.setMessage("다운로드 중...")

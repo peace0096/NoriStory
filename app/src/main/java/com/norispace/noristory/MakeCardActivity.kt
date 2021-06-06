@@ -16,7 +16,11 @@ import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.ManageIcon.ManageChildView
 import com.norispace.noristory.MyPainterView
 import com.norispace.noristory.R
+import com.norispace.noristory.Repository.User_Repo
+import com.norispace.noristory.ViewModel.StoryViewModel
+import com.norispace.noristory.ViewModel.UserViewModel
 import com.norispace.noristory.databinding.ActivityMakeCardBinding
+import com.norispace.service.S3Helper
 import kotlinx.android.synthetic.main.activity_make_card.*
 import java.io.File
 import java.io.FileOutputStream
@@ -25,6 +29,9 @@ import kotlin.math.sqrt
 
 class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass,MyCardListFragment.OnDataPass {
     val binding by lazy {ActivityMakeCardBinding.inflate(layoutInflater)}
+    lateinit var dbHelper: DBHelper
+    lateinit var s3Helper: S3Helper
+    lateinit var userViewModel: UserViewModel
     var mode = -1
     lateinit var ptv: MyPainterView
     val mydb = DBHelper(this)
@@ -42,6 +49,9 @@ class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass,MyCard
         setContentView(binding.root)
         ptv = MyPainterView(this)
         binding.PainterView?.addView(ptv)
+        dbHelper = DBHelper(this)
+        s3Helper = S3Helper(this)
+        userViewModel = UserViewModel()
         initBasiceBtn()
         initShowCards()
         initEmoticon()
@@ -335,15 +345,19 @@ class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass,MyCard
             chooseCardKind?.visibility=View.GONE
             saveComplete?.visibility=View.VISIBLE
             cardSave?.visibility= View.VISIBLE
+            var urlForS3 = User_Repo.getToken()
 
-            var StoragePath = cacheDir.toString()
+            var StoragePath = cacheDir.toString() + "/" + User_Repo.getToken()
             if(flag==1){
+                urlForS3 += "/Image/Card/Subject"
                 StoragePath += "/Image/Card/Subject"
                 cardSave?.setImageResource(R.drawable.card_subject_saved)
             }else{
+                urlForS3 += "/Image/Card/Character"
                 StoragePath += "/Image/Card/Character"
                 cardSave?.setImageResource(R.drawable.card_char_saved)
             }
+
             var Folder = File(StoragePath)
             if(!Folder.exists())        //폴더 없으면 생성
                 Folder.mkdirs()
@@ -368,6 +382,10 @@ class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass,MyCard
             PainterView?.removeAllViews()
 
             mydb.insertCard(StoragePath+"/"+fileName)
+            val data = ArrayList<String>()
+            data.add(urlForS3 + "/" + fileName)
+            s3Helper.uploadImage(data)
+            userViewModel.insertCard(urlForS3 + "/" + fileName)
             screenBlur?.setOnClickListener {
                 screenBlur?.visibility=View.GONE
                 saveComplete?.visibility= View.GONE

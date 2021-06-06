@@ -467,7 +467,6 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
         var locationX = 0
         var locationY = 0
         binding.apply {
-
             PainterView?.getChildAt(childNum)?.setOnTouchListener(View.OnTouchListener { v, event ->
                 lastTouchTag=manageChildView.setBorder(childNum,lastTouchTag,PainterView)
                 val x = event.rawX.toInt()

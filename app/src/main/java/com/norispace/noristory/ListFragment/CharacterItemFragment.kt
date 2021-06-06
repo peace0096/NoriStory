@@ -137,8 +137,6 @@ class CharacterItemFragment : Fragment() {
                         break
                     }
                 }
-                //내가 그린 인물 그림들 넣어주기
-                //bitmapData.add()
             }
         }
     }

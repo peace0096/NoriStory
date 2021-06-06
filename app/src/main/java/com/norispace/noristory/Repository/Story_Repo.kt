@@ -4,9 +4,9 @@ import com.norispace.noristory.API.List.DELETE.*
 import com.norispace.noristory.API.List.GET.*
 import com.norispace.noristory.API.List.POST.*
 import com.norispace.noristory.API.RetrofitClient
+import com.norispace.noristory.Model.SubjectStoryData
 import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
 import com.norispace.noristory.Model.SubjectStory_Model
-import com.norispace.noristory.SubjectStoryData
 
 object Story_Repo {
 

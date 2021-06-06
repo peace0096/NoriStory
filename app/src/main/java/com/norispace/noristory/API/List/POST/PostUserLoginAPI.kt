@@ -1,4 +1,4 @@
-package com.norispace.noristory.API.List.PUT
+package com.norispace.noristory.API.List.POST
 
 import com.norispace.noristory.API.RetrofitClient
 import com.norispace.noristory.Model.User_Model
@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object PUTUserLogin {
+object PostUserLoginAPI {
     fun call(name:String, gender:String, birthday:String, callback: RetrofitClient.callback ) {
         val body = JSONObject()
         val bod1 = User_Model(name, gender, birthday)

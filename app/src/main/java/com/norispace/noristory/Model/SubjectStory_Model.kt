@@ -1,3 +1,15 @@
 package com.norispace.noristory.Model
 
-data class SubjectStory_Model(var title:String, var page:Int, var image:String)
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
+data class SubjectStory_Model(
+    @SerializedName("title")
+    @Expose
+    var title:String,
+    @SerializedName("page")
+    @Expose
+    var page:Int,
+    @SerializedName("image")
+    @Expose
+    var image:String)

@@ -1,4 +1,4 @@
-package com.norispace.noristory.API.List.PUT
+package com.norispace.noristory.API.List.POST
 
 import com.norispace.noristory.API.RetrofitClient
 import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
@@ -9,7 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object PutSharedThumbnailAPI {
+object PostSharedThumbnailAPI {
     fun call(model: SubjectStoryThumbnail_Model, callback: RetrofitClient.callback) {
         val body = JSONObject()
         try {

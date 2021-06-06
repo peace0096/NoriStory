@@ -1,7 +1,7 @@
-package com.norispace.noristory.API.List.PUT
+package com.norispace.noristory.API.List.DELETE
 
 import com.norispace.noristory.API.RetrofitClient
-import com.norispace.noristory.Model.SubjectStory_Model
+import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
 import com.norispace.noristory.Repository.User_Repo
 import org.json.JSONException
 import org.json.JSONObject
@@ -9,18 +9,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object PutSharedStoryAPI {
-    fun call(model: SubjectStory_Model, callback: RetrofitClient.callback) {
+object DeleteSubjectStoryThumbnailAPI {
+    fun call(model: SubjectStoryThumbnail_Model, callback: RetrofitClient.callback) {
         val body = JSONObject()
         try {
             body.put("title", model.title)
-            body.put("page", model.page)
-            body.put("image", model.image)
 
         } catch (e: JSONException) {
             callback.callbackMethod(false, "parse error")
         }
-        RetrofitClient.getBaseClient().insertSharedStory(User_Repo.getToken(), body.toString()).enqueue(object:
+        RetrofitClient.getBaseClient().deleteSubjectStoryThumbnail(User_Repo.getToken(), body.toString()).enqueue(object:
             Callback<String?> {
             override fun onResponse(call: Call<String?>, response: Response<String?>) {
                 try {

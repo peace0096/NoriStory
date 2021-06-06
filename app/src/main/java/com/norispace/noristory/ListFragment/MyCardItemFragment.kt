@@ -30,7 +30,7 @@ class MyCardItemFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 initData()
-                val myAdapter =MyCardItemAdapter(data)
+                val myAdapter = MyCardItemAdapter(data)
                 myAdapter.itemClickListener= object :
                     MyCardItemAdapter.OnItemClickListener {
                     override fun OnItemClick(

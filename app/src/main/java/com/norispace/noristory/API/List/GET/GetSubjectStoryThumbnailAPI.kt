@@ -1,7 +1,6 @@
-package com.norispace.noristory.API.List.PUT
+package com.norispace.noristory.API.List.GET
 
 import com.norispace.noristory.API.RetrofitClient
-import com.norispace.noristory.Model.SubjectStory_Model
 import com.norispace.noristory.Repository.User_Repo
 import org.json.JSONException
 import org.json.JSONObject
@@ -9,18 +8,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object PutSubjectStoryAPI {
-    fun call(model:SubjectStory_Model, callback: RetrofitClient.callback) {
-        val body = JSONObject()
-        try {
-            body.put("title", model.title)
-            body.put("page", model.page)
-            body.put("image", model.image)
+object GetSubjectStoryThumbnailAPI {
+    fun call(callback: RetrofitClient.callback) {
 
-        } catch (e: JSONException) {
-            callback.callbackMethod(false, "parse error")
-        }
-        RetrofitClient.getBaseClient().insertSubjectStory(User_Repo.getToken(), body.toString()).enqueue(object:
+        RetrofitClient.getBaseClient().getAllSubjectStoryThumbnail(User_Repo.getToken()).enqueue(object:
             Callback<String?> {
             override fun onResponse(call: Call<String?>, response: Response<String?>) {
                 try {

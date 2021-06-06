@@ -1,4 +1,4 @@
-package com.norispace.noristory.User
+package com.norispace.noristory.ViewModel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

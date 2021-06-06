@@ -1,3 +1,12 @@
 package com.norispace.noristory.Model
 
-data class SubjectStoryThumbnail_Model(var title:String, var coverImage:String)
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
+data class SubjectStoryThumbnail_Model(
+    @SerializedName("title")
+    @Expose
+    var title:String,
+    @SerializedName("coverImage")
+    @Expose
+    var coverImage:String)

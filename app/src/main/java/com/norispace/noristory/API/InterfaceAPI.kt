@@ -42,21 +42,21 @@ interface InterfaceAPI {
 
 
     @Headers("Content-Type: application/json")
-    @POST("User/subjectStoryContent/")
+    @POST("Story/subjectStoryContent/")
     fun insertContent(
         @Header("Authorization") token : String,
         @Body body: String?
     ): Call<String?>
 
     @Headers("Content-Type: application/json")
-    @GET("User/subjectStoryContent/")
+    @GET("Story/subjectStoryContent/")
     fun getAllContent(
         @Header("Authorization") token : String,
         @Body body:String?
     ): Call<String?>
 
     @Headers("Content-Type: application/json")
-    @DELETE("User/subjectStoryContent/")
+    @DELETE("Story/subjectStoryContent/")
     fun deleteContent(
         @Header("Authorization") token : String,
         @Body body: String?
@@ -64,21 +64,21 @@ interface InterfaceAPI {
 
 
     @Headers("Content-Type: application/json")
-    @POST("User/subjectStory/")
+    @POST("Story/subjectStory/")
     fun insertSubjectStory(
         @Header("Authorization") token : String,
         @Body body: String?
     ): Call<String?>
 
     @Headers("Content-Type: application/json")
-    @GET("User/subjectStory/")
+    @GET("Story/subjectStory/")
     fun getAllSubjectStory(
         @Header("Authorization") token : String,
         @Body body: String?
     ): Call<String?>
 
     @Headers("Content-Type: application/json")
-    @DELETE("User/subjectStory/")
+    @DELETE("Story/subjectStory/")
     fun deleteSubjectStory(
         @Header("Authorization") token : String,
         @Body body: String?

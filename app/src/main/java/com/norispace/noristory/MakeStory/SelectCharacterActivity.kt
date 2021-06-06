@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.norispace.noristory.MainActivity
-import com.norispace.noristory.MakeCardActivity
 import com.norispace.noristory.SelectSubjectActivity
 import com.norispace.noristory.databinding.ActivitySelectCharacterBinding
 import kotlinx.android.synthetic.main.activity_make_card.*

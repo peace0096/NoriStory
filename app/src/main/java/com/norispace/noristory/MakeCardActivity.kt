@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+
 import com.norispace.noristory.ManageIcon.ManageChildView
 import com.norispace.noristory.MyPainterView
 import com.norispace.noristory.R
@@ -25,7 +26,7 @@ class MakeCardActivity : AppCompatActivity() {
     private var xCoordinate = Array(sliceSize, { 0.0f })
     private var yCoordinate = Array(sliceSize, { 0.0f })
     private var manageChildView=
-        ManageChildView()
+        com.norispace.noristory.ManageIcon.ManageChildView()
     private var lastTouchTag = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

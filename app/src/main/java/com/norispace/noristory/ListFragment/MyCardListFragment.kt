@@ -18,7 +18,11 @@ class MyCardListFragment : Fragment() {
     var binding: FragmentMyCardListBinding?=null
     private var characterData = arrayListOf<Bitmap>()
     private var subjectData = arrayListOf<Bitmap>()
-    var type=1
+    private var basicCardSelected=arrayListOf<Int>() //등장인물 선택하기 에서 선택된 카드번호들
+    private var myCardSelected=arrayListOf<Int>()
+    var type=1  // 1 -> 인물, 2 -> 소재카드
+    var selectedType =1 //  1 -> 선택된 것들 있음, 2 -> 선택된 것들 없음
+
     interface  OnDataPass{
         fun onSelectedCardPass(data:ArrayList<Int>)
     }
@@ -44,6 +48,7 @@ class MyCardListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding=FragmentMyCardListBinding.inflate(layoutInflater,container,false)
+        //selectedType=arguments?.getInt("")
         return binding?.root
     }
 
@@ -86,13 +91,8 @@ class MyCardListFragment : Fragment() {
                 myCardRecyclerView?.adapter=subjectAdapter
                 type=2
             }
-//            if(type==1){
-                myCardRecyclerView?.adapter=characterAdapter
-//            }else{
-//                myCardRecyclerView?.adapter=subjectAdapter
-//            }
+            myCardRecyclerView?.adapter=characterAdapter
             cancleBtn?.setOnClickListener {
-                //root.visibility=View.GONE
                 passData(-1,-1)
             }
         }

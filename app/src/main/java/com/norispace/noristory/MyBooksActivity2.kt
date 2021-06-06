@@ -59,6 +59,7 @@ class MyBooksActivity2 : AppCompatActivity() {
             }
             ReadBook?.setOnClickListener{
                 val intent = Intent(this@MyBooksActivity2, ReadMyBookActivity::class.java)
+                intent.putExtra("back", 1)
                 intent.putExtra("title", title)
                 startActivity(intent)
             }

@@ -20,14 +20,9 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/screen_library" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/header" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/mybook_help"
@@ -39,31 +34,90 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/help_btn" />
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/mybook_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="42dp"
-            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintVertical_bias="0.100000024"
+            app:srcCompat="@drawable/home_btn" />
 
-            <ImageView
-                android:id="@+id/mybook_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="28dp"
-                app:srcCompat="@drawable/back_btn" />
+        <ImageView
+            android:id="@+id/lib_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-            <ImageView
-                android:id="@+id/mybook_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="36dp"
-                app:srcCompat="@drawable/home_btn" />
+            android:src="@drawable/lib_square"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/lib_thum"
+            android:layout_width="285dp"
+            android:layout_height="286dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.496" />
+
+        <TextView
+            android:id="@+id/lib_title"
+            android:layout_width="202dp"
+            android:layout_height="82dp"
+            android:gravity="center"
+            android:text="TextView"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.748"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.188" />
+
+        <ImageView
+            android:id="@+id/lib_cancle"
+            android:layout_width="95dp"
+            android:layout_height="92dp"
+            android:src="@drawable/lib_cancle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.94"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/lib_read"
+            android:layout_width="180dp"
+            android:layout_height="45dp"
+            android:src="@drawable/lib_store"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.729"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.562" />
+
+        <ImageView
+            android:id="@+id/lib_store"
+            android:layout_width="180dp"
+            android:layout_height="45dp"
+            android:src="@drawable/lib_read"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.729"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.827" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

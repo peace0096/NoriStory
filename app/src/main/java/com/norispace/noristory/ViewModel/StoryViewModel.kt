@@ -17,6 +17,10 @@ class StoryViewModel {
     val subjectstorymodellistmodel = MutableLiveData<ArrayList<SubjectStory_Model>>()
     val subjectstorythumbnailmodellistmodel = MutableLiveData<ArrayList<SubjectStoryThumbnail_Model>>()
 
+    val sharedstorydatalistmodel= MutableLiveData<ArrayList<SubjectStoryData>>()
+    val sharedstorymodellistmodel = MutableLiveData<ArrayList<SubjectStory_Model>>()
+    val sharedstorythumbnailmodellistmodel = MutableLiveData<ArrayList<SubjectStoryThumbnail_Model>>()
+
     fun insertSubjectStoryContent(title:String, data:SubjectStoryData) {
         Story_Repo.callPostSubjectStoryContent(title, data, object : RetrofitClient.callback {
             override fun callbackMethod(isSuccessful: Boolean, result: String?) {
@@ -187,8 +191,8 @@ class StoryViewModel {
                             val jsonObject = jsonArray[i]
                             list.add(gson.fromJson(jsonObject.toString(), SubjectStory_Model::class.java))
                         }
-                        Story_Repo.setSubjectStoryModelListModel(list)
-                        subjectstorymodellistmodel.value = Story_Repo.getSubjectStoryModelListModel()
+                        Story_Repo.setSharedStoryModelListModel(list)
+                        sharedstorymodellistmodel.value = Story_Repo.getSharedStoryModelListModel()
                     }
                 }
             }
@@ -231,8 +235,8 @@ class StoryViewModel {
                             val jsonObject = jsonArray[i]
                             list.add(gson.fromJson(jsonObject.toString(), SubjectStoryThumbnail_Model::class.java))
                         }
-                        Story_Repo.setSubjectStoryThumbnailListModel(list)
-                        subjectstorythumbnailmodellistmodel.value = Story_Repo.getSubjectStoryThumbnailListModel()
+                        Story_Repo.setSharedStoryThumbnailListModel(list)
+                        sharedstorythumbnailmodellistmodel.value = Story_Repo.getSharedStoryThumbnailListModel()
                     }
                 }
             }

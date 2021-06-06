@@ -42,19 +42,19 @@ object Story_Repo {
     }
 
     fun setSharedStoryModelListModel(model: ArrayList<SubjectStory_Model>) {
-        this.subjectstorymodellistmodel = model
+        this.sharedstorymodellistmodel = model
     }
 
     fun getSharedStoryModelListModel() : ArrayList<SubjectStory_Model> {
-        return this.subjectstorymodellistmodel
+        return this.sharedstorymodellistmodel
     }
 
     fun setSharedStoryThumbnailListModel(model: ArrayList<SubjectStoryThumbnail_Model>)  {
-        this.subjectstorythumbnailmodellistmodel = model
+        this.sharedstorythumbnailmodellistmodel = model
     }
 
     fun getSharedStoryThumbnailListModel() : ArrayList<SubjectStoryThumbnail_Model> {
-        return this.subjectstorythumbnailmodellistmodel
+        return this.sharedstorythumbnailmodellistmodel
     }
 
 

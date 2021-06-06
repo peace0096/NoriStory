@@ -8,6 +8,7 @@ import com.norispace.noristory.DB.DBHelper
 import com.norispace.noristory.ListFragment.SharedBookData
 import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.Model.SubjectStory_Model
+import com.norispace.noristory.Repository.Story_Repo
 import com.norispace.noristory.ViewModel.StoryViewModel
 import com.norispace.noristory.databinding.ActivityReadMyBookBinding
 import kotlinx.android.synthetic.main.activity_read_my_book.*
@@ -31,6 +32,7 @@ class ReadMyBookActivity : AppCompatActivity() {
     fun init()
     {
         binding.apply {
+
             imgPager?.adapter = ViewPagerAdapter(data)
             read_help?.setOnClickListener{
 

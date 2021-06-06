@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.norispace.noristory.ListFragment.SharedBookData
+import com.norispace.noristory.Model.SubjectStory_Model
 
-class ViewPagerAdapter(private val list: ArrayList<SharedBookData>)
+class ViewPagerAdapter(private val list: ArrayList<SubjectStory_Model>)
     : RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder>()
 {
     override fun onCreateViewHolder(
@@ -19,7 +20,7 @@ class ViewPagerAdapter(private val list: ArrayList<SharedBookData>)
     }
 
     override fun onBindViewHolder(holder: ViewPagerAdapter.PagerViewHolder, position: Int) {
-        holder.bind(list[position].cover)
+
     }
 
     override fun getItemCount(): Int {

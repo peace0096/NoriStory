@@ -4,15 +4,20 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.norispace.noristory.DB.DBHelper
 import com.norispace.noristory.ListFragment.SharedBookData
 import com.norispace.noristory.MainMenu.MainActivity
+import com.norispace.noristory.Model.SubjectStory_Model
+import com.norispace.noristory.ViewModel.StoryViewModel
 import com.norispace.noristory.databinding.ActivityReadMyBookBinding
 import kotlinx.android.synthetic.main.activity_read_my_book.*
 
 class ReadMyBookActivity : AppCompatActivity() {
     lateinit var binding:ActivityReadMyBookBinding
-    private var data = ArrayList<SharedBookData>()
+    private var data = ArrayList<SubjectStory_Model>()
     lateinit var title:String
+    private lateinit var dbHelper: DBHelper
+    private lateinit var storyViewModel: StoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,13 +53,8 @@ class ReadMyBookActivity : AppCompatActivity() {
     fun initData()
     {
         title = intent.getStringExtra("title").toString()
+        storyViewModel = StoryViewModel()
+        dbHelper = DBHelper(this)
 
-        data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"도서관","작자미상"))
-        data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-        data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-        data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-        data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-        data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
-        data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"제목","작자미상"))
     }
 }

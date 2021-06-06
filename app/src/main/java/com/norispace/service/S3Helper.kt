@@ -108,7 +108,7 @@ class S3Helper(val context:Context) {
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal)
             progressDialog.show()
 
-            val downloadObserver = transferUtility.download(data[i], File(context.cacheDir.toString() + "/" + User_Repo.getToken() +" /" + data[i]))
+            val downloadObserver = transferUtility.download(data[i], File(context.cacheDir.toString() + "/" + data[i]))
 
             //TODO 다운받는 과정을 다이얼로그 + 프로그래스바로 표현
 

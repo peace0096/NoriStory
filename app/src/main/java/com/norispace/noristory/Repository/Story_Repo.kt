@@ -14,6 +14,9 @@ object Story_Repo {
     private lateinit var subjectstorymodellistmodel:ArrayList<SubjectStory_Model>
     private lateinit var subjectstorythumbnailmodellistmodel:ArrayList<SubjectStoryThumbnail_Model>
 
+    private lateinit var sharedstorymodellistmodel:ArrayList<SubjectStory_Model>
+    private lateinit var sharedstorythumbnailmodellistmodel:ArrayList<SubjectStoryThumbnail_Model>
+
     fun setSubjectStoryDataListModel(model:ArrayList<SubjectStoryData>) {
         this.subjectstorydatalistmodel = model
     }
@@ -37,6 +40,24 @@ object Story_Repo {
     fun getSubjectStoryThumbnailListModel() : ArrayList<SubjectStoryThumbnail_Model> {
         return this.subjectstorythumbnailmodellistmodel
     }
+
+    fun setSharedStoryModelListModel(model: ArrayList<SubjectStory_Model>) {
+        this.subjectstorymodellistmodel = model
+    }
+
+    fun getSharedStoryModelListModel() : ArrayList<SubjectStory_Model> {
+        return this.subjectstorymodellistmodel
+    }
+
+    fun setSharedStoryThumbnailListModel(model: ArrayList<SubjectStoryThumbnail_Model>)  {
+        this.subjectstorythumbnailmodellistmodel = model
+    }
+
+    fun getSharedStoryThumbnailListModel() : ArrayList<SubjectStoryThumbnail_Model> {
+        return this.subjectstorythumbnailmodellistmodel
+    }
+
+
 
     fun callPostSubjectStoryContent(title:String, data: SubjectStoryData, callback: RetrofitClient.callback) {
         PostSubjectStoryContentAPI.call(title, data, callback)

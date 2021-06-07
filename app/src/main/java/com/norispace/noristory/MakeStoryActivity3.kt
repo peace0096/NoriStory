@@ -367,11 +367,11 @@ class MakeStoryActivity3 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyC
             setImage?.setImageBitmap(bitmap)
             PainterView?.removeAllViews()
 
-            mydb.insertSubjectStory(SubjectStory_Model(title, pagecount, StoragePath + "/" + fileName))
+            mydb.insertSubjectStory(SubjectStory_Model(title, pagecount, url + "/" + fileName))
             val data = ArrayList<String>()
             data.add(url + "/" + fileName)
             s3Helper.uploadImage(data)
-            storyViewModel.insertSubjectStory(SubjectStory_Model(title, pagecount, StoragePath + "/" + fileName))
+            storyViewModel.insertSubjectStory(SubjectStory_Model(title, pagecount, url + "/" + fileName))
             screenBlur?.setOnClickListener {
                 screenBlur?.visibility = View.GONE
             }

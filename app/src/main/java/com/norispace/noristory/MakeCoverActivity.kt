@@ -358,11 +358,11 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
             setImage?.setImageBitmap(bitmap)
             PainterView?.removeAllViews()
 
-            mydb.insertSubjectStoryThumbnail(SubjectStoryThumbnail_Model(title,  StoragePath + "/" + fileName))
+            mydb.insertSubjectStoryThumbnail(SubjectStoryThumbnail_Model(title,  url + "/" + fileName))
             val data = ArrayList<String>()
             data.add(url + "/" + fileName)
             s3Helper.uploadImage(data)
-            storyViewModel.insertSubjectStoryThumbnail(SubjectStoryThumbnail_Model(title,  StoragePath + "/" + fileName))
+            storyViewModel.insertSubjectStoryThumbnail(SubjectStoryThumbnail_Model(title,  url + "/" + fileName))
             screenBlur?.setOnClickListener {
                 screenBlur?.visibility = View.GONE
             }

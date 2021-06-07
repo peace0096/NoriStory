@@ -10,14 +10,8 @@ import retrofit2.Response
 
 object GetSubjectStoryAPI {
     fun call(title:String, callback: RetrofitClient.callback) {
-        val body = JSONObject()
-        try {
-            body.put("title", title)
 
-        } catch (e: JSONException) {
-            callback.callbackMethod(false, "parse error")
-        }
-        RetrofitClient.getBaseClient().getAllSubjectStory(User_Repo.getToken(), body.toString()).enqueue(object:
+        RetrofitClient.getBaseClient().getAllSubjectStory(User_Repo.getToken(), title).enqueue(object:
             Callback<String?> {
             override fun onResponse(call: Call<String?>, response: Response<String?>) {
                 try {

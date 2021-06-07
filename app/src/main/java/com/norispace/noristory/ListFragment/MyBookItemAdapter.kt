@@ -48,12 +48,13 @@ class MyBookItemAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         //holder.image.
+
         val image = File("data/data/com.norispace.noristory/cache/" + item.coverImage)
         holder.title.text = item.title
 
         if(!image.exists())
         {
-            Log.d("adap", "fail")
+            Log.d("adap", item.coverImage)
             var path = ArrayList<String>()
             path.add(item.coverImage)
             s3helper.downloadImage(path)

@@ -74,7 +74,7 @@ interface InterfaceAPI {
     @GET("Story/subjectStory/")
     fun getAllSubjectStory(
         @Header("Authorization") token : String,
-        @Body body: String?
+        @Query("title")title: String?
     ): Call<String?>
 
     @Headers("Content-Type: application/json")

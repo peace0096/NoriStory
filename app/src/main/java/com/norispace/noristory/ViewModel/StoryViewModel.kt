@@ -102,7 +102,9 @@ class StoryViewModel {
                         val jsonArray = JSONArray(result)
                         for(i in 0 until jsonArray.length()) {
                             val jsonObject = jsonArray[i]
-                            list.add(gson.fromJson(jsonObject.toString(), SubjectStory_Model::class.java))
+                            val js = gson.fromJson(jsonObject.toString(), SubjectStory_Model::class.java)
+                            Log.d("subject data", js.page.toString())
+                            list.add(js)
                         }
                         Story_Repo.setSubjectStoryModelListModel(list)
                         subjectstorymodellistmodel.value = Story_Repo.getSubjectStoryModelListModel()

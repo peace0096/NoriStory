@@ -37,6 +37,7 @@ class ReadMyBookActivity : AppCompatActivity() {
         storyViewModel.subjectstorymodellistmodel.observe(this, Observer {
             if(it != null) {
                 data = it
+                Log.d("observe", data[0].title)
                 val list = dbHelper.getAllSubjectStory()
 
                 for(i in list)  {
@@ -92,8 +93,8 @@ class ReadMyBookActivity : AppCompatActivity() {
     {
         data.clear()
         title = intent.getStringExtra("title").toString()
+        Log.d("title" , title)
         back = intent.getIntExtra("back", -1)
-
         storyViewModel.getSubjectStory(title)
 
 

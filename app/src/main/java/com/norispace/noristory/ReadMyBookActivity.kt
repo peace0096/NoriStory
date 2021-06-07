@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
 import com.norispace.noristory.DB.DBHelper
 import com.norispace.noristory.ListFragment.SharedBookData
 import com.norispace.noristory.MainMenu.MainActivity
@@ -25,8 +26,35 @@ class ReadMyBookActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityReadMyBookBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        storyViewModel = StoryViewModel()
+        dbHelper = DBHelper(this)
+        initObserve()
         initData()
         init()
+    }
+
+    fun initObserve() {
+        storyViewModel.subjectstorymodellistmodel.observe(this, Observer {
+            if(it != null) {
+                data = it
+                val list = dbHelper.getAllSubjectStory()
+
+                for(i in list)  {
+                    var flag = true
+                    for(e in data) {
+                        if(e.title == i.title) {
+                            flag = false
+                            break
+                        }
+                    }
+                    if(flag)
+                        data.add(i)
+                }
+
+            }
+        })
+
+
     }
 
     fun init()
@@ -65,15 +93,10 @@ class ReadMyBookActivity : AppCompatActivity() {
         data.clear()
         title = intent.getStringExtra("title").toString()
         back = intent.getIntExtra("back", -1)
-        storyViewModel = StoryViewModel()
-        dbHelper = DBHelper(this)
-        var list = dbHelper.getAllSubjectStory()
 
-        for(i in list)
-        {
-            if(i.title == title)
-                data.add(i)
-        }
+        storyViewModel.getSubjectStory(title)
+
+
 
     }
 }

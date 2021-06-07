@@ -17,7 +17,12 @@ import com.norispace.noristory.ListFragment.EmoticonFragment
 import com.norispace.noristory.ListFragment.MyCardListFragment
 import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.ManageIcon.ManageChildView
+import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
+import com.norispace.noristory.Model.SubjectStory_Model
+import com.norispace.noristory.Repository.User_Repo
+import com.norispace.noristory.ViewModel.StoryViewModel
 import com.norispace.noristory.databinding.ActivityMakeCoverBinding
+import com.norispace.service.S3Helper
 import kotlinx.android.synthetic.main.activity_make_card.*
 import kotlinx.android.synthetic.main.activity_make_card.PainterView
 import kotlinx.android.synthetic.main.activity_make_card.card_saveBtn4
@@ -25,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_make_card.crayon_cancle_btn
 import kotlinx.android.synthetic.main.activity_make_cover.*
 import kotlinx.android.synthetic.main.activity_make_story.*
 import java.io.File
+import java.io.FileOutputStream
 import kotlin.math.sqrt
 
 class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCardListFragment.OnDataPass,
@@ -329,8 +335,37 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
     }
 
     private fun drawComplete() {
+        val s3Helper = S3Helper(this)
+        val storyViewModel = StoryViewModel()
         binding.apply {
-            // 저장하기
+            screenBlur?.visibility = View.VISIBLE
+
+            var url = User_Repo.getToken() + "/Image/" + title
+            var StoragePath = cacheDir.toString() + "/" + url
+
+            var Folder = File(StoragePath)
+            if (!Folder.exists())        //폴더 없으면 생성
+                Folder.mkdirs()
+
+            var fileName = "coverImage.png"
+            var file = File(StoragePath, fileName)
+
+            PainterView?.buildDrawingCache()
+            val bitmap: Bitmap? = PainterView?.getDrawingCache()
+            val fos = FileOutputStream(file)
+            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fos) //썸네일로 사용하므로 퀄리티를 낮게설정
+            fos.close();
+            setImage?.setImageBitmap(bitmap)
+            PainterView?.removeAllViews()
+
+            mydb.insertSubjectStoryThumbnail(SubjectStoryThumbnail_Model(title,  StoragePath + "/" + fileName))
+            val data = ArrayList<String>()
+            data.add(url + "/" + fileName)
+            s3Helper.uploadImage(data)
+            storyViewModel.insertSubjectStoryThumbnail(SubjectStoryThumbnail_Model(title,  StoragePath + "/" + fileName))
+            screenBlur?.setOnClickListener {
+                screenBlur?.visibility = View.GONE
+            }
         }
     }
 

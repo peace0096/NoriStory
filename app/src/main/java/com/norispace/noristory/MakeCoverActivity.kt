@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
@@ -16,6 +17,8 @@ import com.norispace.noristory.ListFragment.BackgroundFragment
 import com.norispace.noristory.ListFragment.EmoticonFragment
 import com.norispace.noristory.ListFragment.MyCardListFragment
 import com.norispace.noristory.MainMenu.MainActivity
+import com.norispace.noristory.MakeStory.MakeCardActivity
+import com.norispace.noristory.MakeStory.SelectCharacterActivity
 import com.norispace.noristory.ManageIcon.ManageChildView
 import com.norispace.noristory.databinding.ActivityMakeCoverBinding
 import kotlinx.android.synthetic.main.activity_make_card.*
@@ -25,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_make_card.crayon_cancle_btn
 import kotlinx.android.synthetic.main.activity_make_cover.*
 import kotlinx.android.synthetic.main.activity_make_story.*
 import java.io.File
+import java.lang.Exception
 import kotlin.math.sqrt
 
 class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCardListFragment.OnDataPass,
@@ -43,6 +47,8 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
     private var emoticonNum = 0 // 선택된 이모티콘 번호
     private val myCardListFragment = MyCardListFragment()
     private val myBackgroundFragment= BackgroundFragment()
+    private var basicSelectedList=ArrayList<Int>()
+    private var mySelectedList=ArrayList<Int>()
     var title=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,9 +56,25 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
         setContentView(binding.root)
         ptv = MyPainterView(this)
         binding.PainterView?.addView(ptv)
+        getSelectedCardList()
         initBasicBtn()
         initShowCards()
         initbtn()
+    }
+
+    private fun getSelectedCardList(){
+        val i =intent
+        basicSelectedList= i.getIntegerArrayListExtra("basicCharacter") as ArrayList<Int>
+        mySelectedList=i.getIntegerArrayListExtra("myCharacter") as ArrayList<Int>
+        try {
+            val bundle=Bundle(3)
+            bundle.putInt("selectedType",3)
+            bundle.putIntegerArrayList("basicCharacter",basicSelectedList)
+            bundle.putIntegerArrayList("myCharacter",mySelectedList)
+            myCardListFragment.arguments=bundle
+        }catch (e :Exception){
+
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -399,35 +421,62 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
         }
     }
 
-    override fun onSelectedCardPass(data: ArrayList<Int>) {
+    override fun onSelectedCardPass(data: Bitmap?,add:Int){
         binding.apply{
-            if(data[0]==-1){
-                screenBlur?.visibility= View.GONE
-                myCardFragment?.visibility= View.GONE
-                showbgFragment?.visibility= View.GONE
-            }else if(data[0]==1){
-                var storagePath = cacheDir.toString()
-                storagePath += "/Image/Card/Character"
-                val fileName = "card" + data[1].toString()+".png"
-                val file = File(storagePath, fileName)
-                if(file.exists()){
-                    val dir=storagePath+"/"+fileName
-                    val bmp= BitmapFactory.decodeFile(dir)
-                    initMyCard(bmp)
-                }
-            }else if(data[0]==2){
-                var storagePath = cacheDir.toString()
-                storagePath += "/Image/Card/Subject"
-                val fileName = "card" + data[1].toString()+".png"
-                val file = File(storagePath, fileName)
-                if(file.exists()){
-                    val dir=storagePath+"/"+fileName
-                    val bmp= BitmapFactory.decodeFile(dir)
-                    initMyCard(bmp)
+            myCardFragment?.visibility=View.GONE
+            screenBlur?.visibility=View.GONE
+            if(add==1){
+//                val i= Intent(this@MakeCoverActivity, MakeCardActivity::class.java)
+//                i.flags=Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+//                startActivity(i)
+//                try{
+//                    myCardFragment?.onD
+//                    val bundle=Bundle(1)
+//                    bundle.putInt("add",1)
+//                    myCardListFragment.arguments=bundle
+//                }catch (e:Exception){
+//
+//                }
+
+            }else{
+                if(data!=null){
+                    initMyCard(data)
                 }
             }
+
+
         }
     }
+
+//    override fun onSelectedCardPass(data: ArrayList<Int>) {
+//        binding.apply{
+//            if(data[0]==-1){
+//                screenBlur?.visibility= View.GONE
+//                myCardFragment?.visibility= View.GONE
+//                showbgFragment?.visibility= View.GONE
+//            }else if(data[0]==1){
+//                var storagePath = cacheDir.toString()
+//                storagePath += "/Image/Card/Character"
+//                val fileName = "card" + data[1].toString()+".png"
+//                val file = File(storagePath, fileName)
+//                if(file.exists()){
+//                    val dir=storagePath+"/"+fileName
+//                    val bmp= BitmapFactory.decodeFile(dir)
+//                    initMyCard(bmp)
+//                }
+//            }else if(data[0]==2){
+//                var storagePath = cacheDir.toString()
+//                storagePath += "/Image/Card/Subject"
+//                val fileName = "card" + data[1].toString()+".png"
+//                val file = File(storagePath, fileName)
+//                if(file.exists()){
+//                    val dir=storagePath+"/"+fileName
+//                    val bmp= BitmapFactory.decodeFile(dir)
+//                    initMyCard(bmp)
+//                }
+//            }
+//        }
+//    }
 
     private fun initMyCard(bmp: Bitmap){
         val layout = LinearLayout(this@MakeCoverActivity)
@@ -470,7 +519,6 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
                 showbgFragment?.visibility=View.GONE
                 screenBlur?.visibility=View.GONE
             }
-
         }
     }
     private fun initDrag(count:Int,contentType: Int){

@@ -15,6 +15,7 @@ import com.norispace.noristory.ManageIcon.ManageChildView
 import com.norispace.noristory.ListFragment.BackgroundFragment
 import com.norispace.noristory.ListFragment.EmoticonFragment
 import com.norispace.noristory.ListFragment.MyCardListFragment
+import com.norispace.noristory.MakeStory.SelectCharacterActivity
 import com.norispace.noristory.databinding.ActivityMakeStory4Binding
 import kotlinx.android.synthetic.main.activity_make_card.*
 import kotlinx.android.synthetic.main.activity_make_card.PainterView
@@ -38,9 +39,9 @@ class MakeStoryActivity4 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyC
         ManageChildView()
     private var lastTouchTag = ""
     private var emoticonNum = 0 // 선택된 이모티콘 번호
-    lateinit var myCardListFragment : MyCardListFragment
-    private val myBackgroundFragment=BackgroundFragment()
-    var selectedCardNumber =ArrayList<Int>()
+    lateinit var myCardListFragment: MyCardListFragment
+    private val myBackgroundFragment = BackgroundFragment()
+    var selectedCardNumber = ArrayList<Int>()
     var title = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,8 +70,8 @@ class MakeStoryActivity4 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyC
         }
     }
 
-    private fun initCards(){
-        myCardListFragment=MyCardListFragment()
+    private fun initCards() {
+        myCardListFragment = MyCardListFragment()
 
     }
 
@@ -85,7 +86,7 @@ class MakeStoryActivity4 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyC
                 startActivity(i)
             }
             nextPage4?.setOnClickListener {
-                val i =Intent(this@MakeStoryActivity4,MakeStoryActivity5::class.java)
+                val i = Intent(this@MakeStoryActivity4, MakeStoryActivity5::class.java)
                 i.putExtra("title", title)
                 startActivity(i)
             }
@@ -343,11 +344,11 @@ class MakeStoryActivity4 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyC
             cardShowBtn?.setOnClickListener {
                 screenBlur?.visibility = View.VISIBLE
                 myCardFragment?.visibility = View.VISIBLE
-                showbgFragment?.visibility=View.GONE
+                showbgFragment?.visibility = View.GONE
             }
             showBackgroundBtn?.setOnClickListener {
                 screenBlur?.visibility = View.VISIBLE
-                showbgFragment?.visibility=View.VISIBLE
+                showbgFragment?.visibility = View.VISIBLE
 
             }
         }
@@ -397,166 +398,164 @@ class MakeStoryActivity4 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyC
         }
     }
 
-    override fun onSelectedCardPass(data: ArrayList<Int>) {
-        binding.apply{
-            if(data[0]==-1){
-                screenBlur?.visibility=View.GONE
-                myCardFragment?.visibility=View.GONE
-                showbgFragment?.visibility=View.GONE
-            }else if(data[0]==1){
-                var storagePath = cacheDir.toString()
-                storagePath += "/Image/Card/Character"
-                val fileName = "card" + data[1].toString()+".png"
-                val file = File(storagePath, fileName)
-                if(file.exists()){
-                    val dir=storagePath+"/"+fileName
-                    val bmp= BitmapFactory.decodeFile(dir)
-                    initMyCard(bmp)
-                }
-            }else if(data[0]==2){
-                var storagePath = cacheDir.toString()
-                storagePath += "/Image/Card/Subject"
-                val fileName = "card" + data[1].toString()+".png"
-                val file = File(storagePath, fileName)
-                if(file.exists()){
-                    val dir=storagePath+"/"+fileName
-                    val bmp= BitmapFactory.decodeFile(dir)
-                    initMyCard(bmp)
+    override fun onSelectedCardPass(data: Bitmap?, add: Int) {
+        binding.apply {
+            myCardFragment?.visibility = View.GONE
+            screenBlur?.visibility = View.GONE
+            if (add == 1) {
+            } else {
+                if (data != null) {
+                    initMyCard(data)
                 }
             }
         }
     }
 
-    private fun initMyCard(bmp:Bitmap){
-        val layout = LinearLayout(this@MakeStoryActivity4)
-        layout.layoutParams =
-            LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-        layout.orientation = LinearLayout.HORIZONTAL
-        layout.tag =
-            "layout" + (manageChildView.imageCount + manageChildView.textCount).toString()
-        val imageView = ImageView(this@MakeStoryActivity4)
-        imageView.layoutParams = LinearLayout.LayoutParams(400,600)
-        imageView.tag = "image" + manageChildView.imageCount.toString()
-        imageView.setImageBitmap(bmp)
-        val cancleView = ImageView(this@MakeStoryActivity4)
-        cancleView.layoutParams = LinearLayout.LayoutParams(120, 120)
-        cancleView.setImageResource(R.drawable.cancle_btn_small)
-        cancleView.setOnClickListener {
-            deleteEmoticon()
-        }
-        layout.addView(imageView)
-        layout.addView(cancleView)
-        manageChildView.imageCount++
-        PainterView?.addView(layout)
-        initDrag(manageChildView.imageCount + manageChildView.textCount, 1)
-    }
 
-    private fun initText(){
-        binding.apply {
-            addSentence?.setOnClickListener {
-                val text = sentence?.text.toString()
-                if(text.replace(" ","")==""){
-                    Toast.makeText(this@MakeStoryActivity4,"내용을 입력해 주세요!",Toast.LENGTH_SHORT).show()
-                }else{
-                    val layout = LinearLayout(this@MakeStoryActivity4)
-                    layout.layoutParams =
-                        LinearLayout.LayoutParams(
+        private fun initMyCard(bmp: Bitmap) {
+            val layout = LinearLayout(this@MakeStoryActivity4)
+            layout.layoutParams =
+                LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+            layout.orientation = LinearLayout.HORIZONTAL
+            layout.tag =
+                "layout" + (manageChildView.imageCount + manageChildView.textCount).toString()
+            val imageView = ImageView(this@MakeStoryActivity4)
+            imageView.layoutParams = LinearLayout.LayoutParams(400, 600)
+            imageView.tag = "image" + manageChildView.imageCount.toString()
+            imageView.setImageBitmap(bmp)
+            val cancleView = ImageView(this@MakeStoryActivity4)
+            cancleView.layoutParams = LinearLayout.LayoutParams(120, 120)
+            cancleView.setImageResource(R.drawable.cancle_btn_small)
+            cancleView.setOnClickListener {
+                deleteEmoticon()
+            }
+            layout.addView(imageView)
+            layout.addView(cancleView)
+            manageChildView.imageCount++
+            PainterView?.addView(layout)
+            initDrag(manageChildView.imageCount + manageChildView.textCount, 1)
+        }
+
+        private fun initText() {
+            binding.apply {
+                addSentence?.setOnClickListener {
+                    val text = sentence?.text.toString()
+                    if (text.replace(" ", "") == "") {
+                        Toast.makeText(this@MakeStoryActivity4, "내용을 입력해 주세요!", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        val layout = LinearLayout(this@MakeStoryActivity4)
+                        layout.layoutParams =
+                            LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                        layout.orientation = LinearLayout.HORIZONTAL
+                        layout.tag =
+                            "layout" + (manageChildView.imageCount + manageChildView.textCount).toString()
+                        val textView = TextView(this@MakeStoryActivity4)
+                        textView.textSize = 30.0f
+                        textView.layoutParams = LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                         )
-                    layout.orientation = LinearLayout.HORIZONTAL
-                    layout.tag =
-                        "layout" + (manageChildView.imageCount + manageChildView.textCount).toString()
-                    val textView = TextView(this@MakeStoryActivity4)
-                    textView.textSize = 30.0f
-                    textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                    textView.tag = "image" + manageChildView.textCount.toString()
-                    textView.text = text
-                    textView.setTextColor(Color.BLACK)
-                    val cancleView = ImageView(this@MakeStoryActivity4)
-                    cancleView.layoutParams = LinearLayout.LayoutParams(120, 120)
-                    cancleView.setImageResource(R.drawable.cancle_btn_small)
-                    cancleView.setOnClickListener {
-                        deleteEmoticon()
+                        textView.tag = "image" + manageChildView.textCount.toString()
+                        textView.text = text
+                        textView.setTextColor(Color.BLACK)
+                        val cancleView = ImageView(this@MakeStoryActivity4)
+                        cancleView.layoutParams = LinearLayout.LayoutParams(120, 120)
+                        cancleView.setImageResource(R.drawable.cancle_btn_small)
+                        cancleView.setOnClickListener {
+                            deleteEmoticon()
+                        }
+                        layout.addView(textView)
+                        layout.addView(cancleView)
+                        manageChildView.textCount++
+                        PainterView?.addView(layout)
+                        initDrag(manageChildView.imageCount + manageChildView.textCount, 2)
+                        sentence?.setText("")
                     }
-                    layout.addView(textView)
-                    layout.addView(cancleView)
-                    manageChildView.textCount++
-                    PainterView?.addView(layout)
-                    initDrag(manageChildView.imageCount + manageChildView.textCount, 2)
-                    sentence?.setText("")
                 }
             }
         }
-    }
 
-    override fun onBackgroundPass(data: Int) {
-        val backGroundNum = data
+        override fun onBackgroundPass(data: Int) {
+            val backGroundNum = data
 
-        binding.apply {
-            if(backGroundNum==-1){
-                screenBlur?.visibility=View.GONE
-                showbgFragment?.visibility=View.GONE
-            }else{
-                background?.visibility=View.VISIBLE
-                background?.setImageResource(backGroundNum)
-                showbgFragment?.visibility=View.GONE
-                screenBlur?.visibility=View.GONE
+            binding.apply {
+                if (backGroundNum == -1) {
+                    screenBlur?.visibility = View.GONE
+                    showbgFragment?.visibility = View.GONE
+                } else {
+                    background?.visibility = View.VISIBLE
+                    background?.setImageResource(backGroundNum)
+                    showbgFragment?.visibility = View.GONE
+                    screenBlur?.visibility = View.GONE
+                }
+
             }
-
         }
-    }
 
-    private fun initDrag(count:Int,contentType: Int){
-        var childNum=count
-        var xDelta = 0
-        var yDelta = 0
-        var locationX = 0
-        var locationY = 0
-        binding.apply {
+        private fun initDrag(count: Int, contentType: Int) {
+            var childNum = count
+            var xDelta = 0
+            var yDelta = 0
+            var locationX = 0
+            var locationY = 0
+            binding.apply {
 
-            PainterView?.getChildAt(childNum)?.setOnTouchListener(View.OnTouchListener { v, event ->
-                lastTouchTag=manageChildView.setBorder(childNum,lastTouchTag,PainterView)
-                val x = event.rawX.toInt()
-                val y = event.rawY.toInt()
-                when (event.getAction() and MotionEvent.ACTION_MASK) {
-                    MotionEvent.ACTION_DOWN -> {
-                        val lParams = v.layoutParams as FrameLayout.LayoutParams
-                        xDelta = x - lParams.leftMargin
-                        yDelta = y - lParams.topMargin
-                    }
-                    MotionEvent.ACTION_MOVE -> {
-                        val layoutParams = v.layoutParams as FrameLayout.LayoutParams
-                        var min = 1000.0f
+                PainterView?.getChildAt(childNum)
+                    ?.setOnTouchListener(View.OnTouchListener { v, event ->
+                        lastTouchTag =
+                            manageChildView.setBorder(childNum, lastTouchTag, PainterView)
+                        val x = event.rawX.toInt()
+                        val y = event.rawY.toInt()
+                        when (event.getAction() and MotionEvent.ACTION_MASK) {
+                            MotionEvent.ACTION_DOWN -> {
+                                val lParams = v.layoutParams as FrameLayout.LayoutParams
+                                xDelta = x - lParams.leftMargin
+                                yDelta = y - lParams.topMargin
+                            }
+                            MotionEvent.ACTION_MOVE -> {
+                                val layoutParams = v.layoutParams as FrameLayout.LayoutParams
+                                var min = 1000.0f
 //                        var tempX = 0.0f
 //                        var tempY = 0.0f
-                        for (i in 0 until sliceSize) {
-                            for (j in 0 until sliceSize) {
-                                val temp =
-                                    sqrt((yCoordinate[i] - y+yDelta) * (yCoordinate[i] - y+yDelta) + (xCoordinate[j] - x+xDelta) * (xCoordinate[j] - x+xDelta))
-                                if (min > temp) {
-                                    min = temp
+                                for (i in 0 until sliceSize) {
+                                    for (j in 0 until sliceSize) {
+                                        val temp =
+                                            sqrt((yCoordinate[i] - y + yDelta) * (yCoordinate[i] - y + yDelta) + (xCoordinate[j] - x + xDelta) * (xCoordinate[j] - x + xDelta))
+                                        if (min > temp) {
+                                            min = temp
 //                                    tempX = xCoordinate[j]
 //                                    tempY = yCoordinate[i]
-                                    PainterView.getChildAt(childNum).x=xCoordinate[j]
-                                    PainterView.getChildAt(childNum).y=yCoordinate[i]
-                                    locationX = j
-                                    locationY = i
+                                            PainterView.getChildAt(childNum).x = xCoordinate[j]
+                                            PainterView.getChildAt(childNum).y = yCoordinate[i]
+                                            locationX = j
+                                            locationY = i
+                                        }
+                                    }
                                 }
-                            }
-                        }
 //                        PainterView.getChildAt(childNum).x=tempX
 //                        PainterView.getChildAt(childNum).y=tempY
-                        v.layoutParams = layoutParams
-                    }
-                }
-                PainterView.invalidate()
-                manageChildView.updateContentData(1,childNum,locationX,locationY,contentType,"tempname",PainterView)
-                true
-            })
+                                v.layoutParams = layoutParams
+                            }
+                        }
+                        PainterView.invalidate()
+                        manageChildView.updateContentData(
+                            1,
+                            childNum,
+                            locationX,
+                            locationY,
+                            contentType,
+                            "tempname",
+                            PainterView
+                        )
+                        true
+                    })
+            }
         }
     }
-}

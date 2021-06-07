@@ -15,6 +15,8 @@ import com.norispace.noristory.ManageIcon.ManageChildView
 import com.norispace.noristory.ListFragment.BackgroundFragment
 import com.norispace.noristory.ListFragment.EmoticonFragment
 import com.norispace.noristory.ListFragment.MyCardListFragment
+import com.norispace.noristory.MakeStory.MakeCardActivity
+import com.norispace.noristory.MakeStory.SelectCharacterActivity
 import com.norispace.noristory.databinding.ActivityMakeStory3Binding
 import kotlinx.android.synthetic.main.activity_make_card.*
 import kotlinx.android.synthetic.main.activity_make_card.PainterView
@@ -400,35 +402,19 @@ class MakeStoryActivity3 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyC
         }
     }
 
-    override fun onSelectedCardPass(data: ArrayList<Int>) {
+    override fun onSelectedCardPass(data: Bitmap?,add:Int){
         binding.apply{
-            if(data[0]==-1){
-                screenBlur?.visibility=View.GONE
-                myCardFragment?.visibility=View.GONE
-                showbgFragment?.visibility=View.GONE
-            }else if(data[0]==1){
-                var storagePath = cacheDir.toString()
-                storagePath += "/Image/Card/Character"
-                val fileName = "card" + data[1].toString()+".png"
-                val file = File(storagePath, fileName)
-                if(file.exists()){
-                    val dir=storagePath+"/"+fileName
-                    val bmp= BitmapFactory.decodeFile(dir)
-                    initMyCard(bmp)
-                }
-            }else if(data[0]==2){
-                var storagePath = cacheDir.toString()
-                storagePath += "/Image/Card/Subject"
-                val fileName = "card" + data[1].toString()+".png"
-                val file = File(storagePath, fileName)
-                if(file.exists()){
-                    val dir=storagePath+"/"+fileName
-                    val bmp= BitmapFactory.decodeFile(dir)
-                    initMyCard(bmp)
+            myCardFragment?.visibility = View.GONE
+            screenBlur?.visibility=View.GONE
+            if(add==1){
+            }else{
+                if(data!=null){
+                    initMyCard(data)
                 }
             }
         }
     }
+
 
     private fun initMyCard(bmp:Bitmap){
         val layout = LinearLayout(this@MakeStoryActivity3)

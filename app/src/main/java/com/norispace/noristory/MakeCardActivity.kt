@@ -526,12 +526,10 @@ class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass,MyCard
         }
     }
 
-    override fun onSelectedCardPass(data: ArrayList<Int>) {
+    override fun onSelectedCardPass(data: Bitmap?,add:Int) {
         binding.apply{
-            if(data[0]==-1){
                 screenBlur?.visibility=View.GONE
                 myCardFragment?.visibility=View.GONE
-            }
         }
     }
 }

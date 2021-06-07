@@ -14,7 +14,7 @@ class MyCardItemAdapter(
 ) : RecyclerView.Adapter<MyCardItemAdapter.ViewHolder>() {
 
     interface OnItemClickListener{
-        fun OnItemClick(holder: MyCardItemAdapter.ViewHolder, view: View, position: Int)
+        fun OnItemClick(holder: MyCardItemAdapter.ViewHolder, view: View,img:Bitmap,position: Int,lastIndex:Int)
     }
 
     var itemClickListener: OnItemClickListener?=null
@@ -37,7 +37,7 @@ class MyCardItemAdapter(
         val image: ImageView = view.findViewById(R.id.cardImage)
         init {
             view.setOnClickListener {
-                itemClickListener?.OnItemClick(this,it,absoluteAdapterPosition)
+                itemClickListener?.OnItemClick(this,it,values[absoluteAdapterPosition],absoluteAdapterPosition,values.lastIndex)
             }
         }
     }

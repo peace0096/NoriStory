@@ -35,11 +35,11 @@ class CharacterItemFragment : Fragment() {
         dataPasser= context as OnDataPass
     }
 
-    fun passData(type:Int,number:Int,isSelected:Int){
+    fun passData(type:Int,isSelected:Int,number:Int){
         val data= ArrayList<Int>()
         data.add(type)
-        data.add(number)
         data.add(isSelected)
+        data.add(number)
         dataPasser.onSelectedCharacterPass(data)
     }
 
@@ -72,11 +72,11 @@ class CharacterItemFragment : Fragment() {
                             if(myAdapter.checkAry[position]==0){
                                 holder.heart.setImageResource(R.drawable.heart_filled)
                                 myAdapter.checkAry[position]=1
-                                passData(type,position,1)//1 -> 추가
+                                passData(type,1,position)//1 -> 추가
                             }else{
                                 holder.heart.setImageResource(R.drawable.heart_empty)
                                 myAdapter.checkAry[position]=0
-                                passData(type,position,0)//0 -> 취소
+                                passData(type,0,position)//0 -> 취소
                             }
                         }
 
@@ -97,11 +97,11 @@ class CharacterItemFragment : Fragment() {
                             if(myAdapter.checkAry[position]==0){
                                 holder.heart.setImageResource(R.drawable.heart_filled)
                                 myAdapter.checkAry[position]=1
-                                passData(type,position,1)//1 -> 추가
+                                passData(type,1,position)//1 -> 추가
                             }else{
                                 holder.heart.setImageResource(R.drawable.heart_empty)
                                 myAdapter.checkAry[position]=0
-                                passData(type,position,0)//0 -> 취소
+                                passData(type,0,position)//0 -> 취소
                             }
                         }
 

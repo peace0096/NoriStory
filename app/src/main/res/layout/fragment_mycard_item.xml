@@ -20,10 +20,11 @@
 
     <ImageView
         android:id="@+id/cardImage"
-        android:layout_width="114dp"
-        android:layout_height="119dp"
+        android:layout_width="207dp"
+        android:layout_height="231dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_android_black_24dp" />

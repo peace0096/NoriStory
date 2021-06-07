@@ -3,6 +3,7 @@ package com.norispace.noristory.MakeStory
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.norispace.noristory.ListFragment.CharacterItemFragment
 import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.MakeStoryActivity
@@ -57,8 +58,10 @@ class SelectCharacterActivity : AppCompatActivity(),CharacterItemFragment.OnData
             }
             nextBtn?.setOnClickListener {
                 val i= Intent(this@SelectCharacterActivity, MakeStoryActivity::class.java)
-                i.putExtra("basicCharacter",basicSelectedList)
-                i.putExtra("myCharacter",mySelectedList)
+//                i.putExtra("basicCharacter",basicSelectedList)
+//                i.putExtra("myCharacter",mySelectedList)
+//                //i.putIntegerArrayListExtra("basicCharacter",basicSelectedList)
+//                Log.i("countCheck",basicSelectedList.lastIndex.toString())
                 startActivity(i)
             }
             basicCard?.setOnClickListener {
@@ -81,26 +84,26 @@ class SelectCharacterActivity : AppCompatActivity(),CharacterItemFragment.OnData
     }
 
     override fun onSelectedCharacterPass(data: ArrayList<Int>) {
-        if(data[0]==1){ // 기본 제공 캐릭터
-            if(data[2]==1){//선택됨
-                basicSelectedList.add(data[1])
-            }else{//선택취소
-                for(i in 0 until basicSelectedList.lastIndex){
-                    if(data[1]==basicSelectedList[i]){
-                        basicSelectedList.removeAt(i)
-                    }
-                }
-            }
-        }else{ //내 캐릭터들
-            if(data[2]==1){//선택됨
-                mySelectedList.add(data[1])
-            }else{//선택취소
-                for(i in 0 until mySelectedList.lastIndex){
-                    if(data[1]==mySelectedList[i]){
-                        mySelectedList.removeAt(i)
-                    }
-                }
-            }
-        }
+//        if(data[0]==1){ // 기본 제공 캐릭터
+//            if(data[2]==1){//선택됨
+//                basicSelectedList.add(data[1])
+//            }else{//선택취소
+//                for(i in 0 until basicSelectedList.lastIndex){
+//                    if(data[1]==basicSelectedList[i]){
+//                        basicSelectedList.removeAt(i)
+//                    }
+//                }
+//            }
+//        }else{ //내 캐릭터들
+//            if(data[2]==1){//선택됨
+//                mySelectedList.add(data[1])
+//            }else{//선택취소
+//                for(i in 0 until mySelectedList.lastIndex){
+//                    if(data[1]==mySelectedList[i]){
+//                        mySelectedList.removeAt(i)
+//                    }
+//                }
+//            }
+//        }
     }
 }

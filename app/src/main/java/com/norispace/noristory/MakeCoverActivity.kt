@@ -309,6 +309,7 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
             }
             card_saveBtn?.setOnClickListener {
                 lastTouchTag = manageChildView.setBorder(-1, lastTouchTag, PainterView!!)
+                completeStory?.visibility=View.VISIBLE
                 title=makeCoverTitle?.text.toString() // 제목 저장
                 drawComplete()
             }
@@ -318,6 +319,12 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
     private fun drawComplete() {
         binding.apply {
 
+
+            completeStory?.setOnClickListener {
+                val intent=Intent(this@MakeCoverActivity,MainActivity::class.java)
+                intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+            }
         }
     }
 

@@ -114,6 +114,7 @@ class CharacterItemFragment : Fragment() {
     }
 
 
+
     private fun initData(){
         if(!init) {
             init=true

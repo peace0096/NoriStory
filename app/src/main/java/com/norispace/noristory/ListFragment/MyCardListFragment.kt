@@ -4,16 +4,15 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.norispace.noristory.R
-import com.norispace.noristory.Repository.User_Repo
 import com.norispace.noristory.databinding.FragmentBackgroundBinding
 import com.norispace.noristory.databinding.FragmentMyCardListBinding
-import com.norispace.service.S3Helper
 import java.io.File
 
 class MyCardListFragment : Fragment() {
@@ -23,7 +22,7 @@ class MyCardListFragment : Fragment() {
     private var basicCardSelected=arrayListOf<Int>() //등장인물 선택하기 에서 선택된 카드번호들
     private var myCardSelected=arrayListOf<Int>()
     var type=1  // 1 -> 인물, 2 -> 소재카드
-    var selectedType =1 //  1 -> 선택된 것들 있음, 2 -> 선택된 것들 없음
+    var selectedType =3 //  1 -> 선택된 것들 있음, 2 -> 선택된 것들 없음
 
     interface  OnDataPass{
         fun onSelectedCardPass(data:ArrayList<Int>)
@@ -50,7 +49,6 @@ class MyCardListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding=FragmentMyCardListBinding.inflate(layoutInflater,container,false)
-        //selectedType=arguments?.getInt("")
         return binding?.root
     }
 
@@ -101,36 +99,52 @@ class MyCardListFragment : Fragment() {
     }
 
     private fun initCharacterData(){
-        val list = ArrayList<String>()
-        for(e in User_Repo.getCardModel()) {
-            var path = context?.cacheDir.toString() + e
-            val file = File(path)
-
-            if (!file.exists()) {
-                list.add(e)
+        selectedType=3
+        if(selectedType==1){
+//            for(i in 0 until basicCardSelected.lastIndex){
+//                Log.i("check11",basicCardSelected[i].toString())
+//                val imgName="character"+(basicCardSelected[i]+1).toString()
+//                val id = resources.getIdentifier(imgName, "drawable", context?.packageName)
+//                val bitmap =BitmapFactory.decodeResource(context?.resources,id)
+//                characterData.add(bitmap)
+//            }
+//            for(i in 0 until myCardSelected.lastIndex){
+//                var storagePath = context?.cacheDir.toString()
+//                storagePath += "/Image/Card/Character"
+//                val fileName = "card" + myCardSelected[i].toString()+".png"
+//                val file = File(storagePath, fileName)
+//                if(file.exists()){
+//                    val dir=storagePath+"/"+fileName
+//                    val bmp= BitmapFactory.decodeFile(dir)
+//                    characterData.add(bmp)
+//                }
+//            }
+        }
+        else{
+            val characterNum = 12
+            for (i in 1..characterNum) {
+                val imgName = "character" + i.toString()
+                val id = resources.getIdentifier(imgName, "drawable", context?.packageName)
+                val bitmap =BitmapFactory.decodeResource(context?.resources,id)
+                characterData.add(bitmap)
+            }
+            var storagePath = context?.cacheDir.toString()
+            storagePath += "/Image/Card/Character"
+            var count=0
+            while(true){
+                val fileName = "card" + count.toString()+".png"
+                val file = File(storagePath, fileName)
+                if(file.exists()){
+                    val dir=storagePath+"/"+fileName
+                    val bmp= BitmapFactory.decodeFile(dir)
+                    characterData.add(bmp)
+                    count++
+                }else{
+                    break
+                }
             }
         }
-        if(list.size > 0) {
-            val s3Helper = S3Helper(context!!)
-            s3Helper.downloadImage(list)
-        }
 
-
-        var storagePath = context?.cacheDir.toString() + "/" + User_Repo.getToken()
-        storagePath += "/Image/Card/Character"
-        var count=0
-        while(true){
-            val fileName = "card" + count.toString()+".png"
-            val file = File(storagePath, fileName)
-            if(file.exists()){
-                val dir=storagePath+"/"+fileName
-                val bmp= BitmapFactory.decodeFile(dir)
-                characterData.add(bmp)
-                count++
-            }else{
-                break
-            }
-        }
     }
 
     private fun initSubjectData(){

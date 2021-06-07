@@ -112,6 +112,17 @@
             app:layout_constraintVertical_bias="1.0">
     </FrameLayout>
 
+    <FrameLayout
+        android:id="@+id/my_character_card_list"
+        android:layout_width="892dp"
+        android:layout_height="496dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+    </FrameLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout4"

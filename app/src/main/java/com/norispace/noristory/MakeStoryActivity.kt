@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
@@ -17,18 +16,12 @@ import com.norispace.noristory.databinding.ActivityMakeStoryBinding
 import com.norispace.noristory.ListFragment.BackgroundFragment
 import com.norispace.noristory.ListFragment.EmoticonFragment
 import com.norispace.noristory.ListFragment.MyCardListFragment
-import com.norispace.noristory.Model.SubjectStory_Model
-import com.norispace.noristory.Repository.User_Repo
-import com.norispace.noristory.ViewModel.StoryViewModel
-import com.norispace.noristory.ViewModel.UserViewModel
-import com.norispace.service.S3Helper
 import kotlinx.android.synthetic.main.activity_make_card.*
 import kotlinx.android.synthetic.main.activity_make_card.PainterView
+import kotlinx.android.synthetic.main.activity_make_card.card_saveBtn4
 import kotlinx.android.synthetic.main.activity_make_card.crayon_cancle_btn
 import kotlinx.android.synthetic.main.activity_make_story.*
 import java.io.File
-import java.io.FileOutputStream
-import java.lang.Exception
 import kotlin.math.sqrt
 
 class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCardListFragment.OnDataPass,
@@ -49,7 +42,6 @@ class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
     private val myBackgroundFragment=BackgroundFragment()
     var selectedCardNumber =ArrayList<Int>()
     var title = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -355,7 +347,7 @@ class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
 
                 ptv.invalidate()
             }
-            card_saveBtn1?.setOnClickListener {
+            card_saveBtn4?.setOnClickListener {
                 lastTouchTag = manageChildView.setBorder(-1, lastTouchTag, PainterView!!)
                 drawComplete()
             }
@@ -363,47 +355,8 @@ class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
     }
 
     private fun drawComplete() {
-        val s3Helper = S3Helper(this)
-        val storyViewModel = StoryViewModel()
-        Toast.makeText(this, "저장완료!", Toast.LENGTH_SHORT).show()
         binding.apply {
 
-            screenBlur?.visibility = View.VISIBLE
-            val title = intent.getStringExtra("title").toString()
-            var url = User_Repo.getToken() + "/Image/" + title
-            var StoragePath = cacheDir.toString() + "/" + url
-
-            var Folder = File(StoragePath)
-            if (!Folder.exists())        //폴더 없으면 생성
-                Folder.mkdirs()
-
-            var pagecount = 1
-            var fileName = "page" + pagecount.toString() + ".png"
-            var file = File(StoragePath, fileName)
-
-            while (file.exists())   //같은 이름이 있으면 다른 이름으로
-            {
-                pagecount += 1
-                fileName = "page" + pagecount.toString() + ".png"
-                file = File(StoragePath, fileName)
-            }
-
-            PainterView?.buildDrawingCache()
-            val bitmap: Bitmap? = PainterView?.getDrawingCache()
-            val fos = FileOutputStream(file)
-            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fos) //썸네일로 사용하므로 퀄리티를 낮게설정
-            fos.close();
-            setImage?.setImageBitmap(bitmap)
-            PainterView?.removeAllViews()
-
-            mydb.insertSubjectStory(SubjectStory_Model(title, pagecount, url + "/" + fileName))
-            val data = ArrayList<String>()
-            data.add(url + "/" + fileName)
-            s3Helper.uploadImage(data)
-            storyViewModel.insertSubjectStory(SubjectStory_Model(title, pagecount, url + "/" + fileName))
-            screenBlur?.setOnClickListener {
-                screenBlur?.visibility = View.GONE
-            }
         }
     }
 
@@ -472,35 +425,19 @@ class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
             }
         }
 
-        override fun onSelectedCardPass(data: ArrayList<Int>) {
-            binding.apply{
-                if(data[0]==-1){
-                    screenBlur?.visibility=View.GONE
-                    myCardFragment?.visibility=View.GONE
-                    showbgFragment?.visibility=View.GONE
-                }else if(data[0]==1){
-                    var storagePath = cacheDir.toString()
-                    storagePath += "/Image/Card/Character"
-                    val fileName = "card" + data[1].toString()+".png"
-                    val file = File(storagePath, fileName)
-                    if(file.exists()){
-                        val dir=storagePath+"/"+fileName
-                        val bmp= BitmapFactory.decodeFile(dir)
-                        initMyCard(bmp)
-                    }
-                }else if(data[0]==2){
-                    var storagePath = cacheDir.toString()
-                    storagePath += "/Image/Card/Subject"
-                    val fileName = "card" + data[1].toString()+".png"
-                    val file = File(storagePath, fileName)
-                    if(file.exists()){
-                        val dir=storagePath+"/"+fileName
-                        val bmp= BitmapFactory.decodeFile(dir)
-                        initMyCard(bmp)
-                    }
+    override fun onSelectedCardPass(data: Bitmap?,add:Int){
+        binding.apply{
+            myCardFragment?.visibility = View.GONE
+            screenBlur?.visibility=View.GONE
+            if(add==1){
+            }else{
+                if(data!=null){
+                    initMyCard(data)
                 }
             }
         }
+    }
+
 
     private fun initMyCard(bmp:Bitmap){
         val layout = LinearLayout(this@MakeStoryActivity)

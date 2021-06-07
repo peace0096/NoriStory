@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
@@ -19,11 +18,10 @@ import com.norispace.noristory.ListFragment.EmoticonFragment
 import com.norispace.noristory.ListFragment.MyCardListFragment
 import kotlinx.android.synthetic.main.activity_make_card.*
 import kotlinx.android.synthetic.main.activity_make_card.PainterView
-import kotlinx.android.synthetic.main.activity_make_card.card_saveBtn
+import kotlinx.android.synthetic.main.activity_make_card.card_saveBtn4
 import kotlinx.android.synthetic.main.activity_make_card.crayon_cancle_btn
 import kotlinx.android.synthetic.main.activity_make_story.*
 import java.io.File
-import java.lang.Exception
 import kotlin.math.sqrt
 
 class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCardListFragment.OnDataPass,
@@ -43,12 +41,13 @@ class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
     private var myCardListFragment = MyCardListFragment()
     private val myBackgroundFragment=BackgroundFragment()
     var selectedCardNumber =ArrayList<Int>()
-
+    var title = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         ptv = MyPainterView(this)
         binding.PainterView?.addView(ptv)
+        title = intent.getStringExtra("title").toString()
         initCards()
         initBasiceBtn()
         initShowCards()
@@ -113,8 +112,11 @@ class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
 //                val i = Intent(this@MakeStoryActivity, MakeCoverActivity::class.java)
 //                startActivity(i)
 //            }
-            val i =Intent(this@MakeStoryActivity,MakeStoryActivity2::class.java)
-            startActivity(i)
+            nextPage?.setOnClickListener{
+                val i =Intent(this@MakeStoryActivity,MakeStoryActivity2::class.java)
+                i.putExtra("title", title)
+                startActivity(i)
+            }
         }
     }
 
@@ -345,7 +347,7 @@ class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
 
                 ptv.invalidate()
             }
-            card_saveBtn?.setOnClickListener {
+            card_saveBtn4?.setOnClickListener {
                 lastTouchTag = manageChildView.setBorder(-1, lastTouchTag, PainterView!!)
                 drawComplete()
             }

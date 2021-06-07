@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.norispace.noristory.DB.DBHelper
 import com.norispace.noristory.ListFragment.BackgroundFragment
 import com.norispace.noristory.ListFragment.EmoticonFragment
@@ -17,11 +18,11 @@ import com.norispace.noristory.ListFragment.MyCardListFragment
 import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.ManageIcon.ManageChildView
 import com.norispace.noristory.databinding.ActivityMakeCoverBinding
-import com.norispace.noristory.databinding.ActivityMakeStoryBinding
 import kotlinx.android.synthetic.main.activity_make_card.*
 import kotlinx.android.synthetic.main.activity_make_card.PainterView
-import kotlinx.android.synthetic.main.activity_make_card.card_saveBtn
+import kotlinx.android.synthetic.main.activity_make_card.card_saveBtn4
 import kotlinx.android.synthetic.main.activity_make_card.crayon_cancle_btn
+import kotlinx.android.synthetic.main.activity_make_cover.*
 import kotlinx.android.synthetic.main.activity_make_story.*
 import java.io.File
 import kotlin.math.sqrt
@@ -49,7 +50,7 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
         setContentView(binding.root)
         ptv = MyPainterView(this)
         binding.PainterView?.addView(ptv)
-        initBasiceBtn()
+        initBasicBtn()
         initShowCards()
         initbtn()
     }
@@ -66,7 +67,7 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
         }
     }
 
-    private fun initBasiceBtn() {
+    private fun initBasicBtn() {
         binding.apply {
             backBtn?.setOnClickListener {
                 finish()
@@ -307,24 +308,29 @@ class MakeCoverActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
 
                 ptv.invalidate()
             }
-            card_saveBtn?.setOnClickListener {
+            save_btn?.setOnClickListener {
                 lastTouchTag = manageChildView.setBorder(-1, lastTouchTag, PainterView!!)
-                completeStory?.visibility=View.VISIBLE
-                title=makeCoverTitle?.text.toString() // 제목 저장
+                title = makeCoverTitle?.text.toString() // 제목 저장
                 drawComplete()
+                title = make_cover_title.text.toString()
+
+                if(title != "")
+                {
+                    val i = Intent(this@MakeCoverActivity, MakeStoryActivity::class.java)
+                    i.putExtra("title", title)
+                    startActivity(i)
+                }
+                else
+                {
+                    Toast.makeText(this@MakeCoverActivity, "제목을 입력해주세요", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
     private fun drawComplete() {
         binding.apply {
-
-
-            completeStory?.setOnClickListener {
-                val intent=Intent(this@MakeCoverActivity,MainActivity::class.java)
-                intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(intent)
-            }
+            // 저장하기
         }
     }
 

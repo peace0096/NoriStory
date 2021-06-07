@@ -35,16 +35,16 @@ class LibraryActivity : AppCompatActivity() {
 
         binding.apply {
             lib_title.text = "< "+title+" >"
-            val list = dbHelper.getAllSubjectStoryThumbnail()
+            //val list = dbHelper.getAllSubjectStoryThumbnail()
             var imgName = ""
 
-            for(i in list)
-            {
-                if(title == i.title) {
-                    imgName = i.coverImage
-                    break
-                }
-            }
+//            for(i in list)
+//            {
+//                if(title == i.title) {
+//                    imgName = i.coverImage
+//                    break
+//                }
+//            }
             var image = File("data/data/com.norispace.noristory/cache/" + imgName)
             val bitmap = BitmapFactory.decodeFile(image.absolutePath)
             lib_thum.setImageBitmap(bitmap)

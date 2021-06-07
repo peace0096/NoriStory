@@ -162,6 +162,7 @@ class BookItemFragment : Fragment() {
         else
         {
             data.clear()
+            storyViewModel.getSubjectStoryThumbnail()
             //data.addAll(Story_Repo.getSharedStoryThumbnailListModel())
             //storyViewModel.getSharedStoryThumbnail()
 //            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"도서관","작자미상"))

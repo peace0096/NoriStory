@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.norispace.noristory.DB.DBHelper
 import com.norispace.noristory.MainMenu.MainActivity
 import com.norispace.noristory.Model.SubjectStoryThumbnail_Model
+import com.norispace.noristory.Repository.Story_Repo
 import com.norispace.noristory.ViewModel.StoryViewModel
 import com.norispace.noristory.databinding.ActivityMyBooks2Binding
 import kotlinx.android.synthetic.main.activity_my_books2.*
@@ -51,6 +52,15 @@ class MyBooksActivity2 : AppCompatActivity() {
 
         binding.apply {
             BookNameText?.text = title
+            val list = Story_Repo.getSubjectStoryThumbnailListModel()
+            for(e in list) {
+                if(e.title == title) {
+                    val image = File("data/data/com.norispace.noristory/cache/" + e.coverImage)
+                    val bitmap = BitmapFactory.decodeFile(image.absolutePath)
+                    BookImageView?.setImageBitmap(bitmap)
+                }
+            }
+
             back_Btn?.setOnClickListener {
                 val intent = Intent(this@MyBooksActivity2, MyBooksActivity::class.java)
                 intent.putExtra("btn", 0)
@@ -76,14 +86,14 @@ class MyBooksActivity2 : AppCompatActivity() {
                 builder.setMessage("이 책을 삭제하시겠습니까?")
                     .setPositiveButton("삭제"){
                             _, _ ->
-                        dbHelper.deleteSubjectStoryThumbnail(thumbnailModel)
+                        //dbHelper.deleteSubjectStoryThumbnail(thumbnailModel)
                         storyViewModel.deleteSubjectStoryThumbnail(thumbnailModel)
                         val list2 = dbHelper.getAllSubjectStory()
                         for(i in list2)
                         {
                             if(title == i.title)
                             {
-                                dbHelper.deleteSubjectStory(i)
+                                //dbHelper.deleteSubjectStory(i)
                                 storyViewModel.deleteSubjectStory(i)
                             }
                         }

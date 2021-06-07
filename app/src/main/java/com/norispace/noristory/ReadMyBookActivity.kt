@@ -58,9 +58,6 @@ class ReadMyBookActivity : AppCompatActivity() {
                     }
                 }
 
-
-
-
 //                for(i in list)  {
 //                    var flag = true
 //                    for(e in data) {

@@ -17,7 +17,6 @@ import com.norispace.noristory.ManageIcon.ManageChildView
 import com.norispace.noristory.MyPainterView
 import com.norispace.noristory.R
 import com.norispace.noristory.Repository.User_Repo
-import com.norispace.noristory.ViewModel.StoryViewModel
 import com.norispace.noristory.ViewModel.UserViewModel
 import com.norispace.noristory.databinding.ActivityMakeCardBinding
 import com.norispace.service.S3Helper
@@ -316,7 +315,7 @@ class MakeCardActivity : AppCompatActivity(), EmoticonFragment.OnDataPass,MyCard
 
                 ptv.invalidate()
             }
-            card_saveBtn?.setOnClickListener {
+            card_saveBtn4?.setOnClickListener {
                 lastTouchTag=manageChildView.setBorder(-1,lastTouchTag,PainterView!!)
                 drawComplete()
             }

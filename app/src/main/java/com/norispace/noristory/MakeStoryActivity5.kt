@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
@@ -19,11 +18,11 @@ import com.norispace.noristory.ListFragment.MyCardListFragment
 import com.norispace.noristory.databinding.*
 import kotlinx.android.synthetic.main.activity_make_card.*
 import kotlinx.android.synthetic.main.activity_make_card.PainterView
-import kotlinx.android.synthetic.main.activity_make_card.card_saveBtn
+import kotlinx.android.synthetic.main.activity_make_card.card_saveBtn4
 import kotlinx.android.synthetic.main.activity_make_card.crayon_cancle_btn
 import kotlinx.android.synthetic.main.activity_make_story.*
+import kotlinx.android.synthetic.main.activity_make_story5.*
 import java.io.File
-import java.lang.Exception
 import kotlin.math.sqrt
 
 class MakeStoryActivity5 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCardListFragment.OnDataPass,
@@ -43,12 +42,14 @@ class MakeStoryActivity5 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyC
     lateinit var myCardListFragment : MyCardListFragment
     private val myBackgroundFragment=BackgroundFragment()
     var selectedCardNumber =ArrayList<Int>()
+    var title = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         ptv = MyPainterView(this)
         binding.PainterView?.addView(ptv)
+        title = intent.getStringExtra("title").toString()
         initCards()
         initBasiceBtn()
         initShowCards()
@@ -83,10 +84,12 @@ class MakeStoryActivity5 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyC
                 i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(i)
             }
-//            gotoCover?.setOnClickListener {
-//                val i = Intent(this@MakeStoryActivity, MakeCoverActivity::class.java)
-//                startActivity(i)
-//            }
+            card_saveBtn5?.setOnClickListener{
+                //저장하기 달 것
+
+                //저장 완료 띄워주기
+            }
+
         }
     }
 
@@ -317,7 +320,7 @@ class MakeStoryActivity5 : AppCompatActivity(), EmoticonFragment.OnDataPass, MyC
 
                 ptv.invalidate()
             }
-            card_saveBtn?.setOnClickListener {
+            card_saveBtn4?.setOnClickListener {
                 lastTouchTag = manageChildView.setBorder(-1, lastTouchTag, PainterView!!)
                 drawComplete()
             }

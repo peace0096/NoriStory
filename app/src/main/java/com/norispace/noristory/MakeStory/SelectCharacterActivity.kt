@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.norispace.noristory.ListFragment.CharacterItemFragment
 import com.norispace.noristory.MainMenu.MainActivity
+import com.norispace.noristory.MakeCoverActivity
 import com.norispace.noristory.MakeStoryActivity
 import com.norispace.noristory.R
 import com.norispace.noristory.databinding.ActivitySelectCharacterBinding
@@ -57,7 +58,7 @@ class SelectCharacterActivity : AppCompatActivity(),CharacterItemFragment.OnData
                 startActivity(intent)
             }
             nextBtn?.setOnClickListener {
-                val i= Intent(this@SelectCharacterActivity, MakeStoryActivity::class.java)
+                val i= Intent(this@SelectCharacterActivity, MakeCoverActivity::class.java)
 //                i.putExtra("basicCharacter",basicSelectedList)
 //                i.putExtra("myCharacter",mySelectedList)
 //                //i.putIntegerArrayListExtra("basicCharacter",basicSelectedList)

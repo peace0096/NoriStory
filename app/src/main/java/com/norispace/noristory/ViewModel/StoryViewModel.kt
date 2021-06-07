@@ -186,8 +186,8 @@ class StoryViewModel {
         })
     }
 
-    fun getSharedStory(title : String) {
-        Story_Repo.callGetSharedStory(title, object : RetrofitClient.callback{
+    fun getSharedStory(token:String, title : String) {
+        Story_Repo.callGetSharedStory(token, title, object : RetrofitClient.callback{
             override fun callbackMethod(isSuccessful: Boolean, result: String?) {
                 if(isSuccessful) {
                     if(result != null) {

@@ -31,6 +31,7 @@ class MyBooksActivity2 : AppCompatActivity() {
     }
 
     fun init() {
+
         val title = intent.getStringExtra("title")
         storyViewModel = StoryViewModel()
         dbHelper = DBHelper(this)
@@ -57,6 +58,7 @@ class MyBooksActivity2 : AppCompatActivity() {
                 if(e.title == title) {
                     val image = File("data/data/com.norispace.noristory/cache/" + e.coverImage)
                     val bitmap = BitmapFactory.decodeFile(image.absolutePath)
+                    thumbnailModel = SubjectStoryThumbnail_Model(e.title, e.coverImage)
                     BookImageView?.setImageBitmap(bitmap)
                 }
             }
@@ -88,15 +90,8 @@ class MyBooksActivity2 : AppCompatActivity() {
                             _, _ ->
                         //dbHelper.deleteSubjectStoryThumbnail(thumbnailModel)
                         storyViewModel.deleteSubjectStoryThumbnail(thumbnailModel)
-                        val list2 = dbHelper.getAllSubjectStory()
-                        for(i in list2)
-                        {
-                            if(title == i.title)
-                            {
-                                //dbHelper.deleteSubjectStory(i)
-                                storyViewModel.deleteSubjectStory(i)
-                            }
-                        }
+                        //val list2 = dbHelper.getAllSubjectStory()
+
 
                         val intent = Intent(this@MyBooksActivity2, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

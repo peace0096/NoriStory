@@ -99,8 +99,8 @@ object Story_Repo {
         PostSharedStoryAPI.call(data, callback)
     }
 
-    fun callGetSharedStory(title:String, callback: RetrofitClient.callback) {
-        GetSharedStoryAPI.call(title, callback)
+    fun callGetSharedStory(token:String, title:String, callback: RetrofitClient.callback) {
+        GetSharedStoryAPI.call(token, title, callback)
     }
 
     fun callDeleteSharedStory(data: SubjectStory_Model, callback: RetrofitClient.callback) {

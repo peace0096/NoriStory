@@ -18,7 +18,7 @@ object DeleteSubjectStoryThumbnailAPI {
         } catch (e: JSONException) {
             callback.callbackMethod(false, "parse error")
         }
-        RetrofitClient.getBaseClient().deleteSubjectStoryThumbnail(User_Repo.getToken(), body.toString()).enqueue(object:
+        RetrofitClient.getBaseClient().deleteSubjectStoryThumbnail(User_Repo.getToken(), model.title).enqueue(object:
             Callback<String?> {
             override fun onResponse(call: Call<String?>, response: Response<String?>) {
                 try {

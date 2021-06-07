@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object GetSharedStoryAPI {
-    fun call(title:String, callback: RetrofitClient.callback) {
+    fun call(token:String, title:String, callback: RetrofitClient.callback) {
         val body = JSONObject()
         try {
             body.put("title", title)
@@ -17,7 +17,7 @@ object GetSharedStoryAPI {
         } catch (e: JSONException) {
             callback.callbackMethod(false, "parse error")
         }
-        RetrofitClient.getBaseClient().insertSharedStory(User_Repo.getToken(), body.toString()).enqueue(object:
+        RetrofitClient.getBaseClient().insertSharedStory(token, body.toString()).enqueue(object:
             Callback<String?> {
             override fun onResponse(call: Call<String?>, response: Response<String?>) {
                 try {

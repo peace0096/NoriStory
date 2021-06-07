@@ -81,7 +81,7 @@ interface InterfaceAPI {
     @DELETE("Story/subjectStory/")
     fun deleteSubjectStory(
         @Header("Authorization") token : String,
-        @Body body: String?
+        @Query("title") title: String?
     ): Call<String?>
 
     @Headers("Content-Type: application/json")
@@ -101,7 +101,7 @@ interface InterfaceAPI {
     @DELETE("Story/subjectStoryThumbnail/")
     fun deleteSubjectStoryThumbnail(
         @Header("Authorization") token : String,
-        @Body body: String?
+        @Query("title") title: String?
     ): Call<String?>
 
     @Headers("Content-Type: application/json")

@@ -12,7 +12,9 @@ import com.norispace.noristory.Model.SubjectStory_Model
 import com.norispace.noristory.Repository.Story_Repo
 import com.norispace.noristory.ViewModel.StoryViewModel
 import com.norispace.noristory.databinding.ActivityReadMyBookBinding
+import com.norispace.service.S3Helper
 import kotlinx.android.synthetic.main.activity_read_my_book.*
+import java.io.File
 
 class ReadMyBookActivity : AppCompatActivity() {
     lateinit var binding:ActivityReadMyBookBinding
@@ -36,21 +38,40 @@ class ReadMyBookActivity : AppCompatActivity() {
     fun initObserve() {
         storyViewModel.subjectstorymodellistmodel.observe(this, Observer {
             if(it != null) {
+                val s3helper = S3Helper(this)
                 data = it
                 Log.d("observe", data[0].title)
-                val list = dbHelper.getAllSubjectStory()
-
-                for(i in list)  {
-                    var flag = true
-                    for(e in data) {
-                        if(e.title == i.title) {
-                            flag = false
-                            break
-                        }
-                    }
-                    if(flag)
-                        data.add(i)
+                //val list = dbHelper.getAllSubjectStory()
+                binding.apply {
+                    imgPager?.adapter = ViewPagerAdapter(data)
                 }
+
+                for(e in it) {
+                    val image = File("data/data/com.norispace.noristory/cache/" + e.image)
+
+                    if(!image.exists())
+                    {
+                        var path = ArrayList<String>()
+                        path.add(e.image)
+                        s3helper.downloadImage(path)
+                        //경로 저장해줄것
+                    }
+                }
+
+
+
+
+//                for(i in list)  {
+//                    var flag = true
+//                    for(e in data) {
+//                        if(e.title == i.title) {
+//                            flag = false
+//                            break
+//                        }
+//                    }
+//                    if(flag)
+//                        data.add(i)
+//                }
 
             }
         })
@@ -62,7 +83,7 @@ class ReadMyBookActivity : AppCompatActivity() {
     {
         binding.apply {
 
-            imgPager?.adapter = ViewPagerAdapter(data)
+
             read_help?.setOnClickListener{
 
             }

@@ -27,7 +27,7 @@ class ViewPagerAdapter(private val list: ArrayList<SubjectStory_Model>)
     override fun onBindViewHolder(holder: ViewPagerAdapter.PagerViewHolder, position: Int) {
         for(i in list)
         {
-            if(position == i.page)
+            if(position+1 == i.page)
                 holder.bind(i.image)
         }
     }

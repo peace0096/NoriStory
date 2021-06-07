@@ -120,23 +120,24 @@ class BookItemFragment : Fragment() {
             var list:ArrayList<SubjectStoryThumbnail_Model>? = null
             if(btn == 0) {
                 //서재
-                list = dbHelper.getAllSubjectStoryThumbnail()
+                //list = dbHelper.getAllSubjectStoryThumbnail()
             }
-            if(list != null) {
-                for(e in list) {
-                    var flag = true
-                    for(i in 0 until data.size) {
-                        if(e.title == data[i].title) {
-                            flag = false
-                            break
-                        }
 
-                    }
-                    if(flag) {
-                        data.add(e)
-                    }
-                }
-            }
+//            if(list != null) {
+//                for(e in list) {
+//                    var flag = true
+//                    for(i in 0 until data.size) {
+//                        if(e.title == data[i].title) {
+//                            flag = false
+//                            break
+//                        }
+//
+//                    }
+//                    if(flag) {
+//                        data.add(e)
+//                    }
+//                }
+//            }
 
             myAdapter.notifyDataSetChanged()
         })

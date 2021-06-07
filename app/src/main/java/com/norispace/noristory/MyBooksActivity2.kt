@@ -33,17 +33,17 @@ class MyBooksActivity2 : AppCompatActivity() {
         val title = intent.getStringExtra("title")
         storyViewModel = StoryViewModel()
         dbHelper = DBHelper(this)
-        val list1 = dbHelper.getAllSubjectStoryThumbnail()
+        //val list1 = dbHelper.getAllSubjectStoryThumbnail()
         var imgPath = ""
 
-        for(i in list1)
-        {
-            if(title == i.title) {
-                imgPath = i.coverImage
-                thumbnailModel = i
-                break
-            }
-        }
+//        for(i in list1)
+//        {
+//            if(title == i.title) {
+//                imgPath = i.coverImage
+//                thumbnailModel = i
+//                break
+//            }
+//        }
 
         val image = File("data/data/com.norispace.noristory/cache/" + imgPath)
         val bitmap = BitmapFactory.decodeFile(image.absolutePath)

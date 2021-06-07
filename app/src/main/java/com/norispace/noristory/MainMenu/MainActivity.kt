@@ -34,65 +34,11 @@ class MainActivity : AppCompatActivity() {
         Log.d("main", User_Repo.getToken())
         //initObserve()
         init()
-//        val keyHash = getKeyHash(this /* context */);
-//        Log.i("key", "$keyHash")
-    }
-
-
-    fun initObserve() {
-        val s3Helper = S3Helper(this)
-        val dbHelper = DBHelper(this)
-        storyViewModel = StoryViewModel()
-        userViewModel = UserViewModel()
-
-        storyViewModel.getSubjectStoryThumbnail()
-        storyViewModel.getSharedStoryThumbnail()
-        userViewModel.getCard()
-
-        storyViewModel.subjectstorymodellistmodel.observe(this, Observer {
-            val list = ArrayList<String>()
-            for(e in it) {
-                val fileName = this.cacheDir.toString() + e.image
-                val file = File(fileName)
-                if(!file.exists()) {
-                    dbHelper.insertSubjectStory(SubjectStory_Model(e.title, e.page, e.image))
-                    list.add(e.image)
-                }
-            }
-            if(list.size > 0) {
-                s3Helper.downloadImage(list)
-            }
-            for(e in Story_Repo.getSubjectStoryThumbnailListModel()) {
-                val title = e.title
-                storyViewModel.getSubjectStory(title)
-            }
-        })
-
-        storyViewModel.sharedstorymodellistmodel.observe(this, Observer {
-            val list = ArrayList<String>()
-            for(e in it) {
-                val fileName = this.cacheDir.toString() + e.image
-                val file = File(fileName)
-                if(!file.exists()) {
-                    dbHelper.insertSubjectStory(SubjectStory_Model(e.title, e.page, e.image))
-                    list.add(e.image)
-                }
-            }
-            if(list.size > 0) {
-                s3Helper.downloadImage(list)
-            }
-            for(e in Story_Repo.getSharedStoryThumbnailListModel()) {
-                val title = e.title
-                storyViewModel.getSharedStory(title)
-
-            }
-
-        })
 
     }
+
 
     private fun init() {
-
 
         val storyBtn = findViewById<ImageView>(R.id.create_btn)
         storyBtn.setOnClickListener {

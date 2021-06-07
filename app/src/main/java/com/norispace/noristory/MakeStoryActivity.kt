@@ -39,7 +39,7 @@ class MakeStoryActivity : AppCompatActivity(), EmoticonFragment.OnDataPass, MyCa
         ManageChildView()
     private var lastTouchTag = ""
     private var emoticonNum = 0 // 선택된 이모티콘 번호
-    lateinit var myCardListFragment : MyCardListFragment
+    private var myCardListFragment = MyCardListFragment()
     private val myBackgroundFragment=BackgroundFragment()
     var selectedCardNumber =ArrayList<Int>()
 

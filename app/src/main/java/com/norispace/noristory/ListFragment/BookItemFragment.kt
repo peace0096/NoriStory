@@ -3,6 +3,7 @@ package com.norispace.noristory.ListFragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -114,7 +115,7 @@ class BookItemFragment : Fragment() {
 
     private fun initObserve() {
         storyViewModel.subjectstorythumbnailmodellistmodel.observe(this, Observer {
-            data.clear()
+            Log.d("hello0", "hello")
             data.addAll(it)
             var list:ArrayList<SubjectStoryThumbnail_Model>? = null
             if(btn == 0) {
@@ -143,33 +144,10 @@ class BookItemFragment : Fragment() {
 
     private fun initData(){
         storyViewModel = StoryViewModel()
-
         dbHelper = DBHelper(context!!)
         if(btn == 0)
         {
             data.clear()
-
-            var list:ArrayList<SubjectStoryThumbnail_Model>? = null
-            if(btn == 0) {
-                //서재
-                list = dbHelper.getAllSubjectStoryThumbnail()
-            }
-            if(list != null) {
-                for(e in list) {
-                    var flag = true
-                    for(i in 0 until data.size) {
-                        if(e.title == data[i].title) {
-                            flag = false
-                            break
-                        }
-
-                    }
-                    if(flag) {
-                        data.add(e)
-                    }
-                }
-            }
-
             storyViewModel.getSubjectStoryThumbnail()
 
 //            data.add(SharedBookData("temp",resources.getDrawable(R.drawable.signup_boy),"나만의 서재","작자미상"))

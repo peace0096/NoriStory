@@ -12,6 +12,7 @@ import retrofit2.Response
 object GetSubjectStoryThumbnailAPI {
     fun call(callback: RetrofitClient.callback) {
 
+        Log.d("callback", User_Repo.getToken())
         RetrofitClient.getBaseClient().getAllSubjectStoryThumbnail(User_Repo.getToken()).enqueue(object:
             Callback<String?> {
             override fun onResponse(call: Call<String?>, response: Response<String?>) {
